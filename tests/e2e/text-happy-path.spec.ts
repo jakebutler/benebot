@@ -5,6 +5,31 @@ async function sendText(panel: Locator, message: string): Promise<void> {
   await panel.locator("form button[type=submit]").click();
 }
 
+test("keeps site language and demo access in the sticky header", async ({ page }) => {
+  await page.goto("/");
+
+  const header = page.locator(".site-header");
+  await expect(header).toBeVisible();
+  await expect(header).toHaveCSS("position", "sticky");
+  await expect(page.getByRole("link", { name: "Probar demo" })).toBeVisible();
+
+  await page.getByRole("button", { name: "EN" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "Nobody should need their kid to translate a medical bill.",
+  );
+  await page.getByRole("link", { name: "Try the demo" }).click();
+
+  await expect(page).toHaveURL(/\/bill\/BENEBOT-INV-1001$/);
+  await expect(page.getByText("Secure session: Jane Doe")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your July statement" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Talk about this bill" })).toBeVisible();
+
+  await page.getByRole("button", { name: "ES" }).click();
+  await expect(page.getByRole("heading", { name: "Su estado de cuenta de julio" })).toBeVisible();
+  await page.goto("/staff");
+  await expect(page.getByRole("heading", { name: "Una conversación, un caso auditable." })).toBeVisible();
+});
+
 test("rehearses Jane's Spanish-first billing journey through the text fallback", async ({ page }) => {
   await page.goto("/");
 
