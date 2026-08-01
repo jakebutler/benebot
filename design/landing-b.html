@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BeneBot — Direction B, round 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  /* Palette lives here so round 3 is a one-line change per colour. */
+  :root {
+    --paper:  #FFF3E2;   /* bright warm cream */
+    --ink:    #241533;   /* deep plum, replaces the dull brown */
+    --flame:  #FF4A22;   /* vermilion primary */
+    --teal:   #00C4A7;
+    --gold:   #FFC62E;
+    --pink:   #FF3D8B;
+    --sky:    #3D7BFF;
+    --muted:  #6F5F80;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: Archivo, system-ui, sans-serif; }
+  .wrap { width: min(1140px, calc(100% - 44px)); margin: 0 auto; }
+
+  /* Solid offset shadow — poster feel, matches the heavy display type. */
+  .pop { box-shadow: 6px 6px 0 var(--ink); }
+  .pop-sm { box-shadow: 4px 4px 0 var(--ink); }
+
+  /* ---------- nav ---------- */
+  nav { display: flex; align-items: center; gap: 14px; padding: 22px 0; }
+  .mark { font-size: 22px; font-weight: 900; letter-spacing: -.05em; }
+  .mark i { font-style: normal; color: var(--flame); }
+  .navlinks { display: flex; gap: 22px; margin-left: auto; font-size: 14px; font-weight: 600; }
+  .navlinks a { color: var(--ink); text-decoration: none; }
+  .navlinks a:hover { color: var(--flame); }
+  .tagpill {
+    padding: 7px 14px; border: 2.5px solid var(--ink); border-radius: 999px; background: var(--gold);
+    font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+  }
+
+  /* ---------- hero ---------- */
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 50px; align-items: center; padding: 34px 0 76px; }
+  .es { display: block; font-size: clamp(38px, 5.6vw, 76px); font-weight: 900; line-height: .93; letter-spacing: -.05em; margin: 0; }
+  .es b { color: var(--flame); font-weight: 900; }
+  .en { display: block; margin: 20px 0 0; font-size: clamp(17px, 1.9vw, 25px); font-weight: 600; line-height: 1.18; letter-spacing: -.025em; color: var(--muted); }
+  .rule { height: 4px; background: var(--ink); margin: 30px 0 26px; }
+  .duo { display: grid; gap: 14px; }
+  .duo p { margin: 0; font-size: 16.5px; line-height: 1.5; }
+  .duo p.sec { color: var(--muted); font-size: 15px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .btn {
+    display: inline-block; padding: 15px 26px; border: 2.5px solid var(--ink); border-radius: 999px;
+    font-size: 16px; font-weight: 800; text-decoration: none; color: var(--ink);
+    box-shadow: 4px 4px 0 var(--ink); transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+  .btn.solid { background: var(--flame); color: #fff; }
+  .btn.line { background: var(--paper); }
+
+  /* ---------- hero art ----------
+     Swap target: replace the whole <svg id="heroArt"> with an <img> of a
+     commissioned or generated illustration at roughly 1:1 and it will drop
+     straight into this frame. */
+  .art { position: relative; }
+  .art svg, .art img { display: block; width: 100%; height: auto; }
+
+  /* ---------- stats ---------- */
+  .stats-band { background: var(--ink); color: var(--paper); padding: 62px 0; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; }
+  .stats strong { display: block; font-size: clamp(40px, 5.2vw, 68px); font-weight: 900; letter-spacing: -.05em; line-height: 1; margin-bottom: 14px; }
+  .stats > div:nth-child(1) strong { color: var(--gold); }
+  .stats > div:nth-child(2) strong { color: var(--teal); }
+  .stats > div:nth-child(3) strong { color: var(--pink); }
+  .stats p { margin: 0 0 10px; font-size: 15.5px; line-height: 1.45; }
+  .stats cite { font-style: normal; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: #9C8CB0; }
+
+  /* ---------- story ---------- */
+  .story { padding: 82px 0 76px; }
+  h2 { font-size: clamp(31px, 4.4vw, 56px); font-weight: 900; letter-spacing: -.045em; line-height: 1.02; margin: 0 0 26px; max-width: 19ch; }
+  h2 mark { background: var(--gold); color: var(--ink); padding: 0 .12em; border-radius: 4px; }
+  .quote { border-left: 7px solid var(--flame); padding: 4px 0 4px 26px; margin: 0 0 30px; max-width: 60ch; }
+  .quote p { margin: 0 0 10px; font-size: 22px; line-height: 1.36; font-weight: 700; letter-spacing: -.02em; }
+  .quote span { font-size: 15px; color: var(--muted); font-weight: 500; }
+  .story > .wrap > p.body { font-size: 17px; line-height: 1.58; max-width: 62ch; margin: 0; color: #43334F; }
+
+  .grid4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 50px; }
+  .grid4 > div { border: 2.5px solid var(--ink); border-radius: 18px; padding: 28px; box-shadow: 6px 6px 0 var(--ink); }
+  .grid4 > div:nth-child(1) { background: #FFE0D7; }
+  .grid4 > div:nth-child(2) { background: #CFF6EF; }
+  .grid4 > div:nth-child(3) { background: #FFEFC2; }
+  .grid4 > div:nth-child(4) { background: #FFD9E7; }
+  .grid4 .ico {
+    display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 16px;
+    border: 2.5px solid var(--ink); border-radius: 12px; background: var(--paper); font-size: 20px;
+  }
+  .grid4 h3 { margin: 0 0 10px; font-size: 18px; font-weight: 800; letter-spacing: -.025em; }
+  .grid4 p { margin: 0; font-size: 15px; line-height: 1.55; color: #43334F; }
+
+  /* ---------- provider ---------- */
+  .prov { background: var(--teal); border-top: 4px solid var(--ink); border-bottom: 4px solid var(--ink); padding: 70px 0; }
+  .prov-in { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; align-items: center; }
+  .prov h2 { margin-bottom: 16px; }
+  .prov p { margin: 0; font-size: 17px; line-height: 1.55; color: #10403A; font-weight: 500; }
+  .provlist { margin: 0; padding: 0; list-style: none; }
+  .provlist li { display: flex; gap: 12px; padding: 14px 0; border-top: 2.5px solid rgba(36,21,51,.22); font-size: 15.5px; font-weight: 600; }
+  .provlist li:first-child { border-top: 0; }
+  .provlist b { font-weight: 900; }
+
+  /* ---------- closer ---------- */
+  .closer { padding: 78px 0; text-align: center; }
+  .closer h2 { margin: 0 auto 18px; max-width: 16ch; }
+  .closer p { margin: 0 auto 30px; max-width: 52ch; font-size: 16.5px; line-height: 1.55; color: var(--muted); }
+  footer { padding: 0 0 60px; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .hero, .stats, .grid4, .prov-in { grid-template-columns: 1fr; }
+    .hero { gap: 34px; padding-bottom: 50px; }
+    .art { order: -1; max-width: 420px; }
+    .navlinks { display: none; }
+  }
+
+  /* ---------- feedback ---------- */
+  .fb { position: fixed; right: 0; bottom: 0; z-index: 60; width: min(400px, 100%);
+        transform: translateY(calc(100% - 40px)); transition: transform .2s;
+        background: var(--ink); color: #EFE7F7; border-radius: 12px 0 0 0; font-size: 13px; }
+  .fb.open { transform: translateY(0); }
+  .fb-head { padding: 11px 15px; font-weight: 800; cursor: pointer; display: flex; }
+  .fb-head span { margin-left: auto; font-weight: 400; opacity: .6; font-size: 11px; }
+  .fb-body { padding: 0 15px 15px; }
+  .fb textarea { width: 100%; height: 130px; padding: 10px; border-radius: 8px; border: 0;
+                 font: 400 13px/1.5 Archivo, sans-serif; resize: vertical; }
+  .fb button { width: 100%; margin-top: 9px; padding: 10px; border: 0; border-radius: 8px;
+               background: var(--gold); color: var(--ink); font: 800 12px/1 Archivo, sans-serif; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <span class="mark">Bene<i>Bot</i></span>
+    <div class="navlinks">
+      <a href="#story">Para pacientes</a>
+      <a href="#prov">For providers</a>
+    </div>
+    <span class="tagpill">Español · English</span>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <h1 style="margin:0">
+        <span class="es" lang="es">Nadie debería necesitar a su hijo para <b>traducir una factura médica.</b></span>
+        <span class="en">Nobody should need their kid to translate a medical bill.</span>
+      </h1>
+      <div class="rule"></div>
+      <div class="duo">
+        <p lang="es">BeneBot le explica su factura en voz alta, en español, usando el reclamo que su seguro realmente procesó. Sin esperar. Sin traductor. Sin pedirle su número de Seguro Social.</p>
+        <p class="sec">BeneBot explains your bill out loud, in your language, using the claim your insurer actually processed. No hold music. No translator. And it never asks for your Social Security number.</p>
+      </div>
+      <div class="cta">
+        <a class="btn solid" href="#">Hablar sobre mi factura</a>
+        <a class="btn line" href="#">Talk about my bill</a>
+      </div>
+    </div>
+
+    <div class="art">
+      <!-- SWAP TARGET: replace this <svg> with <img src="hero.png" alt="..."> -->
+      <svg id="heroArt" viewBox="0 0 640 640" role="img" aria-labelledby="artTitle">
+        <title id="artTitle">An older Latina woman standing confidently in a hero cape, holding her medical bill, no longer intimidated by it.</title>
+        <defs>
+          <clipPath id="ring"><circle cx="320" cy="308" r="236" /></clipPath>
+        </defs>
+
+        <!-- radiating sunburst -->
+        <g>
+          <g fill="var(--gold)" opacity=".95">
+            <path d="M320 308 L302 -170 L338 -170 Z" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(30 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(60 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(90 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(120 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(150 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(180 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(210 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(240 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(270 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(300 320 308)" />
+            <path d="M320 308 L302 -170 L338 -170 Z" transform="rotate(330 320 308)" />
+          </g>
+          <g fill="var(--pink)" opacity=".55">
+            <path d="M320 308 L308 -180 L332 -180 Z" transform="rotate(15 320 308)" />
+            <path d="M320 308 L308 -180 L332 -180 Z" transform="rotate(75 320 308)" />
+            <path d="M320 308 L308 -180 L332 -180 Z" transform="rotate(135 320 308)" />
+            <path d="M320 308 L308 -180 L332 -180 Z" transform="rotate(195 320 308)" />
+            <path d="M320 308 L308 -180 L332 -180 Z" transform="rotate(255 320 308)" />
+            <path d="M320 308 L308 -180 L332 -180 Z" transform="rotate(315 320 308)" />
+          </g>
+        </g>
+
+        <!-- portrait medallion. The backdrop is deliberately bright so the dark
+             hair silhouettes against it instead of disappearing. -->
+        <circle cx="320" cy="308" r="236" fill="var(--sky)" />
+        <g clip-path="url(#ring)">
+          <circle cx="320" cy="308" r="236" fill="var(--sky)" />
+
+          <!-- cape, sweeping wide behind the shoulders -->
+          <path d="M320 376 C 168 400 96 490 70 600 L570 600 C544 490 472 400 320 376 Z" fill="var(--flame)" />
+          <path d="M320 376 C 244 388 196 436 168 600 L96 600 C122 486 186 404 320 376 Z" fill="#D33710" />
+          <!-- torso -->
+          <path d="M320 380 C 250 392 218 446 208 600 L432 600 C422 446 390 392 320 380 Z" fill="var(--gold)" />
+          <!-- collar V -->
+          <path d="M284 384 L320 440 L356 384 Z" fill="#E3A50E" />
+          <!-- chest emblem -->
+          <circle cx="320" cy="506" r="33" fill="var(--flame)" stroke="#241533" stroke-width="6" />
+          <text x="320" y="519" text-anchor="middle" font-family="Archivo, sans-serif" font-size="33" font-weight="900" fill="#FFF3E2">B</text>
+          <!-- Hair sits behind the neck and shoulders, so it reads as long hair
+               falling past the jaw rather than as a hood around the face. -->
+          <ellipse cx="320" cy="258" rx="96" ry="116" fill="#2A1836" />
+          <!-- neck -->
+          <path d="M294 318 h52 v52 a26 26 0 0 1 -52 0 Z" fill="#8A5330" />
+          <!-- face -->
+          <ellipse cx="320" cy="256" rx="73" ry="85" fill="#A76B41" />
+          <!-- ears -->
+          <ellipse cx="250" cy="262" rx="11" ry="17" fill="#96603A" />
+          <ellipse cx="390" cy="262" rx="11" ry="17" fill="#96603A" />
+          <!-- hairline / soft fringe -->
+          <path d="M247 250 C 253 178 282 148 320 148 C 358 148 387 178 393 250 C 383 204 356 188 320 188 C 284 188 257 204 247 250 Z" fill="#2A1836" />
+          <!-- grey swept back from the temples: age, without caricature -->
+          <path d="M252 244 C 259 186 286 154 318 150" stroke="#CFC4DC" stroke-width="13" fill="none" stroke-linecap="round" />
+          <path d="M388 244 C 383 200 368 172 346 157" stroke="#CFC4DC" stroke-width="10" fill="none" stroke-linecap="round" opacity=".7" />
+          <!-- brows -->
+          <path d="M280 236 Q294 227 309 235" stroke="#2A1836" stroke-width="6.5" fill="none" stroke-linecap="round" />
+          <path d="M331 235 Q346 227 360 236" stroke="#2A1836" stroke-width="6.5" fill="none" stroke-linecap="round" />
+          <!-- eyes -->
+          <ellipse cx="294" cy="258" rx="8" ry="9.5" fill="#2A1836" />
+          <ellipse cx="346" cy="258" rx="8" ry="9.5" fill="#2A1836" />
+          <circle cx="297" cy="255" r="2.8" fill="#FFF3E2" />
+          <circle cx="349" cy="255" r="2.8" fill="#FFF3E2" />
+          <!-- glasses -->
+          <g fill="none" stroke="#241533" stroke-width="5.5">
+            <circle cx="294" cy="258" r="25" />
+            <circle cx="346" cy="258" r="25" />
+            <path d="M319 256 q1 -5 2 0" stroke-width="6" stroke-linecap="round" />
+            <path d="M269 252 l-19 -6" stroke-linecap="round" />
+            <path d="M371 252 l19 -6" stroke-linecap="round" />
+          </g>
+          <!-- laugh lines and smile -->
+          <path d="M296 296 Q320 320 344 296" stroke="#5E3418" stroke-width="6.5" fill="none" stroke-linecap="round" />
+          <path d="M282 286 q-5 6 -3 12" stroke="#8A5330" stroke-width="4" fill="none" stroke-linecap="round" />
+          <path d="M358 286 q5 6 3 12" stroke="#8A5330" stroke-width="4" fill="none" stroke-linecap="round" />
+          <!-- earrings -->
+          <circle cx="248" cy="288" r="10" fill="var(--gold)" stroke="#241533" stroke-width="4" />
+          <circle cx="392" cy="288" r="10" fill="var(--gold)" stroke="#241533" stroke-width="4" />
+        </g>
+        <circle cx="320" cy="308" r="236" fill="none" stroke="#241533" stroke-width="11" />
+
+        <!-- the bill, held without fear -->
+        <g transform="rotate(-9 508 470)">
+          <rect x="440" y="410" width="168" height="120" rx="14" fill="#FFF3E2" stroke="#241533" stroke-width="7" />
+          <rect x="462" y="434" width="70" height="9" rx="4.5" fill="#C3B4D2" />
+          <rect x="462" y="452" width="46" height="9" rx="4.5" fill="#C3B4D2" />
+          <text x="462" y="502" font-family="Archivo, sans-serif" font-size="38" font-weight="900" fill="#241533">$620</text>
+          <circle cx="580" cy="424" r="24" fill="var(--teal)" stroke="#241533" stroke-width="6" />
+          <path d="M569 424 l8 9 14 -16" stroke="#241533" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+
+        <!-- sparks -->
+        <path d="M92 176 l9 24 24 9 -24 9 -9 24 -9 -24 -24 -9 24 -9 Z" fill="var(--flame)" stroke="#241533" stroke-width="4" stroke-linejoin="round" />
+        <path d="M556 150 l7 18 18 7 -18 7 -7 18 -7 -18 -18 -7 18 -7 Z" fill="var(--teal)" stroke="#241533" stroke-width="4" stroke-linejoin="round" />
+        <circle cx="76" cy="430" r="13" fill="var(--pink)" stroke="#241533" stroke-width="5" />
+      </svg>
+    </div>
+  </section>
+</div>
+
+<div class="stats-band">
+  <div class="wrap">
+    <div class="stats">
+      <div>
+        <strong>8%</strong>
+        <p>of Medicare beneficiaries living in the community have limited English speaking proficiency.</p>
+        <cite>CMS MCBS, 2023</cite>
+      </div>
+      <div>
+        <strong>1 in 5</strong>
+        <p>adults dually eligible for Medicare and Medicaid have limited English proficiency.</p>
+        <cite>Commonwealth Fund, 2025</cite>
+      </div>
+      <div>
+        <strong>No cap</strong>
+        <p>Traditional Medicare has no annual out-of-pocket maximum. 20% coinsurance is 20% of an unbounded number.</p>
+        <cite>Parts A &amp; B, structural</cite>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="story" id="story">
+  <div class="wrap">
+    <h2>Right now, the answer is <mark>her daughter</mark>.</h2>
+    <div class="quote">
+      <p lang="es">“Me cobraron $2,400 por la resonancia, pero el monto permitido fue $1,100 y todavía debo $620. ¿Cómo llegaron a esa cantidad?”</p>
+      <span>“They charged me $2,400 for the MRI, but the allowed amount was $1,100 and I still owe $620. How did they get to that number?”</span>
+    </div>
+    <p class="body">Today, asking that question means an adult child takes a day off work, sits on hold, and translates a conversation they don't fully understand either. The household's financial decisions get made through a guess — in a domain where guessing is expensive.</p>
+
+    <div class="grid4">
+      <div>
+        <div class="ico">🗣️</div>
+        <h3>She asks. In Spanish. Out loud.</h3>
+        <p>She picks her language before the session starts and hears a native voice in it the whole way through — not one voice straining across two.</p>
+      </div>
+      <div>
+        <div class="ico">✋</div>
+        <h3>She can interrupt.</h3>
+        <p>“Espere — ¿qué significa monto permitido?” BeneBot stops mid-sentence, answers, and asks whether to keep going.</p>
+      </div>
+      <div>
+        <div class="ico">🔒</div>
+        <h3>She isn't asked for anything.</h3>
+        <p>No Social Security number, no date of birth, no member ID. The bill was already hers before the conversation opened.</p>
+      </div>
+      <div>
+        <div class="ico">📞</div>
+        <h3>She gets a real next step.</h3>
+        <p>If it's a Medicare bill she may not owe, BeneBot points her at 1-800-MEDICARE, her state's free SHIP counselor, and the federal rule that makes some of these bills illegal to send.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="prov" id="prov">
+  <div class="wrap prov-in">
+    <div>
+      <h2>Her billing team gets something too.</h2>
+      <p>The same conversation that gave her independence hands patient financial services a structured case instead of a voicemail.</p>
+    </div>
+    <ul class="provlist">
+      <li><b>Fewer repetitive explanation calls.</b></li>
+      <li><b>The same grounded answer</b> in English and Spanish.</li>
+      <li><b>Better-prepared review cases</b> — a FHIR Task, not a note.</li>
+      <li><b>Evidence</b> of which records supported every answer.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="closer">
+  <div class="wrap">
+    <h2>See it explain a real $620.</h2>
+    <p>The demo runs on one synthetic patient and one synthetic bill. No real protected health information exists anywhere in this build.</p>
+    <a class="btn solid" href="#">Hablar sobre mi factura</a>
+  </div>
+</div>
+
+<div class="wrap"><footer>BeneBot — a synthetic-data demonstration. Not production-authenticated and no HIPAA-compliance claim.</footer></div>
+
+<aside class="fb" id="fb">
+  <div class="fb-head" id="fbHead">Feedback — Direction B, round 2 <span>click to open</span></div>
+  <div class="fb-body">
+    <textarea id="fbText" placeholder="What's working, what still feels off, what to push further..."></textarea>
+    <button id="fbCopy">Copy feedback</button>
+  </div>
+</aside>
+
+<script>
+  var t = document.getElementById("fbText");
+  try { t.value = localStorage.getItem("benebot-b2") || ""; } catch (e) {}
+  t.addEventListener("input", function () { try { localStorage.setItem("benebot-b2", t.value); } catch (e) {} });
+  document.getElementById("fbHead").addEventListener("click", function () {
+    document.getElementById("fb").classList.toggle("open");
+  });
+  document.getElementById("fbCopy").addEventListener("click", function () {
+    var b = document.getElementById("fbCopy");
+    var text = "BeneBot Direction B round 2 feedback\n\n" + (t.value.trim() || "(no notes)");
+    function done() { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy feedback"; }, 1400); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { window.prompt("Copy this:", text); });
+    } else { window.prompt("Copy this:", text); }
+  });
+</script>
+</body>
+</html>
