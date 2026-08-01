@@ -1,0 +1,614 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604001",
+      "resource": {
+        "resourceType": "Patient",
+        "identifier": [
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-patient",
+            "value": "jane-doe"
+          },
+          {
+            "system": "https://benebot.health/fhir/identifier/stedi-member-id",
+            "value": "AETNA12345"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "Doe",
+            "given": [
+              "Jane"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "(555) 010-1001",
+            "use": "mobile"
+          },
+          {
+            "system": "email",
+            "value": "jane.doe@example.test"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "2004-04-04",
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "es",
+                  "display": "Spanish"
+                }
+              ],
+              "text": "Spanish"
+            },
+            "preferred": true
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "100 Demo Street"
+            ],
+            "city": "San Francisco",
+            "state": "CA",
+            "postalCode": "94107",
+            "country": "US"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604002",
+      "resource": {
+        "resourceType": "Organization",
+        "identifier": [
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-provider",
+            "value": "bayview-imaging"
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1999999984"
+          }
+        ],
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                "code": "prov",
+                "display": "Healthcare Provider"
+              }
+            ]
+          }
+        ],
+        "name": "Bayview Imaging",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "(555) 010-2020",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Organization"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604003",
+      "resource": {
+        "resourceType": "Organization",
+        "identifier": [
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-payer",
+            "value": "aetna-stedi-test"
+          },
+          {
+            "system": "https://www.stedi.com/healthcare/network",
+            "value": "60054"
+          }
+        ],
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                "code": "ins",
+                "display": "Insurance Company"
+              }
+            ]
+          }
+        ],
+        "name": "Aetna (Stedi Test Payer)"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Organization"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604004",
+      "resource": {
+        "resourceType": "Coverage",
+        "identifier": [
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-coverage",
+            "value": "jane-aetna-test"
+          }
+        ],
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "HIP",
+              "display": "health insurance plan policy"
+            }
+          ]
+        },
+        "subscriber": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604001"
+        },
+        "subscriberId": "AETNA12345",
+        "beneficiary": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604001"
+        },
+        "relationship": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+              "code": "self",
+              "display": "Self"
+            }
+          ]
+        },
+        "period": {
+          "start": "2026-01-01",
+          "end": "2026-12-31"
+        },
+        "payor": [
+          {
+            "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604003"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+                  "code": "group"
+                }
+              ]
+            },
+            "value": "BENEBOT-DEMO-GROUP",
+            "name": "BeneBot Demo PPO"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Coverage"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604005",
+      "resource": {
+        "resourceType": "Encounter",
+        "identifier": [
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-encounter",
+            "value": "bayview-mri-2026-07-08"
+          }
+        ],
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "subject": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604001"
+        },
+        "period": {
+          "start": "2026-07-08T16:00:00Z",
+          "end": "2026-07-08T17:00:00Z"
+        },
+        "serviceProvider": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604002"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Bayview Imaging — Mission Campus"
+            },
+            "status": "completed"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Encounter"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604006",
+      "resource": {
+        "resourceType": "ExplanationOfBenefit",
+        "identifier": [
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-claim",
+            "value": "BENEBOT-CLM-1001"
+          }
+        ],
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/claim-type",
+              "code": "professional",
+              "display": "Professional"
+            }
+          ]
+        },
+        "use": "claim",
+        "patient": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604001"
+        },
+        "billablePeriod": {
+          "start": "2026-07-08",
+          "end": "2026-07-08"
+        },
+        "created": "2026-07-24T16:00:00Z",
+        "insurer": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604003"
+        },
+        "provider": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604002"
+        },
+        "outcome": "complete",
+        "insurance": [
+          {
+            "focal": true,
+            "coverage": {
+              "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604004"
+            }
+          }
+        ],
+        "item": [
+          {
+            "sequence": 1,
+            "productOrService": {
+              "coding": [
+                {
+                  "system": "http://www.ama-assn.org/go/cpt",
+                  "code": "72148",
+                  "display": "MRI lumbar spine without contrast"
+                }
+              ],
+              "text": "MRI of the lower back"
+            },
+            "servicedDate": "2026-07-08",
+            "encounter": [
+              {
+                "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604005"
+              }
+            ],
+            "net": {
+              "value": 2400,
+              "currency": "USD"
+            },
+            "adjudication": [
+              {
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                      "code": "submitted",
+                      "display": "Submitted Amount"
+                    }
+                  ]
+                },
+                "amount": {
+                  "value": 2400,
+                  "currency": "USD"
+                }
+              },
+              {
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBAdjudication",
+                      "code": "discount",
+                      "display": "Discount"
+                    }
+                  ]
+                },
+                "amount": {
+                  "value": 1300,
+                  "currency": "USD"
+                }
+              },
+              {
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                      "code": "eligible",
+                      "display": "Eligible Amount"
+                    }
+                  ]
+                },
+                "amount": {
+                  "value": 1100,
+                  "currency": "USD"
+                }
+              },
+              {
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                      "code": "deductible",
+                      "display": "Deductible"
+                    }
+                  ]
+                },
+                "amount": {
+                  "value": 500,
+                  "currency": "USD"
+                }
+              },
+              {
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBAdjudication",
+                      "code": "coinsurance",
+                      "display": "Co-insurance"
+                    }
+                  ]
+                },
+                "amount": {
+                  "value": 120,
+                  "currency": "USD"
+                }
+              },
+              {
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                      "code": "benefit",
+                      "display": "Benefit Amount"
+                    }
+                  ]
+                },
+                "amount": {
+                  "value": 480,
+                  "currency": "USD"
+                }
+              },
+              {
+                "category": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBAdjudication",
+                      "code": "memberliability",
+                      "display": "Member Liability"
+                    }
+                  ]
+                },
+                "amount": {
+                  "value": 620,
+                  "currency": "USD"
+                }
+              }
+            ]
+          }
+        ],
+        "total": [
+          {
+            "category": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                  "code": "submitted",
+                  "display": "Submitted Amount"
+                }
+              ]
+            },
+            "amount": {
+              "value": 2400,
+              "currency": "USD"
+            }
+          },
+          {
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBAdjudication",
+                  "code": "discount",
+                  "display": "Discount"
+                }
+              ]
+            },
+            "amount": {
+              "value": 1300,
+              "currency": "USD"
+            }
+          },
+          {
+            "category": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                  "code": "eligible",
+                  "display": "Eligible Amount"
+                }
+              ]
+            },
+            "amount": {
+              "value": 1100,
+              "currency": "USD"
+            }
+          },
+          {
+            "category": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                  "code": "deductible",
+                  "display": "Deductible"
+                }
+              ]
+            },
+            "amount": {
+              "value": 500,
+              "currency": "USD"
+            }
+          },
+          {
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBAdjudication",
+                  "code": "coinsurance",
+                  "display": "Co-insurance"
+                }
+              ]
+            },
+            "amount": {
+              "value": 120,
+              "currency": "USD"
+            }
+          },
+          {
+            "category": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/adjudication",
+                  "code": "benefit",
+                  "display": "Benefit Amount"
+                }
+              ]
+            },
+            "amount": {
+              "value": 480,
+              "currency": "USD"
+            }
+          },
+          {
+            "category": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/us/carin-bb/CodeSystem/C4BBAdjudication",
+                  "code": "memberliability",
+                  "display": "Member Liability"
+                }
+              ]
+            },
+            "amount": {
+              "value": 620,
+              "currency": "USD"
+            }
+          }
+        ],
+        "payment": {
+          "type": {
+            "text": "Insurer payment"
+          },
+          "date": "2026-07-24",
+          "amount": {
+            "value": 480,
+            "currency": "USD"
+          }
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "ExplanationOfBenefit"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604007",
+      "resource": {
+        "resourceType": "Invoice",
+        "identifier": [
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-invoice",
+            "value": "BENEBOT-INV-1001"
+          },
+          {
+            "system": "https://benebot.health/fhir/identifier/demo-claim",
+            "value": "BENEBOT-CLM-1001"
+          }
+        ],
+        "status": "issued",
+        "subject": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604001"
+        },
+        "date": "2026-07-28T16:00:00Z",
+        "issuer": {
+          "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604002"
+        },
+        "participant": [
+          {
+            "actor": {
+              "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604002"
+            }
+          }
+        ],
+        "lineItem": [
+          {
+            "sequence": 1,
+            "chargeItemCodeableConcept": {
+              "text": "Patient responsibility for MRI of the lower back"
+            },
+            "priceComponent": [
+              {
+                "type": "base",
+                "amount": {
+                  "value": 620,
+                  "currency": "USD"
+                }
+              }
+            ]
+          }
+        ],
+        "totalNet": {
+          "value": 620,
+          "currency": "USD"
+        },
+        "totalGross": {
+          "value": 620,
+          "currency": "USD"
+        },
+        "paymentTerms": "Due August 28, 2026. BeneBot synthetic demo invoice."
+      },
+      "request": {
+        "method": "POST",
+        "url": "Invoice"
+      }
+    }
+  ]
+}

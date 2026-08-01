@@ -1,0 +1,113 @@
+[
+  {
+    "conceptId": "allowed-amount",
+    "en": {
+      "term": "allowed amount",
+      "definition": "The allowed amount is the negotiated price the plan uses to process a covered service and divide responsibility between the patient and the plan. It is not what either side necessarily pays.",
+      "analogy": "It is like an approved project budget: the total the plan uses before dividing responsibility.",
+      "boundary": "It is not what the patient owes by itself and not what the insurer pays by itself.",
+      "neverSay": ["This proves the bill is correct", "We cover the full allowed amount", "It is what you owe"]
+    },
+    "es": {
+      "term": "monto permitido",
+      "alternatives": ["cantidad permitida", "tarifa negociada"],
+      "definition": "El monto permitido es el precio negociado que el plan usa para procesar un servicio cubierto y dividir la responsabilidad entre la paciente y el plan. No es necesariamente lo que paga una de las dos partes.",
+      "analogy": "Es como un presupuesto de proyecto aprobado: el total que usa el plan antes de dividir la responsabilidad.",
+      "boundary": "No es por sí solo lo que debe la paciente ni lo que paga la aseguradora.",
+      "neverSay": ["prueba que la factura es correcta", "es lo que usted debe pagar", "precio real"]
+    }
+  },
+  {
+    "conceptId": "explanation-of-benefits",
+    "en": {
+      "term": "Explanation of Benefits",
+      "alternatives": ["EOB"],
+      "definition": "An Explanation of Benefits, or EOB, is the insurer's summary of how it processed a claim. It is not the provider's bill and does not prove the processing was correct.",
+      "analogy": "It is like a detailed receipt showing the original price and the adjustments applied.",
+      "boundary": "Unlike a store receipt, it reports how the insurer processed a claim and is not the provider bill to pay.",
+      "neverSay": ["This proves the claim is correct", "You must pay this EOB", "It is just an EOB"]
+    },
+    "es": {
+      "term": "Explicación de Beneficios",
+      "alternatives": ["EOB", "explicación del reclamo"],
+      "definition": "Una Explicación de Beneficios, o EOB, es el resumen del seguro sobre cómo procesó un reclamo. No es la factura del proveedor ni prueba que el procesamiento sea correcto.",
+      "analogy": "Es como un recibo detallado que muestra el precio original y los ajustes aplicados.",
+      "boundary": "A diferencia de un recibo de tienda, informa cómo procesó el seguro un reclamo y no es la factura del proveedor para pagar.",
+      "neverSay": ["es una factura", "debe pagar esta EOB", "prueba que el cobro es correcto"]
+    }
+  },
+  {
+    "conceptId": "deductible",
+    "en": {
+      "term": "deductible",
+      "definition": "A deductible is an amount the patient pays for covered care before the plan begins sharing many costs. The plan determines which services are exceptions and which payments count.",
+      "analogy": "It is like paying for part of a car repair before auto insurance begins sharing covered repair costs.",
+      "boundary": "Health plans differ, and some covered services can be paid before the deductible is met.",
+      "neverSay": ["You have to pay everything first", "It is what you owe today", "It is simple, just meet your deductible"]
+    },
+    "es": {
+      "term": "deducible",
+      "alternatives": ["deducible anual"],
+      "definition": "El deducible es una cantidad que la paciente paga por atención cubierta antes de que el plan empiece a compartir muchos costos. El plan determina las excepciones y qué pagos cuentan.",
+      "analogy": "Es como pagar parte del arreglo de un auto antes de que el seguro empiece a compartir los costos cubiertos.",
+      "boundary": "Los planes de salud varían y algunos servicios cubiertos pueden pagarse antes de cumplir el deducible.",
+      "neverSay": ["es una multa", "es lo que usted debe hoy", "es su deducible total"]
+    }
+  },
+  {
+    "conceptId": "coinsurance",
+    "en": {
+      "term": "coinsurance",
+      "definition": "Coinsurance is a percentage of the allowed amount that the patient shares with the plan, often after the deductible. The percentage and when it applies depend on the plan.",
+      "analogy": "It is like sharing fuel costs with a co-driver: each person pays a set share of the covered fuel cost.",
+      "boundary": "The plan sets the percentage and when it applies; the split uses the allowed amount, not the billed charge.",
+      "neverSay": ["It is a simple percentage", "We cover the rest", "It is the same as a copay"]
+    },
+    "es": {
+      "term": "coseguro",
+      "alternatives": ["coaseguro", "porcentaje de costo compartido"],
+      "definition": "El coseguro es un porcentaje del monto permitido que la paciente comparte con el plan, muchas veces después del deducible. El porcentaje y cuándo se aplica dependen del plan.",
+      "analogy": "Es como compartir el costo del combustible con un copiloto: cada persona paga una parte definida del costo cubierto.",
+      "boundary": "El plan define el porcentaje y cuándo se aplica; la división usa el monto permitido, no el cargo facturado.",
+      "neverSay": ["es igual que el copago", "es un cargo extra", "es un impuesto"]
+    }
+  },
+  {
+    "conceptId": "copayment",
+    "en": {
+      "term": "copay",
+      "alternatives": ["copayment"],
+      "definition": "A copay is a fixed amount for a covered service or medicine. The plan determines the amount and whether it applies before or after the deductible.",
+      "analogy": "It is like paying a flat entry fee to enter a park.",
+      "boundary": "Unlike a park fee, additional covered services during a visit can lead to other cost sharing.",
+      "neverSay": ["You just pay the copay", "It covers the full cost", "It is the same as a deductible"]
+    },
+    "es": {
+      "term": "copago",
+      "alternatives": ["pago fijo"],
+      "definition": "El copago es una cantidad fija por un servicio o medicamento cubierto. El plan determina la cantidad y si se aplica antes o después del deducible.",
+      "analogy": "Es como pagar una tarifa fija de entrada para entrar a un parque.",
+      "boundary": "A diferencia de la entrada al parque, otros servicios cubiertos durante una visita pueden generar costos compartidos adicionales.",
+      "neverSay": ["cubre todo el costo", "es el único pago que hará", "es lo mismo que el deducible"]
+    }
+  },
+  {
+    "conceptId": "out-of-pocket-maximum",
+    "en": {
+      "term": "out-of-pocket maximum",
+      "alternatives": ["out-of-pocket limit"],
+      "definition": "The out-of-pocket maximum is an annual cap on what the patient pays for covered cost sharing. Premiums, non-covered care, and some out-of-network charges may not count.",
+      "analogy": "It is like a safety cap on covered cost sharing for the plan year.",
+      "boundary": "The cap has plan rules and generally excludes premiums, non-covered care, and some out-of-network charges.",
+      "neverSay": ["We cover one hundred percent of every bill", "Nothing else can cost money", "Every charge counts"]
+    },
+    "es": {
+      "term": "máximo de gastos de bolsillo",
+      "alternatives": ["límite de bolsillo", "tope de gastos"],
+      "definition": "El máximo de gastos de bolsillo es un tope anual de lo que paga la paciente por costos compartidos cubiertos. Las primas, la atención no cubierta y algunos cargos fuera de la red pueden no contar.",
+      "analogy": "Es como un tope de seguridad para los costos compartidos cubiertos durante el año del plan.",
+      "boundary": "El tope tiene reglas del plan y por lo general excluye primas, atención no cubierta y algunos cargos fuera de la red.",
+      "neverSay": ["cubre todo sin importar el doctor", "incluye la prima mensual", "una vez que lo alcanza, no paga nada nunca más"]
+    }
+  }
+]

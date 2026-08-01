@@ -38,6 +38,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local here.now publish credentials and claim state
+/.herenow/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

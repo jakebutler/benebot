@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f4ea">
+    <meta
+      name="description"
+      content="Explore how BeneBot combines deterministic medical-bill math, bilingual Deepgram voice, Medplum FHIR workflows, Stedi test eligibility, and inspectable evaluation evidence."
+    >
+    <meta property="og:title" content="Inside BeneBot">
+    <meta
+      property="og:description"
+      content="One synthetic medical bill, four truth zones, and a bilingual AI chain designed not to invent the math."
+    >
+    <meta property="og:type" content="website">
+    <title>Inside BeneBot | A bilingual, evidence-grounded medical-bill guide</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="BeneBot explainer home">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M20 3.5 34.3 11v18L20 36.5 5.7 29V11L20 3.5Z"></path>
+          <path d="M14.4 17.2h11.2M14.4 22.8h7.3"></path>
+          <circle cx="28" cy="22.8" r="2.2"></circle>
+        </svg>
+        <span>Bene<strong>Bot</strong></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#chain" data-en="Trust chain" data-es="Cadena de confianza">Trust chain</a>
+        <a href="#dictionary" data-en="Dictionary" data-es="Diccionario">Dictionary</a>
+        <a href="#architecture" data-en="Architecture" data-es="Arquitectura">Architecture</a>
+        <a href="#artifacts" data-en="Artifacts" data-es="Artefactos">Artifacts</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Page language">
+        <button class="active" type="button" data-language="en" aria-pressed="true">EN</button>
+        <button type="button" data-language="es" aria-pressed="false">ES</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy reveal">
+          <p class="hero-kicker" data-en="The anatomy of one trustworthy demo" data-es="La anatomía de una demostración confiable">
+            The anatomy of one trustworthy demo
+          </p>
+          <h1 data-en="One bill. Four truth zones. Zero invented math." data-es="Una factura. Cuatro zonas de verdad. Cero cálculos inventados.">
+            One bill. Four truth zones. Zero invented math.
+          </h1>
+          <p
+            class="hero-lede"
+            data-en="BeneBot explains how a historical claim became a $620 bill, checks current test benefits separately, speaks English and Spanish, and creates a real FHIR follow-up only after the server confirms it."
+            data-es="BeneBot explica cómo un reclamo histórico produjo una factura de $620, consulta por separado los beneficios de prueba actuales, habla inglés y español y crea un seguimiento FHIR real solo después de que el servidor lo confirma."
+          >
+            BeneBot explains how a historical claim became a $620 bill, checks current test benefits separately,
+            speaks English and Spanish, and creates a real FHIR follow-up only after the server confirms it.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#chain">
+              <span data-en="Walk the evidence chain" data-es="Recorrer la cadena de evidencia">Walk the evidence chain</span>
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a class="text-action" href="artifacts/knowledge-graph.json">
+              <span data-en="Open the knowledge graph" data-es="Abrir el grafo de conocimiento">Open the knowledge graph</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <p
+            class="disclosure"
+            data-en="Synthetic Jane Doe demo only. No real PHI. Live voice, payer checks, and persistence depend on configured test services."
+            data-es="Solo demostración sintética de Jane Doe. Sin PHI real. La voz, las consultas al pagador y la persistencia dependen de servicios de prueba configurados."
+          >
+            Synthetic Jane Doe demo only. No real PHI. Live voice, payer checks, and persistence depend on configured
+            test services.
+          </p>
+        </div>
+
+        <div class="truth-machine reveal" aria-label="BeneBot evidence machine">
+          <div class="machine-top">
+            <span data-en="BeneBot evidence machine" data-es="Máquina de evidencia de BeneBot">BeneBot evidence machine</span>
+            <span class="machine-live"><i></i><span data-en="Inspectable" data-es="Inspeccionable">Inspectable</span></span>
+          </div>
+          <div class="bill-paper">
+            <div class="bill-heading">
+              <span>Bayview Imaging</span>
+              <span>BENEBOT-INV-1001</span>
+            </div>
+            <div class="bill-total">
+              <span data-en="Patient responsibility" data-es="Responsabilidad de la paciente">Patient responsibility</span>
+              <strong>$620</strong>
+            </div>
+            <div class="bill-lines" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="machine-track">
+            <div class="track-node history">
+              <span class="node-index">01</span>
+              <div>
+                <strong data-en="Historical evidence" data-es="Evidencia histórica">Historical evidence</strong>
+                <small>EOB · Jul 24, 2026</small>
+              </div>
+            </div>
+            <div class="track-node code">
+              <span class="node-index">02</span>
+              <div>
+                <strong data-en="Deterministic control" data-es="Control determinista">Deterministic control</strong>
+                <small>normalize → reconcile → narrate</small>
+              </div>
+            </div>
+            <div class="track-node voice">
+              <span class="node-index">03</span>
+              <div>
+                <strong data-en="Bilingual conversation" data-es="Conversación bilingüe">Bilingual conversation</strong>
+                <small>Deepgram voice + text parity</small>
+              </div>
+            </div>
+            <div class="track-node action">
+              <span class="node-index">04</span>
+              <div>
+                <strong data-en="Confirmed workflow" data-es="Flujo confirmado">Confirmed workflow</strong>
+                <small>FHIR Task + Communication</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="graph-readout" aria-label="Knowledge graph summary">
+        <p><strong>89</strong><span data-en="files analyzed" data-es="archivos analizados">files analyzed</span></p>
+        <p><strong>187</strong><span data-en="graph nodes" data-es="nodos del grafo">graph nodes</span></p>
+        <p><strong>374</strong><span data-en="relationships" data-es="relaciones">relationships</span></p>
+        <p><strong>15</strong><span data-en="guided stops" data-es="paradas guiadas">guided stops</span></p>
+        <p><strong>24</strong><span data-en="bilingual eval cases" data-es="casos bilingües">bilingual eval cases</span></p>
+      </section>
+
+      <section class="time-boundary section-shell reveal" id="chain">
+        <div class="section-intro">
+          <span class="section-number">01</span>
+          <div>
+            <h2 data-en="The separation that makes BeneBot honest" data-es="La separación que mantiene honesto a BeneBot">
+              The separation that makes BeneBot honest
+            </h2>
+            <p
+              data-en="A current eligibility response can tell Jane what her plan returns now. It cannot explain how a July claim was processed. BeneBot puts those questions on different rails, with different sources and timestamps."
+              data-es="Una respuesta de elegibilidad actual puede indicar lo que el plan devuelve ahora. No puede explicar cómo se procesó un reclamo de julio. BeneBot mantiene esas preguntas en vías distintas, con fuentes y fechas distintas."
+            >
+              A current eligibility response can tell Jane what her plan returns now. It cannot explain how a July
+              claim was processed. BeneBot puts those questions on different rails, with different sources and
+              timestamps.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-compare">
+          <article class="timeline-lane historical-lane">
+            <div class="lane-date">JUL 08</div>
+            <div>
+              <p class="lane-kind" data-en="Historical claim" data-es="Reclamo histórico">Historical claim</p>
+              <h3 data-en="Why do I owe $620?" data-es="¿Por qué debo $620?">Why do I owe $620?</h3>
+              <p
+                data-en="Source: Medplum ExplanationOfBenefit plus Invoice. The deterministic normalizer reconciles billed, discount, allowed, deductible, coinsurance, insurer paid, and patient responsibility."
+                data-es="Fuente: ExplanationOfBenefit e Invoice en Medplum. El normalizador determinista concilia lo facturado, el descuento, el monto permitido, el deducible, el coseguro, el pago del seguro y la responsabilidad de la paciente."
+              >
+                Source: Medplum ExplanationOfBenefit plus Invoice. The deterministic normalizer reconciles billed,
+                discount, allowed, deductible, coinsurance, insurer paid, and patient responsibility.
+              </p>
+              <span class="source-chip history-chip">EOB created Jul 24, 2026</span>
+            </div>
+          </article>
+          <div class="not-equal" aria-label="These sources are not interchangeable">≠</div>
+          <article class="timeline-lane current-lane">
+            <div class="lane-date" data-en="NOW" data-es="AHORA">NOW</div>
+            <div>
+              <p class="lane-kind" data-en="Current test benefits" data-es="Beneficios de prueba actuales">Current test benefits</p>
+              <h3 data-en="What does my plan return today?" data-es="¿Qué devuelve mi plan hoy?">What does my plan return today?</h3>
+              <p
+                data-en="Source: Stedi test eligibility through a server-only adapter. Every result gets a checked-at timestamp; omitted or ambiguous benefits remain unknown."
+                data-es="Fuente: elegibilidad de prueba de Stedi mediante un adaptador del servidor. Cada resultado recibe una fecha de consulta; los beneficios omitidos o ambiguos permanecen desconocidos."
+              >
+                Source: Stedi test eligibility through a server-only adapter. Every result gets a checked-at timestamp;
+                omitted or ambiguous benefits remain unknown.
+              </p>
+              <span class="source-chip current-chip" data-en="Checked separately" data-es="Consultado por separado">Checked separately</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="math-lab reveal" id="math">
+        <div class="math-copy">
+          <span class="section-number light">02</span>
+          <h2 data-en="The AI never does the arithmetic" data-es="La IA nunca hace la aritmética">The AI never does the arithmetic</h2>
+          <p
+            data-en="Application code accepts only known EOB categories, normalizes USD values, checks three equations within one cent, and produces a ready-to-speak summary. The language model may explain that summary. It may not derive missing money."
+            data-es="El código acepta solo categorías EOB conocidas, normaliza valores en USD, verifica tres ecuaciones con tolerancia de un centavo y produce un resumen listo para decirse. El modelo puede explicar ese resumen. No puede derivar dinero faltante."
+          >
+            Application code accepts only known EOB categories, normalizes USD values, checks three equations within one
+            cent, and produces a ready-to-speak summary. The language model may explain that summary. It may not derive
+            missing money.
+          </p>
+          <button class="lab-toggle" type="button" id="mismatch-toggle" aria-pressed="false">
+            <span class="toggle-normal" data-en="Introduce a $1 mismatch" data-es="Introducir una diferencia de $1">Introduce a $1 mismatch</span>
+            <span class="toggle-broken" data-en="Restore reconciled values" data-es="Restaurar valores conciliados">Restore reconciled values</span>
+          </button>
+        </div>
+        <div class="equation-board" aria-live="polite">
+          <div class="equation">
+            <span data-en="Allowed" data-es="Permitido">Allowed</span>
+            <code>2,400 − 1,300 = <strong>1,100</strong></code>
+            <i class="equation-check">✓</i>
+          </div>
+          <div class="equation responsibility-equation">
+            <span data-en="Patient responsibility" data-es="Responsabilidad de la paciente">Patient responsibility</span>
+            <code>500 + 0 + 120 + 0 = <strong id="responsibility-value">620</strong></code>
+            <i class="equation-check">✓</i>
+          </div>
+          <div class="equation">
+            <span data-en="Insurer paid" data-es="Pagó el seguro">Insurer paid</span>
+            <code>1,100 − 620 = <strong>480</strong></code>
+            <i class="equation-check">✓</i>
+          </div>
+          <div class="reconcile-status" id="reconcile-status">
+            <span class="status-icon">✓</span>
+            <div>
+              <strong data-en="Reconciled to $0.01" data-es="Conciliado a $0.01">Reconciled to $0.01</strong>
+              <p data-en="Numerical explanation is permitted." data-es="Se permite la explicación numérica.">Numerical explanation is permitted.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chain-section section-shell reveal">
+        <div class="section-intro compact">
+          <span class="section-number">03</span>
+          <div>
+            <h2 data-en="Determinism applied to the AI chain" data-es="Determinismo aplicado a la cadena de IA">
+              Determinism applied to the AI chain
+            </h2>
+            <p
+              data-en="BeneBot gives generation a narrow job: patient-friendly language. Identity, tool order, financial facts, source dates, action success, and safe fallback behavior stay in code."
+              data-es="BeneBot asigna a la generación una tarea limitada: lenguaje claro para la paciente. La identidad, el orden de herramientas, los datos financieros, las fechas, el éxito de acciones y los fallos seguros permanecen en código."
+            >
+              BeneBot gives generation a narrow job: patient-friendly language. Identity, tool order, financial facts,
+              source dates, action success, and safe fallback behavior stay in code.
+            </p>
+          </div>
+        </div>
+        <ol class="chain-steps">
+          <li>
+            <span>01</span>
+            <strong data-en="Scope" data-es="Alcance">Scope</strong>
+            <p data-en="A short-lived JWT binds one patient, bill, EOB, coverage, encounter, provider, and payer." data-es="Un JWT de corta duración vincula una paciente, factura, EOB, cobertura, encuentro, proveedor y pagador.">
+              A short-lived JWT binds one patient, bill, EOB, coverage, encounter, provider, and payer.
+            </p>
+          </li>
+          <li>
+            <span>02</span>
+            <strong data-en="Normalize" data-es="Normalizar">Normalize</strong>
+            <p data-en="Zod and FHIR-aware code accept known structures and preserve missing values as unknown." data-es="Zod y el código consciente de FHIR aceptan estructuras conocidas y conservan valores faltantes como desconocidos.">
+              Zod and FHIR-aware code accept known structures and preserve missing values as unknown.
+            </p>
+          </li>
+          <li>
+            <span>03</span>
+            <strong data-en="Reconcile" data-es="Conciliar">Reconcile</strong>
+            <p data-en="Pure functions prove the three bill equations before exact amounts can reach conversation." data-es="Funciones puras demuestran las tres ecuaciones antes de que los montos exactos lleguen a la conversación.">
+              Pure functions prove the three bill equations before exact amounts can reach conversation.
+            </p>
+          </li>
+          <li class="generative-step">
+            <span>04</span>
+            <strong data-en="Explain" data-es="Explicar">Explain</strong>
+            <p data-en="Deepgram receives approved concepts and deterministic summaries, then speaks naturally in the selected language." data-es="Deepgram recibe conceptos aprobados y resúmenes deterministas, y luego habla con naturalidad en el idioma seleccionado.">
+              Deepgram receives approved concepts and deterministic summaries, then speaks naturally in the selected language.
+            </p>
+          </li>
+          <li>
+            <span>05</span>
+            <strong data-en="Confirm" data-es="Confirmar">Confirm</strong>
+            <p data-en="No Task, Communication, payer result, or resource action is described as successful before server proof." data-es="Ninguna Task, Communication, respuesta del pagador o acción se describe como exitosa antes de la prueba del servidor.">
+              No Task, Communication, payer result, or resource action is described as successful before server proof.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="dictionary section-shell reveal" id="dictionary">
+        <div class="section-intro">
+          <span class="section-number">04</span>
+          <div>
+            <h2 data-en="A billing dictionary built for conversation" data-es="Un diccionario de facturación hecho para conversar">
+              A billing dictionary built for conversation
+            </h2>
+            <p
+              data-en="Six P0 concepts have preferred terms, recognized alternatives, plain-language definitions, comprehension checks, factual boundaries, optional analogies, and phrases BeneBot must never say."
+              data-es="Seis conceptos P0 tienen términos preferidos, alternativas reconocidas, definiciones claras, comprobaciones de comprensión, límites factuales, analogías opcionales y frases que BeneBot nunca debe decir."
+            >
+              Six P0 concepts have preferred terms, recognized alternatives, plain-language definitions, comprehension
+              checks, factual boundaries, optional analogies, and phrases BeneBot must never say.
+            </p>
+          </div>
+        </div>
+        <div class="dictionary-workbench">
+          <div class="concept-list" id="concept-list" role="listbox" aria-label="Billing concepts"></div>
+          <article class="concept-detail" id="concept-detail" aria-live="polite">
+            <div class="concept-loading">Loading the concept library…</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="voice-section reveal" id="voice">
+        <div class="voice-stage" aria-hidden="true">
+          <div class="orb">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="voice-wave">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <p>flux-general-multi · en + es</p>
+        </div>
+        <div class="voice-copy">
+          <span class="section-number light">05</span>
+          <h2 data-en="Voice that inherits the same safety contract" data-es="Voz que hereda el mismo contrato de seguridad">
+            Voice that inherits the same safety contract
+          </h2>
+          <p
+            data-en="Deepgram Flux listens in English and Spanish with turn awareness. A bilingual Aura voice answers. The browser gets only a five-minute temporary token, and every function call returns through a signed BeneBot server route."
+            data-es="Deepgram Flux escucha en inglés y español con detección de turnos. Una voz bilingüe de Aura responde. El navegador recibe solo un token temporal de cinco minutos y cada llamada vuelve por una ruta firmada del servidor BeneBot."
+          >
+            Deepgram Flux listens in English and Spanish with turn awareness. A bilingual Aura voice answers. The browser
+            gets only a five-minute temporary token, and every function call returns through a signed BeneBot server route.
+          </p>
+          <div class="voice-spec">
+            <p><span data-en="Listen" data-es="Escuchar">Listen</span><code>flux-general-multi · v2</code></p>
+            <p><span data-en="Speak" data-es="Hablar">Speak</span><code>Aura-2 bilingual voices</code></p>
+            <p><span data-en="Tools" data-es="Herramientas">Tools</span><code>exactly 5 · Zod validated</code></p>
+            <p><span data-en="Fallback" data-es="Alternativa">Fallback</span><code>deterministic text router</code></p>
+          </div>
+          <p class="voice-note">
+            <strong data-en="Live-state honesty:" data-es="Honestidad del estado en vivo:">Live-state honesty:</strong>
+            <span
+              data-en=" without a grant-capable Deepgram key, BeneBot does not pretend voice connected. The text experience remains available."
+              data-es=" sin una clave Deepgram capaz de emitir tokens, BeneBot no finge que la voz se conectó. La experiencia de texto sigue disponible."
+            >
+              without a grant-capable Deepgram key, BeneBot does not pretend voice connected. The text experience remains
+              available.
+            </span>
+          </p>
+        </div>
+      </section>
+
+      <section class="integrations section-shell reveal" id="integrations">
+        <div class="section-intro compact">
+          <span class="section-number">06</span>
+          <div>
+            <h2 data-en="Healthcare integrations with visible boundaries" data-es="Integraciones de salud con límites visibles">
+              Healthcare integrations with visible boundaries
+            </h2>
+            <p
+              data-en="Each external system has one bounded responsibility. Secrets stay server-side, synthetic identities are fixed, and fallbacks are labeled instead of quietly impersonating live data."
+              data-es="Cada sistema externo tiene una responsabilidad limitada. Los secretos permanecen en el servidor, las identidades sintéticas son fijas y las alternativas se etiquetan en vez de imitar silenciosamente datos en vivo."
+            >
+              Each external system has one bounded responsibility. Secrets stay server-side, synthetic identities are
+              fixed, and fallbacks are labeled instead of quietly impersonating live data.
+            </p>
+          </div>
+        </div>
+        <div class="integration-map">
+          <article class="integration-core">
+            <span>B</span>
+            <strong>BeneBot server</strong>
+            <small data-en="Signed scope + closed tools" data-es="Alcance firmado + herramientas cerradas">Signed scope + closed tools</small>
+          </article>
+          <article class="integration-node medplum-node">
+            <p class="integration-name">Medplum</p>
+            <h3 data-en="FHIR R4 source and workflow" data-es="Fuente y flujo FHIR R4">FHIR R4 source and workflow</h3>
+            <p data-en="Reads the historical EOB and Invoice. Persists confirmed eligibility, Task, and Communication resources with idempotent identifiers." data-es="Lee el EOB y la Invoice históricos. Persiste elegibilidad, Task y Communication confirmadas con identificadores idempotentes.">
+              Reads the historical EOB and Invoice. Persists confirmed eligibility, Task, and Communication resources with
+              idempotent identifiers.
+            </p>
+            <span class="integration-status" data-en="Live when configured" data-es="En vivo al configurarse">Live when configured</span>
+          </article>
+          <article class="integration-node deepgram-node">
+            <p class="integration-name">Deepgram</p>
+            <h3 data-en="Realtime bilingual voice" data-es="Voz bilingüe en tiempo real">Realtime bilingual voice</h3>
+            <p data-en="Handles turn-aware English and Spanish speech. Long-lived credentials never enter the browser." data-es="Maneja habla en inglés y español con conciencia de turnos. Las credenciales de larga duración nunca entran al navegador.">
+              Handles turn-aware English and Spanish speech. Long-lived credentials never enter the browser.
+            </p>
+            <span class="integration-status" data-en="Temporary browser token" data-es="Token temporal del navegador">Temporary browser token</span>
+          </article>
+          <article class="integration-node stedi-node">
+            <p class="integration-name">Stedi</p>
+            <h3 data-en="Current test eligibility" data-es="Elegibilidad de prueba actual">Current test eligibility</h3>
+            <p data-en="Accepts only the fixed Jane Doe test identity. Ambiguous benefits remain unknown; fixture fallback is never called live." data-es="Acepta solo la identidad fija de prueba de Jane Doe. Los beneficios ambiguos quedan desconocidos; la alternativa nunca se llama en vivo.">
+              Accepts only the fixed Jane Doe test identity. Ambiguous benefits remain unknown; fixture fallback is never
+              called live.
+            </p>
+            <span class="integration-status" data-en="Test mode only" data-es="Solo modo de prueba">Test mode only</span>
+          </article>
+          <article class="integration-node resource-node">
+            <p class="integration-name" data-en="Help resources" data-es="Recursos de ayuda">Help resources</p>
+            <h3 data-en="Disclosure-preserving search" data-es="Búsqueda con divulgaciones">Disclosure-preserving search</h3>
+            <p data-en="Practice options rank first. Fictional and community-reported resources retain their labels. No patient data goes to search." data-es="Las opciones de la práctica aparecen primero. Los recursos ficticios y comunitarios conservan sus etiquetas. Ningún dato de la paciente va a la búsqueda.">
+              Practice options rank first. Fictional and community-reported resources retain their labels. No patient data
+              goes to search.
+            </p>
+            <span class="integration-status" data-en="Local JSON fallback" data-es="Alternativa JSON local">Local JSON fallback</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="fhir-proof reveal">
+        <div class="proof-copy">
+          <span class="section-number light">07</span>
+          <h2 data-en="The staff view proves what really happened" data-es="La vista del personal demuestra lo que ocurrió">
+            The staff view proves what really happened
+          </h2>
+          <p
+            data-en="A successful conversation leaves standards-based evidence, not a vague success toast. The staff timeline joins the original billing records with each separately confirmed follow-up artifact."
+            data-es="Una conversación exitosa deja evidencia basada en estándares, no un aviso vago de éxito. La cronología del personal reúne los registros originales con cada artefacto de seguimiento confirmado por separado."
+          >
+            A successful conversation leaves standards-based evidence, not a vague success toast. The staff timeline joins
+            the original billing records with each separately confirmed follow-up artifact.
+          </p>
+        </div>
+        <ol class="fhir-timeline">
+          <li><span>01</span><div><strong>ExplanationOfBenefit</strong><small data-en="Historical adjudication" data-es="Adjudicación histórica">Historical adjudication</small></div><i class="persisted">seed</i></li>
+          <li><span>02</span><div><strong>Invoice</strong><small data-en="$620 current balance" data-es="Saldo actual de $620">$620 current balance</small></div><i class="persisted">seed</i></li>
+          <li><span>03</span><div><strong>CoverageEligibilityResponse</strong><small data-en="Current, separately timestamped" data-es="Actual y con fecha separada">Current, separately timestamped</small></div><i class="conditional">live*</i></li>
+          <li><span>04</span><div><strong>Task</strong><small data-en="Confirmed billing review" data-es="Revisión de facturación confirmada">Confirmed billing review</small></div><i class="conditional">live*</i></li>
+          <li><span>05</span><div><strong>Communication</strong><small data-en="Concise summary, no transcript" data-es="Resumen breve, sin transcripción">Concise summary, no transcript</small></div><i class="conditional">live*</i></li>
+        </ol>
+      </section>
+
+      <section class="architecture section-shell reveal" id="architecture">
+        <div class="section-intro">
+          <span class="section-number">08</span>
+          <div>
+            <h2 data-en="Explore the codebase as a learning map" data-es="Explore el código como un mapa de aprendizaje">
+              Explore the codebase as a learning map
+            </h2>
+            <p
+              data-en="Understand Anything analyzed the live checkout and produced nine responsibility layers plus a 15-stop tour. Select a layer to see its role and representative files."
+              data-es="Understand Anything analizó el código actual y produjo nueve capas de responsabilidad y un recorrido de 15 paradas. Seleccione una capa para ver su función y archivos representativos."
+            >
+              Understand Anything analyzed the live checkout and produced nine responsibility layers plus a 15-stop tour.
+              Select a layer to see its role and representative files.
+            </p>
+          </div>
+        </div>
+        <div class="layer-explorer">
+          <div class="layer-tabs" id="layer-tabs" role="tablist" aria-label="Architecture layers"></div>
+          <article class="layer-detail" id="layer-detail">
+            <div class="concept-loading">Loading the architecture graph…</div>
+          </article>
+        </div>
+        <details class="tour-details">
+          <summary>
+            <span data-en="Open the complete 15-stop guided tour" data-es="Abrir el recorrido completo de 15 paradas">
+              Open the complete 15-stop guided tour
+            </span>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <ol id="tour-list"></ol>
+        </details>
+      </section>
+
+      <section class="evaluation reveal" id="evaluation">
+        <div class="evaluation-heading">
+          <span class="section-number light">09</span>
+          <div>
+            <h2 data-en="Reliability is an evidence packet" data-es="La confiabilidad es un paquete de evidencia">
+              Reliability is an evidence packet
+            </h2>
+            <p
+              data-en="BeneBot ships executable rules, adversarial synthetic cases, rejected content, provenance notes, and focused tests. Research disagreements remain visible instead of being silently promoted into runtime behavior."
+              data-es="BeneBot incluye reglas ejecutables, casos sintéticos adversariales, contenido rechazado, notas de procedencia y pruebas enfocadas. Los desacuerdos de investigación permanecen visibles en vez de promoverse silenciosamente al producto."
+            >
+              BeneBot ships executable rules, adversarial synthetic cases, rejected content, provenance notes, and focused
+              tests. Research disagreements remain visible instead of being silently promoted into runtime behavior.
+            </p>
+          </div>
+        </div>
+        <div class="evaluation-bands">
+          <article>
+            <strong>8</strong>
+            <h3 data-en="Executable rubrics" data-es="Rúbricas ejecutables">Executable rubrics</h3>
+            <p data-en="Financial facts, temporal separation, tool prerequisites, language quality, scope, uncertainty, and confirmed persistence." data-es="Datos financieros, separación temporal, requisitos de herramientas, calidad del idioma, alcance, incertidumbre y persistencia confirmada.">
+              Financial facts, temporal separation, tool prerequisites, language quality, scope, uncertainty, and confirmed persistence.
+            </p>
+          </article>
+          <article>
+            <strong>24</strong>
+            <h3 data-en="Bilingual adversarial cases" data-es="Casos adversariales bilingües">Bilingual adversarial cases</h3>
+            <p data-en="Synthetic English and Spanish prompts probe unsupported tools, invented values, unsafe claims, analogies, confirmation, and code switching." data-es="Indicaciones sintéticas en inglés y español prueban herramientas no compatibles, valores inventados, afirmaciones inseguras, analogías, confirmación y cambio de idioma.">
+              Synthetic English and Spanish prompts probe unsupported tools, invented values, unsafe claims, analogies, confirmation, and code switching.
+            </p>
+          </article>
+          <article>
+            <strong>5</strong>
+            <h3 data-en="Closed runtime tools" data-es="Herramientas cerradas">Closed runtime tools</h3>
+            <p data-en="Each tool has a use condition, prerequisites, permitted output, and explicit failure behavior. There is no catch-all chart tool." data-es="Cada herramienta tiene condición de uso, requisitos, salida permitida y comportamiento de fallo. No existe una herramienta general para todo el expediente.">
+              Each tool has a use condition, prerequisites, permitted output, and explicit failure behavior.
+            </p>
+          </article>
+        </div>
+        <div class="test-gates" aria-label="Verification gates">
+          <span>typecheck</span><i>→</i><span>unit + integration</span><i>→</i><span>production build</span><i>→</i><span>Playwright rehearsal</span>
+        </div>
+      </section>
+
+      <section class="artifacts section-shell reveal" id="artifacts">
+        <div class="section-intro">
+          <span class="section-number">10</span>
+          <div>
+            <h2 data-en="Take the evidence with you" data-es="Llévese la evidencia">
+              Take the evidence with you
+            </h2>
+            <p
+              data-en="The public bundle includes the generated graph, architecture tour, bilingual concept packet, synthetic FHIR and Stedi fixtures, evaluation data, provenance, and canonical specifications. No credentials or real patient data are included."
+              data-es="El paquete público incluye el grafo generado, el recorrido de arquitectura, el paquete bilingüe, datos FHIR y Stedi sintéticos, evaluación, procedencia y especificaciones canónicas. No incluye credenciales ni datos reales."
+            >
+              The public bundle includes the generated graph, architecture tour, bilingual concept packet, synthetic FHIR
+              and Stedi fixtures, evaluation data, provenance, and canonical specifications. No credentials or real patient
+              data are included.
+            </p>
+          </div>
+        </div>
+        <div class="artifact-index">
+          <a href="artifacts/knowledge-graph.json"><span>Graph</span><strong data-en="Full knowledge graph" data-es="Grafo de conocimiento completo">Full knowledge graph</strong><small>187 nodes · 374 edges · JSON</small></a>
+          <a href="artifacts/guided-tour.json"><span>Tour</span><strong data-en="15-stop guided tour" data-es="Recorrido guiado de 15 paradas">15-stop guided tour</strong><small>JSON</small></a>
+          <a href="artifacts/architecture-layers.json"><span>Map</span><strong data-en="Nine responsibility layers" data-es="Nueve capas de responsabilidad">Nine responsibility layers</strong><small>JSON</small></a>
+          <a href="artifacts/approved-runtime-guidance.json"><span>Words</span><strong data-en="Approved bilingual guidance" data-es="Guía bilingüe aprobada">Approved bilingual guidance</strong><small>6 concepts · JSON</small></a>
+          <a href="artifacts/eight-rubric-spec.json"><span>Eval</span><strong data-en="Research rubric packet" data-es="Paquete de rúbricas de investigación">Research rubric packet</strong><small>8 rubrics · JSON</small></a>
+          <a href="artifacts/transcript-eval-cases.jsonl"><span>Cases</span><strong data-en="Synthetic adversarial cases" data-es="Casos adversariales sintéticos">Synthetic adversarial cases</strong><small>24 cases · JSONL</small></a>
+          <a href="artifacts/benebot-fhir-seed.json"><span>FHIR</span><strong data-en="Synthetic billing bundle" data-es="Paquete sintético de facturación">Synthetic billing bundle</strong><small>FHIR R4 · JSON</small></a>
+          <a href="artifacts/stedi-aetna-test-request.json"><span>271</span><strong data-en="Guarded Stedi test request" data-es="Solicitud de prueba Stedi protegida">Guarded Stedi test request</strong><small>synthetic · JSON</small></a>
+          <a href="artifacts/tool-prerequisite-matrix.json"><span>Tools</span><strong data-en="Tool prerequisite matrix" data-es="Matriz de requisitos de herramientas">Tool prerequisite matrix</strong><small>JSON</small></a>
+          <a href="artifacts/INTEGRATION_NOTES.md"><span>Notes</span><strong data-en="Gold-packet integration notes" data-es="Notas de integración del paquete">Gold-packet integration notes</strong><small>Markdown</small></a>
+          <a href="artifacts/BENEBOT_BUILD_SPEC.md"><span>Spec</span><strong data-en="Canonical build specification" data-es="Especificación canónica">Canonical build specification</strong><small>Markdown</small></a>
+          <a href="artifacts/source-ledger.md"><span>Why</span><strong data-en="Source and provenance ledger" data-es="Registro de fuentes y procedencia">Source and provenance ledger</strong><small>Markdown</small></a>
+        </div>
+        <details class="more-artifacts">
+          <summary data-en="Show every published artifact" data-es="Mostrar todos los artefactos publicados">Show every published artifact</summary>
+          <div>
+            <a href="artifacts/runtime-concepts.json">runtime-concepts.json</a>
+            <a href="artifacts/canonical-concepts.json">canonical-concepts.json</a>
+            <a href="artifacts/rejected-content.jsonl">rejected-content.jsonl</a>
+            <a href="artifacts/adjudication-report.md">adjudication-report.md</a>
+            <a href="artifacts/spanish-review-notes.md">spanish-review-notes.md</a>
+            <a href="artifacts/stedi-normalized-fallback.json">stedi-normalized-fallback.json</a>
+            <a href="artifacts/demo-resources.json">demo-resources.json</a>
+            <a href="artifacts/CONVERSATION_RELIABILITY_PLAN.md">CONVERSATION_RELIABILITY_PLAN.md</a>
+            <a href="artifacts/README.md">README.md</a>
+          </div>
+        </details>
+      </section>
+
+      <section class="references section-shell reveal">
+        <div>
+          <h2 data-en="Official references" data-es="Referencias oficiales">Official references</h2>
+          <p
+            data-en="The implementation and this explainer were checked against current primary documentation on August 1, 2026."
+            data-es="La implementación y este explicador se compararon con documentación primaria vigente el 1 de agosto de 2026."
+          >
+            The implementation and this explainer were checked against current primary documentation on August 1, 2026.
+          </p>
+        </div>
+        <div class="reference-links">
+          <a href="https://www.medplum.com/docs/building-with-ai-coding-assistants">Medplum: building with AI coding assistants <span>↗</span></a>
+          <a href="https://www.medplum.com/docs/integration/stedi/insurance-eligibility/eligibility-checks">Medplum: Stedi eligibility workflow <span>↗</span></a>
+          <a href="https://developers.deepgram.com/docs/multilingual-voice-agent">Deepgram: multilingual voice agents <span>↗</span></a>
+          <a href="https://developers.deepgram.com/docs/configure-voice-agent">Deepgram: configure the Voice Agent <span>↗</span></a>
+          <a href="https://www.stedi.com/docs/healthcare/test-mode">Stedi: healthcare test mode <span>↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <a class="brand footer-brand" href="#top"><span>Bene<strong>Bot</strong></span></a>
+        <p
+          data-en="A synthetic-data hackathon demonstration for one medical bill. Built to be inspected, questioned, and improved."
+          data-es="Una demostración de hackathon con datos sintéticos para una sola factura médica. Hecha para inspeccionarse, cuestionarse y mejorarse."
+        >
+          A synthetic-data hackathon demonstration for one medical bill. Built to be inspected, questioned, and improved.
+        </p>
+      </div>
+      <div class="footer-meta">
+        <span>FHIR R4</span>
+        <span>English + Español</span>
+        <span data-en="No real PHI" data-es="Sin PHI real">No real PHI</span>
+      </div>
+    </footer>
+  </body>
+</html>

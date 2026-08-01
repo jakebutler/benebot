@@ -59,7 +59,8 @@ test("rehearses Jane's Spanish-first billing journey through the text fallback",
   await expect(panel).toContainText("Para confirmar:");
   await expect(panel).toContainText("La paciente sigue confundida sobre el deducible aplicado al reclamo histórico y el deducible actual.");
   await sendText(panel, "sí");
-  await expect(panel).toContainText("El servidor confirmó el caso de revisión de facturación");
+  await expect(panel).toContainText("El servidor confirmó el caso de revisión");
+  await expect(panel).toContainText("El equipo de facturación de Bayview tiene asignado el caso");
   await expect(panel).toContainText("También confirmó el resumen breve para el personal");
 
   await page.goto("/staff");

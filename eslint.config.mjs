@@ -12,6 +12,15 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local/generated artifacts are not application source.
+    ".claude/**",
+    ".understand-anything/**",
+    ".herenow/**",
+    "benebot-explainer/**",
+    "medplum-link/**",
+    "coverage/**",
+    "playwright-report/**",
+    "test-results/**",
   ]),
 ]);
 

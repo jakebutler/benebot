@@ -1,12 +1,6 @@
 # BeneBot
 
-**Nobody should need their kid to translate a medical bill.**
-
-BeneBot is a voice-first medical-bill explainer: it explains the bill you received, refreshes the benefits you have now, and opens a real follow-up case with your provider — in English or Spanish. It serves two audiences at once. Patients, especially elderly patients with limited English proficiency, get independence instead of a family translator. Providers get their highest-volume billing call handled and returned as a structured FHIR `Task` rather than a voicemail.
-
-See [PITCH.md](PITCH.md) for the full pitch, the market case, and what is real versus demo-scoped.
-
-This repository is a synthetic-data hackathon demo. It keeps historical claim adjudication separate from current benefits, supports English/Spanish voice plus text, and persists billing follow-up artifacts in Medplum.
+BeneBot is a synthetic-data hackathon demo that explains one medical bill, keeps historical claim adjudication separate from current benefits, supports English/Spanish voice plus text, and can persist a billing follow-up in Medplum.
 
 The localhost demo uses only Jane Doe and statement `BENEBOT-INV-1001`. Never use real patient data.
 
@@ -137,25 +131,22 @@ The E2E rehearsal uses the signed local session and text fallback. It never send
 - **Deepgram:** `DEEPGRAM_API_KEY` is used only by the server to mint a temporary browser token through `/v1/auth/grant`; the key needs at least Deepgram Member permission. Without a grant-capable key, do not start voice; the text path still explains the historical bill.
 - **Stedi:** use only the fixed Jane Doe test identity in the build spec. With no test key or a failed request and `STEDI_ALLOW_FIXTURE_FALLBACK=true`, any returned current-benefit data must be visibly labeled **fixture fallback—not live**. A current snapshot never explains or validates the July claim.
 - **Medplum:** demo mode can read the bundled historical EOB fixture when Medplum is unconfigured. It cannot honestly prove persistence: follow-up `Task`, summary `Communication`, and eligibility artifacts must remain unavailable or waiting until Medplum confirms their IDs.
-- **Resources:** the local resource directory is synthetic except for one tier. Fictional resources and community-reported tips remain labeled; no patient data is sent to a search provider. The `medicare-billing-problem` need returns **real** government programs — 1-800-MEDICARE, the SHIP counseling network, and the federal QMB improper-billing protection — carrying their actual published phone numbers and marked `government-program` / `government-published`. BeneBot never contacts an agency on a patient's behalf and never tells a patient whether a federal protection applies to them; it names who can confirm it.
+- **Resources:** the local resource directory is synthetic. Fictional resources and community-reported tips remain labeled; no patient data is sent to a search provider.
 
 ## Recorded localhost demo script (Spanish-first)
 
-The canonical modular storyboard and exact English/Spanish turns are in [`docs/demo/DEMO_VIDEO_PLAYBOOK.md`](docs/demo/DEMO_VIDEO_PLAYBOOK.md) and [`docs/demo/demo-scenarios.json`](docs/demo/demo-scenarios.json).
+Before recording, run the seed twice, test one Stedi refresh and one Deepgram voice connection if keys are configured, grant microphone permission, and keep `/staff` open in a second tab.
 
-Before recording, run the seed twice, test one Deepgram voice connection, grant microphone permission, and keep `/staff` plus the signed-in Medplum project open in separate tabs. The recorded story does not use the current-benefits refresh.
-
-1. Open `/`. The landing page opens with the pitch: the two audiences, the three-source accuracy principle, and the reconciled bill math. Select the hero CTA **Hablar sobre mi factura**, or scroll to the synthetic bill preview and select **Quiero hablar sobre esta factura**. No real email is sent.
+1. Open `/` and show the **Vista previa de correo sintético**. Select **Quiero hablar sobre esta factura**. No real email is sent.
 2. In the portal, show **Sesión segura — Jane Doe**, **Idioma preferido: Español**, the synthetic-demo label, and **Secure billing context verified**. Explain that demo portal authentication has already scoped BeneBot to this bill; it will not ask for SSN, DOB, member ID, or patient ID.
 3. Point out the **$620** current Invoice balance and the historical EOB breakdown: $2,400 billed − $1,300 discount = $1,100 allowed; **$500 deductible applied to the July claim** + $120 coinsurance = $620 responsibility; insurer paid $480.
-4. Select **Hablar sobre esta factura**. Say: `Esta factura es demasiado complicada. ¿Por qué debo seiscientos veinte dólares por esta resonancia? Explíqueme cómo se procesó el reclamo.`
-5. Keep the transcript and tool-activity stream visible while BeneBot retrieves the historical record and begins the deterministic explanation.
-6. Interrupt with: `Espere — ¿qué significa monto permitido? ¿Es lo que tengo que pagar?` BeneBot should stop, answer concisely, and ask whether to continue.
-7. Escalate with: `Sigo confundida, y hay algo más. El registro dice que recibí una resonancia, pero ese día solo me hicieron radiografías. No recibí una resonancia.` BeneBot should repeat the record/patient difference, say it needs human review without declaring the bill wrong, and ask whether to create a secure-message case. It must say that nothing has been created yet.
-8. Confirm with only `Sí.` Show the server-confirmed Task ID. BeneBot may then say Bayview's billing team has been assigned the case and asked to contact Jane by secure message; if Medplum does not confirm the Task, do not narrate success or outreach.
-9. Switch to `/staff`, show the confirmed `Task` and concise `Communication`, then open the exact Task ID in Medplum and show its `requested` status, Bayview owner, `service-not-recognized` issue, and `secure-message` preference.
+4. Select **Hablar sobre esta factura**. Use text or voice: `Me cobraron $2,400 por la resonancia, pero el monto permitido fue $1,100 y todavia debo $620. Como llegaron a esa cantidad? Y significa que todavia me quedan $500 de deducible?`
+5. During the explanation, use the rehearsed interruption: `Espere — que significa monto permitido?` BeneBot should stop, explain it, and ask whether to continue. Browser/platform echo cancellation is used; the P0 demo does not add custom VAD.
+6. Ask for current benefits in a separate step. Show the timestamp and source for the Stedi test response, or the conspicuous **fixture fallback—not live** label. The current annual/remaining deductible is a current snapshot; it does not explain or validate the July claim. If scope is missing or ambiguous, it remains unknown.
+7. Say Jane is still confused about the $620 and deductible. BeneBot should restate a narrow issue in Spanish and request confirmation. Confirm it only when ready. Show the **server-confirmed billing-review case ID**; if Medplum does not confirm it, show the error and do not narrate success.
+8. Switch to `/staff` and show the EOB, Invoice, current eligibility result, unresolved concern, confirmed `Task`, and concise `Communication` together. English remains supported as a smoke test, but the recorded journey is Spanish-first.
 
-The current-benefits refresh and local billing-resource directory remain available in the product, but neither is part of this recording. English remains a short explanation/interruption smoke clip after the Spanish flagship is safely captured.
+The local billing-resource directory remains available, but the payment-plan search is intentionally not part of the P0 recording. A hardware translator is future vision only, not a current feature.
 
 ## Emergency text-only recording
 

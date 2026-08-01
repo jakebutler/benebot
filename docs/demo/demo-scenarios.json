@@ -1,0 +1,310 @@
+{
+  "version": 2,
+  "status": "recording-ready",
+  "storyPriority": "spanish-conversation-interruption-human-review",
+  "forbiddenStoryTools": [
+    "refresh_current_benefits"
+  ],
+  "dataPolicy": {
+    "syntheticDataOnly": true,
+    "patient": "Jane Doe",
+    "invoiceIdentifier": "BENEBOT-INV-1001",
+    "rawAudioStoredByBeneBot": false,
+    "fullTranscriptStoredByBeneBot": false
+  },
+  "voiceCast": {
+    "en": {
+      "patient": "aura-2-andromeda-en",
+      "benebot": "aura-2-helena-en"
+    },
+    "es": {
+      "patient": "aura-2-estrella-es",
+      "benebot": "aura-2-selena-es"
+    }
+  },
+  "recordingDefaults": {
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "automatedCaptureMode": "scripted-text-path-with-deepgram-tts-overlay",
+    "automatedOverlayLabel": "Scripted demo · synthetic data",
+    "liveOverlayLabel": "Live voice demo · synthetic data",
+    "patientFollowupContact": "secure-message"
+  },
+  "sharedLaunchSteps": [
+    {
+      "kind": "navigate",
+      "path": "/"
+    },
+    {
+      "kind": "assert-visible",
+      "text": "Vista previa de correo sintético"
+    },
+    {
+      "kind": "click",
+      "role": "link",
+      "name": "Quiero hablar sobre esta factura"
+    },
+    {
+      "kind": "assert-url",
+      "pattern": "/bill/BENEBOT-INV-1001"
+    },
+    {
+      "kind": "assert-visible",
+      "text": "Sesión segura — Jane Doe"
+    },
+    {
+      "kind": "assert-visible",
+      "text": "Portal de demostración sintético"
+    },
+    {
+      "kind": "click",
+      "role": "button",
+      "name": "Hablar sobre esta factura"
+    },
+    {
+      "kind": "assert-visible",
+      "selector": "[data-dg-agent]"
+    }
+  ],
+  "flagshipScenario": {
+    "id": "spanish-service-discrepancy-to-medplum-task",
+    "language": "es",
+    "title": "De una factura confusa a una revisión humana confirmada",
+    "estimatedRuntimeSeconds": 120,
+    "escalationBasis": {
+      "recordSays": "Lumbar MRI on July 8, 2026",
+      "patientSays": "Only X-rays were performed; no MRI was received",
+      "safeConclusion": "The difference needs human review",
+      "forbiddenConclusion": "The bill is wrong"
+    },
+    "modules": [
+      {
+        "id": "01-bill-arrives",
+        "title": "La factura llega",
+        "targetSeconds": 10,
+        "captureStart": "Synthetic Spanish billing-email preview is visible",
+        "actions": [
+          "Hold on Bayview Imaging and the $620 amount",
+          "Click Quiero hablar sobre esta factura",
+          "Land on Jane's secure synthetic portal"
+        ],
+        "visibleAssertions": [
+          "Vista previa de correo sintético",
+          "$620",
+          "Sesión segura — Jane Doe",
+          "Portal de demostración sintético"
+        ],
+        "captureEnd": "Hablar sobre esta factura is visible"
+      },
+      {
+        "id": "02-jane-asks",
+        "title": "Jane pide ayuda",
+        "targetSeconds": 16,
+        "setupSteps": [
+          {
+            "kind": "select-language",
+            "role": "button",
+            "name": "Español"
+          }
+        ],
+        "turns": [
+          {
+            "id": "es-complicated-bill-question",
+            "actor": "patient",
+            "text": "Esta factura es demasiado complicada. ¿Por qué debo seiscientos veinte dólares por esta resonancia? Explíqueme cómo se procesó el reclamo.",
+            "expectedTools": [
+              "get_bill_context"
+            ]
+          }
+        ],
+        "visibleAssertions": [
+          "Secure billing context verified",
+          "Sesión segura — Jane Doe"
+        ],
+        "captureEnd": "The get_bill_context activity enters running state"
+      },
+      {
+        "id": "03-retrieval-stream",
+        "title": "BeneBot recupera el registro",
+        "targetSeconds": 12,
+        "expectedTools": [
+          "get_bill_context"
+        ],
+        "forbiddenTools": [
+          "refresh_current_benefits"
+        ],
+        "visibleAssertions": [
+          "Leyendo la factura histórica"
+        ],
+        "editorCallouts": [
+          "Historical EOB retrieved",
+          "Bill math reconciled in application code",
+          "No model-calculated amounts"
+        ],
+        "captureEnd": "The get_bill_context activity enters succeeded state"
+      },
+      {
+        "id": "04-explanation-and-interruption",
+        "title": "Explicación e interrupción",
+        "targetSeconds": 40,
+        "requiredHistoricalAmounts": [
+          "2,400.00 dólares",
+          "1,300.00 dólares",
+          "1,100.00 dólares",
+          "500.00 dólares",
+          "120.00 dólares",
+          "480.00 dólares",
+          "620.00 dólares"
+        ],
+        "turns": [
+          {
+            "id": "es-allowed-amount-interruption",
+            "actor": "patient",
+            "text": "Espere — ¿qué significa monto permitido? ¿Es lo que tengo que pagar?",
+            "expectedTools": [],
+            "visibleAssertions": [
+              "Interrupción detectada por Flux",
+              "El monto permitido es el precio negociado",
+              "No es necesariamente lo que paga usted",
+              "¿Quiere que continúe con el desglose?"
+            ]
+          }
+        ],
+        "requiredAgentMeaning": "The allowed amount is the negotiated price used to process the claim, not necessarily what the patient or plan pays",
+        "captureEnd": "BeneBot asks whether Jane wants the breakdown to continue"
+      },
+      {
+        "id": "05-unresolved-issue-and-case",
+        "title": "Diferencia sin resolver y caso confirmado",
+        "targetSeconds": 45,
+        "turns": [
+          {
+            "id": "es-service-not-recognized",
+            "actor": "patient",
+            "text": "Sigo confundida, y hay algo más. El registro dice que recibí una resonancia, pero ese día solo me hicieron radiografías. No recibí una resonancia.",
+            "expectedTools": [],
+            "visibleAssertions": [
+              "Para confirmar:",
+              "La paciente no reconoce el servicio incluido en la factura.",
+              "Todavía no se ha creado nada."
+            ],
+            "requiredAgentMeaning": "The record and patient report differ, the difference needs human review, and BeneBot cannot confirm that the bill is wrong"
+          },
+          {
+            "id": "es-case-confirmation",
+            "actor": "patient",
+            "text": "Sí.",
+            "expectedTools": [
+              "request_human_followup",
+              "save_conversation_summary"
+            ],
+            "requiredToolArguments": {
+              "request_human_followup": {
+                "issueType": "service-not-recognized",
+                "patientIssueSummary": "La paciente no reconoce el servicio incluido en la factura.",
+                "preferredContact": "secure-message",
+                "patientConfirmed": true
+              }
+            },
+            "visibleAssertions": [
+              "El servidor confirmó el caso de revisión",
+              "El equipo de facturación de Bayview tiene asignado el caso",
+              "El ID del caso es",
+              "También confirmó el resumen breve para el personal"
+            ]
+          }
+        ],
+        "approvedPostConfirmationTemplate": "El servidor confirmó el caso de revisión. El equipo de facturación de Bayview tiene asignado el caso y se le pidió que se comunique con usted por mensaje seguro. El ID del caso es {taskId}.",
+        "captureEnd": "The confirmed Task ID and concise-summary status are visible"
+      },
+      {
+        "id": "06-medplum-proof",
+        "title": "Prueba final en Medplum",
+        "targetSeconds": 18,
+        "actions": [
+          "Open /staff and show the EOB, Invoice, Task, and Communication IDs",
+          "Switch to the signed-in Medplum project",
+          "Search for the exact Task ID returned in module 05",
+          "Open the Task resource",
+          "Hold on the synthetic Task fields for three seconds"
+        ],
+        "requiredMedplumFields": {
+          "resourceType": "Task",
+          "status": "requested",
+          "owner": "Bayview Imaging organization reference",
+          "issueType": "service-not-recognized",
+          "preferredContact": "secure-message",
+          "focus": "Jane's synthetic Invoice reference"
+        },
+        "visibleAssertions": [
+          "ExplanationOfBenefit",
+          "Invoice",
+          "Task",
+          "Communication",
+          "ID "
+        ],
+        "captureEnd": "The exact confirmed Task is visible in Medplum"
+      }
+    ]
+  },
+  "cutdowns": [
+    {
+      "id": "spanish-unrecognized-service-faq",
+      "language": "es",
+      "slug": "no-reconozco-un-servicio-de-mi-factura",
+      "title": "¿Cómo ayuda BeneBot cuando no reconozco un servicio de mi factura?",
+      "sourceModules": [
+        "03-retrieval-stream",
+        "04-explanation-and-interruption",
+        "05-unresolved-issue-and-case",
+        "06-medplum-proof"
+      ],
+      "targetSeconds": 60
+    },
+    {
+      "id": "spanish-case-creation-faq",
+      "language": "es",
+      "slug": "crear-un-caso-para-facturacion",
+      "title": "¿Puede BeneBot crear un caso para el equipo de facturación?",
+      "sourceModules": [
+        "05-unresolved-issue-and-case",
+        "06-medplum-proof"
+      ],
+      "targetSeconds": 45
+    },
+    {
+      "id": "english-bill-explanation-smoke",
+      "language": "en",
+      "slug": "explain-a-complicated-medical-bill",
+      "title": "How does BeneBot explain a complicated medical bill?",
+      "targetSeconds": 45,
+      "turns": [
+        {
+          "id": "en-complicated-bill-question",
+          "actor": "patient",
+          "text": "This bill is too complicated. Why do I owe six hundred twenty dollars for this MRI? Please walk me through how the claim was processed.",
+          "expectedTools": [
+            "get_bill_context"
+          ]
+        },
+        {
+          "id": "en-allowed-amount-interruption",
+          "actor": "patient",
+          "text": "Wait—what does allowed amount mean? Is that what I have to pay?",
+          "expectedTools": [],
+          "visibleAssertions": [
+            "The allowed amount is the negotiated price",
+            "It is not necessarily what you pay",
+            "Would you like me to continue the breakdown?"
+          ]
+        }
+      ],
+      "forbiddenTools": [
+        "refresh_current_benefits",
+        "request_human_followup"
+      ]
+    }
+  ]
+}

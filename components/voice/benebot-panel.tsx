@@ -811,8 +811,8 @@ function VoicePanelContent({
               setSummaryResult({ saved: false });
             }
             reply = intent.language === "es"
-              ? `El servidor confirmó el caso de revisión de facturación. ID del caso: ${followup.taskId}. ${summarySaved ? "También confirmó el resumen breve para el personal." : "El resumen para el personal no se guardó."}`
-              : `The server confirmed the billing-review case. Case ID: ${followup.taskId}. ${summarySaved ? "It also confirmed the concise staff summary." : "The staff summary was not saved."}`;
+              ? `El servidor confirmó el caso de revisión. El equipo de facturación de Bayview tiene asignado el caso y se le pidió que se comunique con usted por mensaje seguro. El ID del caso es ${followup.taskId}. ${summarySaved ? "También confirmó el resumen breve para el personal." : "El resumen para el personal no se guardó."}`
+              : `The server confirmed the review case. Bayview's billing team owns the case and was asked to contact you by secure message. The case ID is ${followup.taskId}. ${summarySaved ? "It also confirmed the concise staff summary." : "The staff summary was not saved."}`;
           } else {
             reply = intent.language === "es"
               ? "El seguimiento no se completó."
@@ -1166,8 +1166,8 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
               instruction: "Speak requiredResponse verbatim.",
               requiredResponse: confirmed
                 ? sessionLanguage === "es"
-                  ? `El servidor confirmó el caso de revisión de facturación. ID del caso: ${followup.data.taskId}.`
-                  : `The server confirmed the billing-review case. Case ID: ${followup.data.taskId}.`
+                  ? `El servidor confirmó el caso de revisión. El equipo de facturación de Bayview tiene asignado el caso y se le pidió que se comunique con usted por mensaje seguro. El ID del caso es ${followup.data.taskId}.`
+                  : `The server confirmed the review case. Bayview's billing team owns the case and was asked to contact you by secure message. The case ID is ${followup.data.taskId}.`
                 : sessionLanguage === "es"
                   ? "El caso de revisión no se completó."
                   : "The billing-review case was not completed.",
