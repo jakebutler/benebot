@@ -32,16 +32,18 @@ test("rehearses Jane's Spanish-first billing journey through the text fallback",
     panel,
     "Me cobraron $2,400 por la resonancia, pero el monto permitido fue $1,100 y todavía debo $620. ¿Cómo llegaron a esa cantidad? ¿Y significa que todavía me quedan $500 de deducible?",
   );
-  await expect(panel).toContainText("La EOB histórica");
-  await expect(panel).toContainText("monto permitido de $1,100.00");
-  await expect(panel).toContainText("$500.00 se aplicaron al deducible");
-  await expect(panel).toContainText("La factura actual muestra un saldo de $620.00");
-  await expect(panel).toContainText("La revisión actual separada");
-  await expect(panel).toContainText("no explica ni valida la EOB histórica");
+  await expect(panel).toContainText("Explicación de Beneficios histórica");
+  await expect(panel).toContainText("monto permitido de 1,100.00 dólares");
+  await expect(panel).toContainText("500.00 dólares se aplicaron al deducible");
+  await expect(panel).toContainText("saldo actual de la factura es de 620.00 dólares");
+  await expect(panel).toContainText(
+    /respuesta de prueba en vivo de Stedi|datos de respaldo de demostración/,
+  );
+  await expect(panel).toContainText("no explican ni validan este reclamo histórico");
 
   await sendText(panel, "Espere — ¿qué significa monto permitido?");
-  await expect(panel).toContainText("El monto permitido es la cantidad negociada");
-  await expect(panel).toContainText("¿Quieres que continúe con el desglose?");
+  await expect(panel).toContainText("El monto permitido es el precio negociado");
+  await expect(panel).toContainText("¿Quiere que continúe con el desglose?");
   await expect(panel).toContainText("Interrupción detectada por Flux");
 
   await sendText(panel, "Quiero consultar mis beneficios actuales.");

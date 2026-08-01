@@ -1,0 +1,14 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 5,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "The single dropped tested_by edge was an invalid config-to-test pairing; the existing related edge preserves the meaningful association.",
+    "Restored five scanner-backed import edges by mapping JSON paths to their canonical config-prefixed file-level node IDs.",
+    "Verified all 96 importMap relationships after repair; every relationship resolves to exactly one source and target file-level node and has a corresponding imports edge.",
+    "No upstream normalization anomaly exceeded the 30 percent review threshold."
+  ]
+}

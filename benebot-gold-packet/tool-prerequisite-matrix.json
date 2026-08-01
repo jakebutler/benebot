@@ -1,0 +1,128 @@
+[
+  {
+    "conceptId": "allowed-amount",
+    "patientSpecificClaim": "The exact dollar figure of the allowed amount for a specific procedure or service.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "allowed-amount",
+    "patientSpecificClaim": "Whether a specific provider is in-network and thus bound to accept the allowed amount without balance billing.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "allowed-amount",
+    "patientSpecificClaim": "The difference between the billed charge and the allowed amount for a specific claim.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "explanation-of-benefits",
+    "patientSpecificClaim": "The specific amounts billed, allowed, paid, and owed for a given encounter.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "explanation-of-benefits",
+    "patientSpecificClaim": "The specific remark codes and denial reasons applied to a claim.",
+    "requiredTools": [
+      "get_eob_details"
+    ]
+  },
+  {
+    "conceptId": "explanation-of-benefits",
+    "patientSpecificClaim": "Whether the patient has already paid a portion of the balance shown on the EOB (e.g., a copay collected at the point of service).",
+    "requiredTools": [
+      "get_eob_details"
+    ]
+  },
+  {
+    "conceptId": "deductible",
+    "patientSpecificClaim": "The specific dollar amount of the patient's deductible.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "deductible",
+    "patientSpecificClaim": "How much of the deductible has been met to date.",
+    "requiredTools": [
+      "get_current_benefits"
+    ]
+  },
+  {
+    "conceptId": "deductible",
+    "patientSpecificClaim": "Whether the patient's specific plan waives the deductible for certain services (e.g., primary care visits, prescription drugs).",
+    "requiredTools": [
+      "get_current_benefits"
+    ]
+  },
+  {
+    "conceptId": "deductible",
+    "patientSpecificClaim": "Whether a family plan uses an aggregate or embedded deductible structure.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "coinsurance",
+    "patientSpecificClaim": "The specific coinsurance percentage for a given service or tier.",
+    "requiredTools": [
+      "get_current_benefits"
+    ]
+  },
+  {
+    "conceptId": "coinsurance",
+    "patientSpecificClaim": "The exact dollar amount owed for coinsurance on a specific claim (which requires knowing the allowed amount).",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "coinsurance",
+    "patientSpecificClaim": "Whether the deductible has been met, triggering the coinsurance phase.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "copayment",
+    "patientSpecificClaim": "The specific copay amount for a particular service category (e.g., ER visit vs. primary care).",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "copayment",
+    "patientSpecificClaim": "Whether the copay applies before or after the deductible for that specific service under that specific plan.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "out-of-pocket-maximum",
+    "patientSpecificClaim": "The specific dollar limit of the out-of-pocket maximum for the individual or family.",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  },
+  {
+    "conceptId": "out-of-pocket-maximum",
+    "patientSpecificClaim": "The current accumulated total toward the out-of-pocket maximum.",
+    "requiredTools": [
+      "get_current_benefits"
+    ]
+  },
+  {
+    "conceptId": "out-of-pocket-maximum",
+    "patientSpecificClaim": "Whether a family plan has embedded individual maximums (required for ACA plans if the family max exceeds the statutory individual limit).",
+    "requiredTools": [
+      "get_bill_context"
+    ]
+  }
+]

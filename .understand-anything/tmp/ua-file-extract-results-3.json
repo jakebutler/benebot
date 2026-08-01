@@ -1,0 +1,1523 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 12,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/staff/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 156,
+      "nonEmptyLines": 148,
+      "functions": [
+        {
+          "name": "timestamp",
+          "startLine": 17,
+          "endLine": 21,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "taskInputText",
+          "startLine": 23,
+          "endLine": 26,
+          "params": [
+            "task"
+          ]
+        },
+        {
+          "name": "loadWorkflowArtifacts",
+          "startLine": 36,
+          "endLine": 112,
+          "params": []
+        },
+        {
+          "name": "StaffPage",
+          "startLine": 114,
+          "endLine": 156,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "dynamic",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "StaffPage",
+          "line": 114,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "timestamp",
+          "callee": "new Date(value.meta.lastUpdated).toLocaleString",
+          "lineNumber": 19
+        },
+        {
+          "caller": "taskInputText",
+          "callee": "task.input?.find",
+          "lineNumber": 24
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "isMedplumConfigured",
+          "lineNumber": 37
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "getMedplumClient",
+          "lineNumber": 47
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "resolveDemoSeedIds",
+          "lineNumber": 48
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "Promise.all",
+          "lineNumber": 49
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "client.searchResources",
+          "lineNumber": 50
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "client.searchResources",
+          "lineNumber": 51
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "client.searchResources",
+          "lineNumber": 52
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "eligibility.find",
+          "lineNumber": 54
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "response.insurance?.some",
+          "lineNumber": 58
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "tasks.find",
+          "lineNumber": 62
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "task.input?.some",
+          "lineNumber": 65
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "communications.find",
+          "lineNumber": 74
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "requiredAbout.every",
+          "lineNumber": 77
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "communication.about?.some",
+          "lineNumber": 78
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "taskInputText",
+          "lineNumber": 81
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "timestamp",
+          "lineNumber": 85
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "timestamp",
+          "lineNumber": 93
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "timestamp",
+          "lineNumber": 96
+        },
+        {
+          "caller": "loadWorkflowArtifacts",
+          "callee": "timestamp",
+          "lineNumber": 99
+        },
+        {
+          "caller": "StaffPage",
+          "callee": "loadWorkflowArtifacts",
+          "lineNumber": 115
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/staff/artifact-timeline.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "functions": [
+        {
+          "name": "ArtifactTimeline",
+          "startLine": 3,
+          "endLine": 5,
+          "params": [
+            "{ artifacts }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ArtifactTimeline",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ArtifactTimeline",
+          "callee": "artifacts.map",
+          "lineNumber": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/billing/math.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "closeEnough",
+          "startLine": 5,
+          "endLine": 7,
+          "params": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "name": "reconcileBillMath",
+          "startLine": 9,
+          "endLine": 44,
+          "params": [
+            "amounts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BILL_MATH_TOLERANCE",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "reconcileBillMath",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "closeEnough",
+          "callee": "Math.abs",
+          "lineNumber": 6
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "Object.entries(amounts).filter",
+          "lineNumber": 11
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "Object.entries",
+          "lineNumber": 11
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "values.some",
+          "lineNumber": 15
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "Number.isFinite",
+          "lineNumber": 15
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "closeEnough",
+          "lineNumber": 23
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "warnings.push",
+          "lineNumber": 24
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "closeEnough",
+          "lineNumber": 32
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "warnings.push",
+          "lineNumber": 33
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "closeEnough",
+          "lineNumber": 39
+        },
+        {
+          "caller": "reconcileBillMath",
+          "callee": "warnings.push",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/billing/normalize-eob.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 156,
+      "nonEmptyLines": 137,
+      "functions": [
+        {
+          "name": "getCategory",
+          "startLine": 48,
+          "endLine": 59,
+          "params": [
+            "entry"
+          ]
+        },
+        {
+          "name": "readMoney",
+          "startLine": 61,
+          "endLine": 69,
+          "params": [
+            "entry",
+            "key"
+          ]
+        },
+        {
+          "name": "collectAmounts",
+          "startLine": 71,
+          "endLine": 91,
+          "params": [
+            "entries"
+          ]
+        },
+        {
+          "name": "requireAmount",
+          "startLine": 93,
+          "endLine": 99,
+          "params": [
+            "values",
+            "key"
+          ]
+        },
+        {
+          "name": "normalizeEob",
+          "startLine": 101,
+          "endLine": 155,
+          "params": [
+            "eob",
+            "options"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "BillNormalizationError",
+          "startLine": 41,
+          "endLine": 46,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "BillNormalizationError",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "normalizeEob",
+          "line": 101,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 43
+        },
+        {
+          "caller": "constructor",
+          "callee": "warnings.join",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getCategory",
+          "callee": "coding.code?.toLowerCase().replaceAll",
+          "lineNumber": 53
+        },
+        {
+          "caller": "getCategory",
+          "callee": "coding.code?.toLowerCase",
+          "lineNumber": 53
+        },
+        {
+          "caller": "collectAmounts",
+          "callee": "getCategory",
+          "lineNumber": 79
+        },
+        {
+          "caller": "collectAmounts",
+          "callee": "warnings.push",
+          "lineNumber": 84
+        },
+        {
+          "caller": "collectAmounts",
+          "callee": "readMoney",
+          "lineNumber": 87
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "(eob.item ?? []).flatMap",
+          "lineNumber": 108
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "collectAmounts",
+          "lineNumber": 109
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "warnings.push",
+          "lineNumber": 119
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 124
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 125
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 126
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 127
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 128
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 129
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 130
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 131
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "requireAmount",
+          "lineNumber": 132
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "reconcileBillMath",
+          "lineNumber": 134
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "warnings.some",
+          "lineNumber": 152
+        },
+        {
+          "caller": "normalizeEob",
+          "callee": "warning.startsWith",
+          "lineNumber": 152
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/billing/types.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 53,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/medplum/constants.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "exports": [
+        {
+          "name": "IDENTIFIER_SYSTEMS",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "DEMO_IDENTIFIERS",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/medplum/demo-fixture.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "parseFixture",
+          "startLine": 23,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "getFixtureResource",
+          "startLine": 39,
+          "endLine": 47,
+          "params": [
+            "resourceType"
+          ]
+        },
+        {
+          "name": "getFixtureResources",
+          "startLine": 49,
+          "endLine": 58,
+          "params": [
+            "resourceType"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "demoSeedBundle",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "getFixtureResource",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "getFixtureResources",
+          "line": 49,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseFixture",
+          "callee": "!isResource",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getFixtureResource",
+          "callee": "getFixtureResources",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getFixtureResources",
+          "callee": "(demoSeedBundle.entry ?? [])\n    .map((entry) => entry.resource)\n    .filter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getFixtureResources",
+          "callee": "(demoSeedBundle.entry ?? [])\n    .map",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/medplum/queries.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 321,
+      "nonEmptyLines": 299,
+      "functions": [
+        {
+          "name": "referenceMatches",
+          "startLine": 34,
+          "endLine": 36,
+          "params": [
+            "reference",
+            "resourceType",
+            "id"
+          ]
+        },
+        {
+          "name": "requiredId",
+          "startLine": 38,
+          "endLine": 43,
+          "params": [
+            "resource"
+          ]
+        },
+        {
+          "name": "requiredInvoiceAmount",
+          "startLine": 45,
+          "endLine": 50,
+          "params": [
+            "invoice"
+          ]
+        },
+        {
+          "name": "identifierValue",
+          "startLine": 52,
+          "endLine": 61,
+          "params": [
+            "resource",
+            "system"
+          ]
+        },
+        {
+          "name": "buildNormalizedBillContext",
+          "startLine": 63,
+          "endLine": 197,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "getBillContextForSession",
+          "startLine": 199,
+          "endLine": 224,
+          "params": [
+            "scope"
+          ]
+        },
+        {
+          "name": "withFixtureIds",
+          "startLine": 226,
+          "endLine": 228,
+          "params": [
+            "resource",
+            "id"
+          ]
+        },
+        {
+          "name": "getFixtureBillContext",
+          "startLine": 230,
+          "endLine": 275,
+          "params": [
+            "scope"
+          ]
+        },
+        {
+          "name": "findUniqueByIdentifier",
+          "startLine": 277,
+          "endLine": 295,
+          "params": [
+            "resourceType",
+            "system",
+            "value"
+          ]
+        },
+        {
+          "name": "resolveDemoSeedIds",
+          "startLine": 297,
+          "endLine": 317,
+          "params": []
+        },
+        {
+          "name": "isMissingMedplum",
+          "startLine": 319,
+          "endLine": 321,
+          "params": [
+            "error"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildNormalizedBillContext",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "getBillContextForSession",
+          "line": 199,
+          "isDefault": false
+        },
+        {
+          "name": "getFixtureBillContext",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "resolveDemoSeedIds",
+          "line": 297,
+          "isDefault": false
+        },
+        {
+          "name": "isMissingMedplum",
+          "line": 319,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "identifierValue",
+          "callee": "resource.identifier?.find",
+          "lineNumber": 56
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredId",
+          "lineNumber": 74
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredId",
+          "lineNumber": 75
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredId",
+          "lineNumber": 76
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredId",
+          "lineNumber": 77
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredId",
+          "lineNumber": 78
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredId",
+          "lineNumber": 79
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredId",
+          "lineNumber": 80
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 82
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 85
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 88
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 91
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 94
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "eob.insurance.some",
+          "lineNumber": 98
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 99
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 104
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 107
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 110
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "eob.item?.some",
+          "lineNumber": 114
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "item.encounter?.some",
+          "lineNumber": 115
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "referenceMatches",
+          "lineNumber": 116
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "normalizeEob",
+          "lineNumber": 123
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "requiredInvoiceAmount",
+          "lineNumber": 126
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "Math.abs",
+          "lineNumber": 127
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "normalized.warnings.push",
+          "lineNumber": 128
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "patient.name?.find",
+          "lineNumber": 132
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "encounter.period?.start?.slice",
+          "lineNumber": 136
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "patient.communication?.find",
+          "lineNumber": 140
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "preferredCommunication?.language.coding\n    ?.map((coding) => coding.code?.toLowerCase().split(\"-\")[0])\n    .find",
+          "lineNumber": 143
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "preferredCommunication?.language.coding\n    ?.map",
+          "lineNumber": 143
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "coding.code?.toLowerCase().split",
+          "lineNumber": 144
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "coding.code?.toLowerCase",
+          "lineNumber": 144
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "preferredCommunication?.language.coding?.find",
+          "lineNumber": 148
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "coding.code?.toLowerCase().split",
+          "lineNumber": 149
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "coding.code?.toLowerCase",
+          "lineNumber": 149
+        },
+        {
+          "caller": "buildNormalizedBillContext",
+          "callee": "identifierValue",
+          "lineNumber": 181
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "getMedplumClient",
+          "lineNumber": 202
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "Promise.all",
+          "lineNumber": 203
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "client.readResource",
+          "lineNumber": 204
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "client.readResource",
+          "lineNumber": 205
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "client.readResource",
+          "lineNumber": 206
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "client.readResource",
+          "lineNumber": 207
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "client.readResource",
+          "lineNumber": 208
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "client.readResource",
+          "lineNumber": 209
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "client.readResource",
+          "lineNumber": 210
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "identifierValue",
+          "lineNumber": 213
+        },
+        {
+          "caller": "getBillContextForSession",
+          "callee": "buildNormalizedBillContext",
+          "lineNumber": 214
+        },
+        {
+          "caller": "withFixtureIds",
+          "callee": "structuredClone",
+          "lineNumber": 227
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "withFixtureIds",
+          "lineNumber": 231
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "getFixtureResource",
+          "lineNumber": 231
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "getFixtureResources",
+          "lineNumber": 232
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "organizations.find",
+          "lineNumber": 233
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "organization.identifier?.some",
+          "lineNumber": 234
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "organizations.find",
+          "lineNumber": 236
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "organization.identifier?.some",
+          "lineNumber": 237
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "withFixtureIds",
+          "lineNumber": 242
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "withFixtureIds",
+          "lineNumber": 243
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "withFixtureIds",
+          "lineNumber": 244
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "getFixtureResource",
+          "lineNumber": 244
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "withFixtureIds",
+          "lineNumber": 245
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "getFixtureResource",
+          "lineNumber": 245
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "withFixtureIds",
+          "lineNumber": 246
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "getFixtureResource",
+          "lineNumber": 246
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "withFixtureIds",
+          "lineNumber": 247
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "getFixtureResource",
+          "lineNumber": 247
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "buildNormalizedBillContext",
+          "lineNumber": 263
+        },
+        {
+          "caller": "getFixtureBillContext",
+          "callee": "context.confidence.warnings.push",
+          "lineNumber": 273
+        },
+        {
+          "caller": "findUniqueByIdentifier",
+          "callee": "getMedplumClient",
+          "lineNumber": 282
+        },
+        {
+          "caller": "findUniqueByIdentifier",
+          "callee": "client.searchResources",
+          "lineNumber": 283
+        },
+        {
+          "caller": "findUniqueByIdentifier",
+          "callee": "requiredId",
+          "lineNumber": 294
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "Promise.all",
+          "lineNumber": 299
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "findUniqueByIdentifier",
+          "lineNumber": 300
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "findUniqueByIdentifier",
+          "lineNumber": 301
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "findUniqueByIdentifier",
+          "lineNumber": 302
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "findUniqueByIdentifier",
+          "lineNumber": 303
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "findUniqueByIdentifier",
+          "lineNumber": 304
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "findUniqueByIdentifier",
+          "lineNumber": 305
+        },
+        {
+          "caller": "resolveDemoSeedIds",
+          "callee": "findUniqueByIdentifier",
+          "lineNumber": 306
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 5,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/seed-medplum.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 182,
+      "nonEmptyLines": 167,
+      "functions": [
+        {
+          "name": "primaryIdentifier",
+          "startLine": 13,
+          "endLine": 21,
+          "params": [
+            "resource"
+          ]
+        },
+        {
+          "name": "conditionalQuery",
+          "startLine": 23,
+          "endLine": 25,
+          "params": [
+            "system",
+            "value"
+          ]
+        },
+        {
+          "name": "searchUnique",
+          "startLine": 27,
+          "endLine": 42,
+          "params": [
+            "client",
+            "resource"
+          ]
+        },
+        {
+          "name": "validateOnServer",
+          "startLine": 44,
+          "endLine": 53,
+          "params": [
+            "client",
+            "resource"
+          ]
+        },
+        {
+          "name": "seedResource",
+          "startLine": 55,
+          "endLine": 80,
+          "params": [
+            "client",
+            "resource"
+          ]
+        },
+        {
+          "name": "resolveFixtureReferences",
+          "startLine": 82,
+          "endLine": 95,
+          "params": [
+            "resource",
+            "references"
+          ]
+        },
+        {
+          "name": "assertCanonicalDemo",
+          "startLine": 97,
+          "endLine": 128,
+          "params": [
+            "resources"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 130,
+          "endLine": 176,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "primaryIdentifier",
+          "callee": "resource.identifier?.find",
+          "lineNumber": 14
+        },
+        {
+          "caller": "primaryIdentifier",
+          "callee": "entry.system?.startsWith",
+          "lineNumber": 15
+        },
+        {
+          "caller": "conditionalQuery",
+          "callee": "encodeURIComponent",
+          "lineNumber": 24
+        },
+        {
+          "caller": "searchUnique",
+          "callee": "primaryIdentifier",
+          "lineNumber": 31
+        },
+        {
+          "caller": "searchUnique",
+          "callee": "client.searchResources",
+          "lineNumber": 32
+        },
+        {
+          "caller": "validateOnServer",
+          "callee": "client.validateResource",
+          "lineNumber": 45
+        },
+        {
+          "caller": "validateOnServer",
+          "callee": "outcome.issue?.filter",
+          "lineNumber": 46
+        },
+        {
+          "caller": "validateOnServer",
+          "callee": "blocking.map((issue) => issue.details?.text ?? issue.diagnostics ?? issue.code).join",
+          "lineNumber": 50
+        },
+        {
+          "caller": "validateOnServer",
+          "callee": "blocking.map",
+          "lineNumber": 50
+        },
+        {
+          "caller": "seedResource",
+          "callee": "validateOnServer",
+          "lineNumber": 56
+        },
+        {
+          "caller": "seedResource",
+          "callee": "primaryIdentifier",
+          "lineNumber": 57
+        },
+        {
+          "caller": "seedResource",
+          "callee": "searchUnique",
+          "lineNumber": 58
+        },
+        {
+          "caller": "seedResource",
+          "callee": "client.updateResource",
+          "lineNumber": 61
+        },
+        {
+          "caller": "seedResource",
+          "callee": "client.createResourceIfNoneExist",
+          "lineNumber": 67
+        },
+        {
+          "caller": "seedResource",
+          "callee": "conditionalQuery",
+          "lineNumber": 69
+        },
+        {
+          "caller": "seedResource",
+          "callee": "searchUnique",
+          "lineNumber": 75
+        },
+        {
+          "caller": "resolveFixtureReferences",
+          "callee": "JSON.stringify",
+          "lineNumber": 86
+        },
+        {
+          "caller": "resolveFixtureReferences",
+          "callee": "serialized.replaceAll",
+          "lineNumber": 88
+        },
+        {
+          "caller": "resolveFixtureReferences",
+          "callee": "JSON.parse",
+          "lineNumber": 90
+        },
+        {
+          "caller": "resolveFixtureReferences",
+          "callee": "!isResource",
+          "lineNumber": 91
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "resources.find",
+          "lineNumber": 98
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "resources.find",
+          "lineNumber": 99
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "resources.find",
+          "lineNumber": 100
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "resources.find",
+          "lineNumber": 101
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "resources.find",
+          "lineNumber": 102
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "normalizeEob",
+          "lineNumber": 106
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "patient.communication?.find",
+          "lineNumber": 116
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "eob.item?.some",
+          "lineNumber": 122
+        },
+        {
+          "caller": "assertCanonicalDemo",
+          "callee": "item.encounter?.some",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "entries.flatMap",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "assertCanonicalDemo",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "client.startClientLogin",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "resolveFixtureReferences",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "seedResource",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "resolvedReferences.set",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "primaryIdentifier",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "ids.set",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 160
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "ids.get",
+          "lineNumber": 163
+        },
+        {
+          "caller": "main",
+          "callee": "ids.get",
+          "lineNumber": 164
+        },
+        {
+          "caller": "main",
+          "callee": "ids.get",
+          "lineNumber": 165
+        },
+        {
+          "caller": "main",
+          "callee": "ids.get",
+          "lineNumber": 166
+        },
+        {
+          "caller": "main",
+          "callee": "ids.get",
+          "lineNumber": 167
+        },
+        {
+          "caller": "main",
+          "callee": "ids.get",
+          "lineNumber": 168
+        },
+        {
+          "caller": "main",
+          "callee": "ids.get",
+          "lineNumber": 169
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/integration/fixture-bill-context.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 28,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/billing-math.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 40,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/eob-normalizer.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "demoEob",
+          "startLine": 8,
+          "endLine": 16,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "demoEob",
+          "callee": "fixture.entry.find",
+          "lineNumber": 9
+        },
+        {
+          "caller": "demoEob",
+          "callee": "!isResource",
+          "lineNumber": 12
+        },
+        {
+          "caller": "demoEob",
+          "callee": "structuredClone",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

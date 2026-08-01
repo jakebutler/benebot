@@ -1,0 +1,581 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 17,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 72,
+      "nonEmptyLines": 66,
+      "metrics": {}
+    },
+    {
+      "path": ".understand-anything/config.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "outputLanguage",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "app/globals.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 24,
+      "nonEmptyLines": 23,
+      "metrics": {}
+    },
+    {
+      "path": "app/layout.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "RootLayout",
+          "startLine": 21,
+          "endLine": 34,
+          "params": [
+            "{\n  children,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "RootLayout",
+          "line": 21,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "Home",
+          "startLine": 5,
+          "endLine": 51,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Home",
+          "line": 5,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "benebot-gold-packet/rejected-content.jsonl",
+      "language": "jsonl",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 11,
+      "metrics": {}
+    },
+    {
+      "path": "benebot-gold-packet/transcript-eval-cases.jsonl",
+      "language": "jsonl",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 24,
+      "metrics": {}
+    },
+    {
+      "path": "data/demo-resources.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 82,
+      "nonEmptyLines": 82,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "eslint.config.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/evaluation/conversation-evaluation.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 440,
+      "nonEmptyLines": 401,
+      "functions": [
+        {
+          "name": "findResearchRubricConflicts",
+          "startLine": 123,
+          "endLine": 138,
+          "params": [
+            "researchRubrics"
+          ]
+        },
+        {
+          "name": "classifyPacketToolName",
+          "startLine": 226,
+          "endLine": 232,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "collectPacketToolReferences",
+          "startLine": 234,
+          "endLine": 250,
+          "params": [
+            "options"
+          ]
+        },
+        {
+          "name": "readJsonFile",
+          "startLine": 261,
+          "endLine": 263,
+          "params": [
+            "filePath"
+          ]
+        },
+        {
+          "name": "readJsonLines",
+          "startLine": 265,
+          "endLine": 276,
+          "params": [
+            "filePath"
+          ]
+        },
+        {
+          "name": "loadGoldPacket",
+          "startLine": 278,
+          "endLine": 308,
+          "params": [
+            "packetDirectory"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "RUBRIC_IDS",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "EXECUTABLE_RUBRICS",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "eightRubricSpecSchema",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "findResearchRubricConflicts",
+          "line": 123,
+          "isDefault": false
+        },
+        {
+          "name": "transcriptEvalCaseSchema",
+          "line": 142,
+          "isDefault": false
+        },
+        {
+          "name": "toolPrerequisiteEntrySchema",
+          "line": 189,
+          "isDefault": false
+        },
+        {
+          "name": "toolPrerequisiteMatrixSchema",
+          "line": 197,
+          "isDefault": false
+        },
+        {
+          "name": "RUNTIME_TOOL_NAMES",
+          "line": 202,
+          "isDefault": false
+        },
+        {
+          "name": "DEFERRED_PACKET_TOOL_NAMES",
+          "line": 214,
+          "isDefault": false
+        },
+        {
+          "name": "classifyPacketToolName",
+          "line": 226,
+          "isDefault": false
+        },
+        {
+          "name": "collectPacketToolReferences",
+          "line": 234,
+          "isDefault": false
+        },
+        {
+          "name": "loadGoldPacket",
+          "line": 278,
+          "isDefault": false
+        },
+        {
+          "name": "evidenceReferenceSchema",
+          "line": 310,
+          "isDefault": false
+        },
+        {
+          "name": "reviewScoreSchema",
+          "line": 325,
+          "isDefault": false
+        },
+        {
+          "name": "applicabilitySchema",
+          "line": 326,
+          "isDefault": false
+        },
+        {
+          "name": "rubricScoreSchema",
+          "line": 328,
+          "isDefault": false
+        },
+        {
+          "name": "evaluationRunRecordSchema",
+          "line": 362,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "findResearchRubricConflicts",
+          "callee": "EXECUTABLE_RUBRICS.flatMap",
+          "lineNumber": 126
+        },
+        {
+          "caller": "findResearchRubricConflicts",
+          "callee": "researchRubrics.rubrics.find",
+          "lineNumber": 127
+        },
+        {
+          "caller": "classifyPacketToolName",
+          "callee": "(RUNTIME_TOOL_NAMES as readonly string[]).includes",
+          "lineNumber": 227
+        },
+        {
+          "caller": "classifyPacketToolName",
+          "callee": "(DEFERRED_PACKET_TOOL_NAMES as readonly string[]).includes",
+          "lineNumber": 228
+        },
+        {
+          "caller": "collectPacketToolReferences",
+          "callee": "names.add",
+          "lineNumber": 240
+        },
+        {
+          "caller": "collectPacketToolReferences",
+          "callee": "names.add",
+          "lineNumber": 241
+        },
+        {
+          "caller": "collectPacketToolReferences",
+          "callee": "names.add",
+          "lineNumber": 244
+        },
+        {
+          "caller": "collectPacketToolReferences",
+          "callee": "[...names]\n    .sort((left, right) => left.localeCompare(right))\n    .map",
+          "lineNumber": 247
+        },
+        {
+          "caller": "collectPacketToolReferences",
+          "callee": "[...names]\n    .sort",
+          "lineNumber": 247
+        },
+        {
+          "caller": "collectPacketToolReferences",
+          "callee": "left.localeCompare",
+          "lineNumber": 248
+        },
+        {
+          "caller": "collectPacketToolReferences",
+          "callee": "classifyPacketToolName",
+          "lineNumber": 249
+        },
+        {
+          "caller": "readJsonFile",
+          "callee": "JSON.parse",
+          "lineNumber": 262
+        },
+        {
+          "caller": "readJsonFile",
+          "callee": "readFileSync",
+          "lineNumber": 262
+        },
+        {
+          "caller": "readJsonLines",
+          "callee": "readFileSync(filePath, \"utf8\")\n    .split(/\\r?\\n/)\n    .filter((line) => line.trim().length > 0)\n    .map",
+          "lineNumber": 266
+        },
+        {
+          "caller": "readJsonLines",
+          "callee": "readFileSync(filePath, \"utf8\")\n    .split(/\\r?\\n/)\n    .filter",
+          "lineNumber": 266
+        },
+        {
+          "caller": "readJsonLines",
+          "callee": "readFileSync(filePath, \"utf8\")\n    .split",
+          "lineNumber": 266
+        },
+        {
+          "caller": "readJsonLines",
+          "callee": "readFileSync",
+          "lineNumber": 266
+        },
+        {
+          "caller": "readJsonLines",
+          "callee": "line.trim",
+          "lineNumber": 268
+        },
+        {
+          "caller": "readJsonLines",
+          "callee": "JSON.parse",
+          "lineNumber": 271
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "eightRubricSpecSchema.parse",
+          "lineNumber": 279
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "readJsonFile",
+          "lineNumber": 280
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "join",
+          "lineNumber": 280
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "readJsonLines",
+          "lineNumber": 282
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "join",
+          "lineNumber": 282
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "rawCases.map",
+          "lineNumber": 283
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "transcriptEvalCaseSchema.safeParse",
+          "lineNumber": 284
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "cases.map",
+          "lineNumber": 292
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "toolPrerequisiteMatrixSchema.parse",
+          "lineNumber": 297
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "readJsonFile",
+          "lineNumber": 298
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "join",
+          "lineNumber": 298
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "findResearchRubricConflicts",
+          "lineNumber": 303
+        },
+        {
+          "caller": "loadGoldPacket",
+          "callee": "collectPacketToolReferences",
+          "lineNumber": 306
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 17,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "next.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 9,
+      "nonEmptyLines": 7,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "playwright.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "postcss.config.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/e2e/text-happy-path.spec.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "sendText",
+          "startLine": 3,
+          "endLine": 6,
+          "params": [
+            "panel",
+            "message"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sendText",
+          "callee": "panel.locator(\"input\").fill",
+          "lineNumber": 4
+        },
+        {
+          "caller": "sendText",
+          "callee": "panel.locator",
+          "lineNumber": 4
+        },
+        {
+          "caller": "sendText",
+          "callee": "panel.locator(\"form button[type=submit]\").click",
+          "lineNumber": 5
+        },
+        {
+          "caller": "sendText",
+          "callee": "panel.locator",
+          "lineNumber": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/server-only.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/conversation-evaluation.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 75,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "vitest.config.mts",
+      "language": "mts",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 17,
+      "metrics": {}
+    }
+  ]
+}

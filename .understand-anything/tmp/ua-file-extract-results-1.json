@@ -1,0 +1,1898 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 19,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/api/tools/get-bill-context/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 100,
+      "nonEmptyLines": 93,
+      "functions": [
+        {
+          "name": "POST",
+          "startLine": 18,
+          "endLine": 100,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "runtime",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "POST",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "POST",
+          "callee": "verifyRequestSession",
+          "lineNumber": 20
+        },
+        {
+          "caller": "POST",
+          "callee": "inputSchema.parse",
+          "lineNumber": 21
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 21
+        },
+        {
+          "caller": "POST",
+          "callee": "getBillContextForSession",
+          "lineNumber": 24
+        },
+        {
+          "caller": "POST",
+          "callee": "isMissingMedplum",
+          "lineNumber": 26
+        },
+        {
+          "caller": "POST",
+          "callee": "getEnv",
+          "lineNumber": 26
+        },
+        {
+          "caller": "POST",
+          "callee": "getFixtureBillContext",
+          "lineNumber": 27
+        },
+        {
+          "caller": "POST",
+          "callee": "isMissingMedplum",
+          "lineNumber": 28
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 93
+        },
+        {
+          "caller": "POST",
+          "callee": "buildHistoricalRequiredSpokenSummary",
+          "lineNumber": 95
+        },
+        {
+          "caller": "POST",
+          "callee": "safeErrorResponse",
+          "lineNumber": 98
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/voice/benebot-panel.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 1103,
+      "nonEmptyLines": 1046,
+      "functions": [
+        {
+          "name": "BenefitValue",
+          "startLine": 208,
+          "endLine": 217,
+          "params": [
+            "{ label, value }"
+          ]
+        },
+        {
+          "name": "CurrentBenefitsCard",
+          "startLine": 219,
+          "endLine": 283,
+          "params": [
+            "{ result }"
+          ]
+        },
+        {
+          "name": "ResourceOptions",
+          "startLine": 285,
+          "endLine": 311,
+          "params": [
+            "{ resources }"
+          ]
+        },
+        {
+          "name": "FollowupStatus",
+          "startLine": 313,
+          "endLine": 335,
+          "params": [
+            "{ result }"
+          ]
+        },
+        {
+          "name": "VoicePanelContent",
+          "startLine": 342,
+          "endLine": 921,
+          "params": [
+            "{\n  sessionToken,\n  sessionLanguage,\n  onSessionLanguageChange,\n  events,\n  setEvents,\n  onClose,\n}"
+          ]
+        },
+        {
+          "name": "BeneBotPanel",
+          "startLine": 923,
+          "endLine": 1103,
+          "params": [
+            "{ sessionToken, onClose }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BeneBotPanel",
+          "line": 923,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "BenefitValue",
+          "callee": "moneyFormatter.format",
+          "lineNumber": 213
+        },
+        {
+          "caller": "CurrentBenefitsCard",
+          "callee": "result.benefits.copays.map",
+          "lineNumber": 262
+        },
+        {
+          "caller": "CurrentBenefitsCard",
+          "callee": "moneyFormatter.format",
+          "lineNumber": 264
+        },
+        {
+          "caller": "CurrentBenefitsCard",
+          "callee": "result.benefits.coinsurance.map",
+          "lineNumber": 268
+        },
+        {
+          "caller": "CurrentBenefitsCard",
+          "callee": "result.warnings.map",
+          "lineNumber": 278
+        },
+        {
+          "caller": "ResourceOptions",
+          "callee": "resources.map",
+          "lineNumber": 290
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useAgentState",
+          "lineNumber": 355
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useAgentConversation",
+          "lineNumber": 356
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useAgentMode",
+          "lineNumber": 357
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useAgentSession",
+          "lineNumber": 358
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useAgentMicrophone",
+          "lineNumber": 359
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useAgentPlayer",
+          "lineNumber": 360
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 361
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 362
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 363
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 364
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 372
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 373
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 374
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useState",
+          "lineNumber": 375
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useEffect",
+          "lineNumber": 378
+        },
+        {
+          "caller": "handleUserStartedSpeaking",
+          "callee": "setBargeInDetected",
+          "lineNumber": 382
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "agentSession.on",
+          "lineNumber": 384
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "agentSession.off",
+          "lineNumber": 386
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useCallback",
+          "lineNumber": 390
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "setEvents",
+          "lineNumber": 391
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "useCallback",
+          "lineNumber": 395
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "setFallbackMessages",
+          "lineNumber": 397
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "crypto.randomUUID",
+          "lineNumber": 399
+        },
+        {
+          "caller": "submitText",
+          "callee": "event.preventDefault",
+          "lineNumber": 406
+        },
+        {
+          "caller": "submitText",
+          "callee": "text.trim",
+          "lineNumber": 407
+        },
+        {
+          "caller": "submitText",
+          "callee": "setText",
+          "lineNumber": 409
+        },
+        {
+          "caller": "submitText",
+          "callee": "sendUserMessage",
+          "lineNumber": 412
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackBusy",
+          "lineNumber": 416
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 417
+        },
+        {
+          "caller": "submitText",
+          "callee": "routeTextFallbackIntent",
+          "lineNumber": 419
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 426
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 434
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackBusy",
+          "lineNumber": 440
+        },
+        {
+          "caller": "submitText",
+          "callee": "setBargeInDetected",
+          "lineNumber": 445
+        },
+        {
+          "caller": "submitText",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 449
+        },
+        {
+          "caller": "submitText",
+          "callee": "voiceBillResultSchema.parse",
+          "lineNumber": 455
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.parse",
+          "lineNumber": 455
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 456
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 463
+        },
+        {
+          "caller": "submitText",
+          "callee": "moneyFormatter.format",
+          "lineNumber": 466
+        },
+        {
+          "caller": "submitText",
+          "callee": "moneyFormatter.format",
+          "lineNumber": 466
+        },
+        {
+          "caller": "submitText",
+          "callee": "moneyFormatter.format",
+          "lineNumber": 467
+        },
+        {
+          "caller": "submitText",
+          "callee": "moneyFormatter.format",
+          "lineNumber": 467
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 470
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackBusy",
+          "lineNumber": 477
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 482
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 487
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackBusy",
+          "lineNumber": 493
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 498
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 499
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackBusy",
+          "lineNumber": 505
+        },
+        {
+          "caller": "submitText",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 511
+        },
+        {
+          "caller": "submitText",
+          "callee": "voiceBillResultSchema.parse",
+          "lineNumber": 517
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.parse",
+          "lineNumber": 517
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 518
+        },
+        {
+          "caller": "submitText",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 524
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.stringify",
+          "lineNumber": 526
+        },
+        {
+          "caller": "submitText",
+          "callee": "voiceBenefitsResultSchema.parse",
+          "lineNumber": 530
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.parse",
+          "lineNumber": 531
+        },
+        {
+          "caller": "submitText",
+          "callee": "setCurrentBenefits",
+          "lineNumber": 533
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 534
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 539
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 548
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackBusy",
+          "lineNumber": 555
+        },
+        {
+          "caller": "submitText",
+          "callee": "summaryLanguage",
+          "lineNumber": 577
+        },
+        {
+          "caller": "submitText",
+          "callee": "summaryParts.join",
+          "lineNumber": 578
+        },
+        {
+          "caller": "submitText",
+          "callee": "fallbackContext.resourcesOffered.map",
+          "lineNumber": 580
+        },
+        {
+          "caller": "submitText",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 591
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.stringify",
+          "lineNumber": 593
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.parse",
+          "lineNumber": 600
+        },
+        {
+          "caller": "submitText",
+          "callee": "voiceBillResultSchema.parse",
+          "lineNumber": 603
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 604
+        },
+        {
+          "caller": "submitText",
+          "callee": "voiceBenefitsResultSchema.parse",
+          "lineNumber": 618
+        },
+        {
+          "caller": "submitText",
+          "callee": "setCurrentBenefits",
+          "lineNumber": 619
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 620
+        },
+        {
+          "caller": "submitText",
+          "callee": "resourcesFallbackSchema.parse",
+          "lineNumber": 633
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 634
+        },
+        {
+          "caller": "submitText",
+          "callee": "followupFallbackSchema.parse",
+          "lineNumber": 651
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFollowupResult",
+          "lineNumber": 652
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackContext",
+          "lineNumber": 654
+        },
+        {
+          "caller": "submitText",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 661
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.stringify",
+          "lineNumber": 663
+        },
+        {
+          "caller": "submitText",
+          "callee": "summaryLanguage",
+          "lineNumber": 664
+        },
+        {
+          "caller": "submitText",
+          "callee": "fallbackContext.resourcesOffered.map",
+          "lineNumber": 675
+        },
+        {
+          "caller": "submitText",
+          "callee": "saveSummaryFallbackSchema.parse",
+          "lineNumber": 686
+        },
+        {
+          "caller": "submitText",
+          "callee": "JSON.parse",
+          "lineNumber": 687
+        },
+        {
+          "caller": "submitText",
+          "callee": "setSummaryResult",
+          "lineNumber": 689
+        },
+        {
+          "caller": "submitText",
+          "callee": "setSummaryResult",
+          "lineNumber": 692
+        },
+        {
+          "caller": "submitText",
+          "callee": "saveSummaryFallbackSchema.parse",
+          "lineNumber": 705
+        },
+        {
+          "caller": "submitText",
+          "callee": "setSummaryResult",
+          "lineNumber": 706
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFollowupResult",
+          "lineNumber": 724
+        },
+        {
+          "caller": "submitText",
+          "callee": "setSummaryResult",
+          "lineNumber": 729
+        },
+        {
+          "caller": "submitText",
+          "callee": "appendFallbackMessage",
+          "lineNumber": 738
+        },
+        {
+          "caller": "submitText",
+          "callee": "setFallbackBusy",
+          "lineNumber": 739
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "([\"es\", \"en\"] as const).map",
+          "lineNumber": 780
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "onSessionLanguageChange",
+          "lineNumber": 787
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "setText",
+          "lineNumber": 878
+        },
+        {
+          "caller": "VoicePanelContent",
+          "callee": "text.trim",
+          "lineNumber": 886
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useState",
+          "lineNumber": 924
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useState",
+          "lineNumber": 925
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useRef",
+          "lineNumber": 926
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useCallback",
+          "lineNumber": 931
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "setEvents",
+          "lineNumber": 932
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useCallback",
+          "lineNumber": 935
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "setEvents",
+          "lineNumber": 941
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "setSessionLanguage",
+          "lineNumber": 942
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useCallback",
+          "lineNumber": 945
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "fetch",
+          "lineNumber": 946
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "tokenResponseSchema.parse",
+          "lineNumber": 953
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "response.json",
+          "lineNumber": 953
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useMemo",
+          "lineNumber": 956
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "createDeepgramAgentConfig",
+          "lineNumber": 957
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "useCallback",
+          "lineNumber": 961
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 963
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.parse",
+          "lineNumber": 971
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "voiceBillResultSchema.safeParse",
+          "lineNumber": 974
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "voiceBillResultSchema.parse",
+          "lineNumber": 977
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.stringify",
+          "lineNumber": 978
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "voiceBenefitsResultSchema.safeParse",
+          "lineNumber": 985
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "voiceBenefitsResultSchema.parse",
+          "lineNumber": 988
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.stringify",
+          "lineNumber": 989
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "resourcesFallbackSchema.safeParse",
+          "lineNumber": 995
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "resources.data.resources.map",
+          "lineNumber": 997
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "followupFallbackSchema.parse",
+          "lineNumber": 1007
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.parse",
+          "lineNumber": 1008
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.parse",
+          "lineNumber": 1010
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.stringify",
+          "lineNumber": 1014
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "setTimeout",
+          "lineNumber": 1034
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "saveSummaryFallbackSchema.safeParse",
+          "lineNumber": 1035
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.parse",
+          "lineNumber": 1036
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 1037
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "setTimeout",
+          "lineNumber": 1046
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "saveSummaryFallbackSchema.safeParse",
+          "lineNumber": 1047
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "JSON.parse",
+          "lineNumber": 1048
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "dispatchBeneBotTool",
+          "lineNumber": 1049
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "appendActivity",
+          "lineNumber": 1059
+        },
+        {
+          "caller": "BeneBotPanel",
+          "callee": "new Date().toISOString",
+          "lineNumber": 1063
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/voice/tool-activity.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "ToolActivity",
+          "startLine": 3,
+          "endLine": 46,
+          "params": [
+            "{\n  events,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ToolActivity",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ToolActivity",
+          "callee": "events.slice(-5).map",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ToolActivity",
+          "callee": "events.slice",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "components/voice/transcript.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "Transcript",
+          "startLine": 7,
+          "endLine": 55,
+          "params": [
+            "{\n  conversation,\n  fallbackMessages,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Transcript",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Transcript",
+          "callee": "conversation.map",
+          "lineNumber": 25
+        },
+        {
+          "caller": "Transcript",
+          "callee": "fallbackMessages.map",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/billing/historical-narration.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 93,
+      "nonEmptyLines": 83,
+      "functions": [
+        {
+          "name": "formatUsd",
+          "startLine": 8,
+          "endLine": 15,
+          "params": [
+            "amount",
+            "language"
+          ]
+        },
+        {
+          "name": "formatDate",
+          "startLine": 17,
+          "endLine": 39,
+          "params": [
+            "value",
+            "language"
+          ]
+        },
+        {
+          "name": "spokenServiceDescription",
+          "startLine": 41,
+          "endLine": 49,
+          "params": [
+            "value",
+            "language"
+          ]
+        },
+        {
+          "name": "buildHistoricalRequiredSpokenSummary",
+          "startLine": 57,
+          "endLine": 93,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildHistoricalRequiredSpokenSummary",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "formatUsd",
+          "callee": "new Intl.NumberFormat(\"en-US\", {\n    minimumFractionDigits: 2,\n    maximumFractionDigits: 2,\n  }).format",
+          "lineNumber": 9
+        },
+        {
+          "caller": "formatDate",
+          "callee": "/^(\\d{4})-(\\d{2})-(\\d{2})$/.exec",
+          "lineNumber": 18
+        },
+        {
+          "caller": "formatDate",
+          "callee": "Date.UTC",
+          "lineNumber": 21
+        },
+        {
+          "caller": "formatDate",
+          "callee": "Number",
+          "lineNumber": 22
+        },
+        {
+          "caller": "formatDate",
+          "callee": "Number",
+          "lineNumber": 23
+        },
+        {
+          "caller": "formatDate",
+          "callee": "Number",
+          "lineNumber": 24
+        },
+        {
+          "caller": "formatDate",
+          "callee": "Number.isNaN",
+          "lineNumber": 29
+        },
+        {
+          "caller": "formatDate",
+          "callee": "parsed.getTime",
+          "lineNumber": 29
+        },
+        {
+          "caller": "formatDate",
+          "callee": "new Intl.DateTimeFormat(language === \"es\" ? \"es-US\" : \"en-US\", {\n    year: \"numeric\",\n    month: \"long\",\n    day: \"numeric\",\n    timeZone: \"UTC\",\n  }).format",
+          "lineNumber": 33
+        },
+        {
+          "caller": "spokenServiceDescription",
+          "callee": "value.trim().toLowerCase",
+          "lineNumber": 42
+        },
+        {
+          "caller": "spokenServiceDescription",
+          "callee": "value.trim",
+          "lineNumber": 42
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatDate",
+          "lineNumber": 68
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatDate",
+          "lineNumber": 69
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatDate",
+          "lineNumber": 70
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatDate",
+          "lineNumber": 71
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "spokenServiceDescription",
+          "lineNumber": 72
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "spokenServiceDescription",
+          "lineNumber": 73
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "[\n      `For ${serviceEn} on ${serviceDateEn} from ${context.providerName}, the historical Explanation of Benefits created on ${sourceDateEn} says the provider billed ${formatUsd(amounts.billedAmount, \"en\")}.`,\n      `It shows a contractual adjustment of ${formatUsd(amounts.contractualAdjustment, \"en\")}, leaving an allowed amount of ${formatUsd(amounts.allowedAmount, \"en\")}.`,\n      `Of that allowed amount, ${formatUsd(amounts.deductibleApplied, \"en\")} was applied to the deductible, the copay was ${formatUsd(amounts.copay, \"en\")}, and coinsurance was ${formatUsd(amounts.coinsuranceAmount, \"en\")}.`,\n      `The insurer paid ${formatUsd(amounts.insurerPaid, \"en\")}, and the historical patient responsibility was ${formatUsd(amounts.patientResponsibility, \"en\")}.`,\n      `The current invoice balance is ${formatUsd(context.currentBalance, \"en\")}.`,\n      \"This is a record of how the insurer adjudicated that historical claim, not proof that the claim or bill is correct. Current benefits are a separate, separately dated check and do not explain or validate this historical claim.\",\n    ].join",
+          "lineNumber": 76
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 77
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 78
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 78
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 79
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 79
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 79
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 80
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 80
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 81
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "[\n      `Para ${serviceEs}, con fecha de servicio del ${serviceDateEs} en ${context.providerName}, la Explicación de Beneficios histórica creada el ${sourceDateEs} indica que el proveedor facturó ${formatUsd(amounts.billedAmount, \"es\")}.`,\n      `Muestra un ajuste contractual de ${formatUsd(amounts.contractualAdjustment, \"es\")}, lo que dejó un monto permitido de ${formatUsd(amounts.allowedAmount, \"es\")}.`,\n      `De ese monto permitido, ${formatUsd(amounts.deductibleApplied, \"es\")} se aplicaron al deducible, el copago fue de ${formatUsd(amounts.copay, \"es\")} y el coaseguro fue de ${formatUsd(amounts.coinsuranceAmount, \"es\")}.`,\n      `La aseguradora pagó ${formatUsd(amounts.insurerPaid, \"es\")}, y la responsabilidad histórica de la paciente fue de ${formatUsd(amounts.patientResponsibility, \"es\")}.`,\n      `El saldo actual de la factura es de ${formatUsd(context.currentBalance, \"es\")}.`,\n      \"Este es un registro de cómo la aseguradora adjudicó ese reclamo histórico, no una prueba de que el reclamo o la factura sean correctos. Los beneficios actuales requieren una consulta separada con su propia fecha y no explican ni validan este reclamo histórico.\",\n    ].join",
+          "lineNumber": 84
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 85
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 86
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 86
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 87
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 87
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 87
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 88
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 88
+        },
+        {
+          "caller": "buildHistoricalRequiredSpokenSummary",
+          "callee": "formatUsd",
+          "lineNumber": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/contracts.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 178,
+      "nonEmptyLines": 163,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/deepgram/concept-guidance.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 160,
+      "nonEmptyLines": 153,
+      "functions": [
+        {
+          "name": "createApprovedConceptGuidance",
+          "startLine": 147,
+          "endLine": 160,
+          "params": [
+            "language"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createApprovedConceptGuidance",
+          "line": 147,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createApprovedConceptGuidance",
+          "callee": "conceptIds\n    .map((conceptId) => {\n      const entry = compiledConcepts[conceptId][language];\n      return [\n        `- ${conceptId}: ${generalDefinitions[conceptId][language]}`,\n        `  Preferred terms: ${entry.terms}`,\n        `  Approved optional analogy: ${entry.optionalAnalogy}`,\n        `  Analogy boundary: ${entry.analogyBoundary}`,\n        `  Never say: ${entry.forbiddenPhrases.join(\" | \")}`,\n      ].join(\"\\n\");\n    })\n    .join",
+          "lineNumber": 148
+        },
+        {
+          "caller": "createApprovedConceptGuidance",
+          "callee": "conceptIds\n    .map",
+          "lineNumber": 148
+        },
+        {
+          "caller": "createApprovedConceptGuidance",
+          "callee": "[\n        `- ${conceptId}: ${generalDefinitions[conceptId][language]}`,\n        `  Preferred terms: ${entry.terms}`,\n        `  Approved optional analogy: ${entry.optionalAnalogy}`,\n        `  Analogy boundary: ${entry.analogyBoundary}`,\n        `  Never say: ${entry.forbiddenPhrases.join(\" | \")}`,\n      ].join",
+          "lineNumber": 151
+        },
+        {
+          "caller": "createApprovedConceptGuidance",
+          "callee": "entry.forbiddenPhrases.join",
+          "lineNumber": 156
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/deepgram/config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 69,
+      "functions": [
+        {
+          "name": "createDeepgramAgentConfig",
+          "startLine": 31,
+          "endLine": 75,
+          "params": [
+            "tokenFactory",
+            "language"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BENEBOT_FLUX_KEYTERMS",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "createDeepgramAgentConfig",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createDeepgramAgentConfig",
+          "callee": "createBeneBotAgentPrompt",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/deepgram/prerequisites.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "createToolPrerequisitePrompt",
+          "startLine": 43,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TOOL_PREREQUISITES",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "createToolPrerequisitePrompt",
+          "line": 43,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createToolPrerequisitePrompt",
+          "callee": "(Object.entries(TOOL_PREREQUISITES) as Array<[ToolName, ToolPrerequisite]>)\n    .map(\n      ([tool, rule]) =>\n        `- ${tool}: USE WHEN ${rule.useWhen} BEFORE OUTPUT ${rule.mustBeTrueBeforeOutput} PERMITTED ${rule.permittedOutput} ON FAILURE ${rule.failureBehavior}`,\n    )\n    .join",
+          "lineNumber": 44
+        },
+        {
+          "caller": "createToolPrerequisitePrompt",
+          "callee": "(Object.entries(TOOL_PREREQUISITES) as Array<[ToolName, ToolPrerequisite]>)\n    .map",
+          "lineNumber": 44
+        },
+        {
+          "caller": "createToolPrerequisitePrompt",
+          "callee": "Object.entries",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/deepgram/prompt.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 75,
+      "functions": [
+        {
+          "name": "createBeneBotAgentPrompt",
+          "startLine": 76,
+          "endLine": 89,
+          "params": [
+            "language"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BENEBOT_AGENT_PROMPT",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "createBeneBotAgentPrompt",
+          "line": 76,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createBeneBotAgentPrompt",
+          "callee": "createToolPrerequisitePrompt",
+          "lineNumber": 80
+        },
+        {
+          "caller": "createBeneBotAgentPrompt",
+          "callee": "createApprovedConceptGuidance",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/deepgram/text-fallback.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 215,
+      "nonEmptyLines": 198,
+      "functions": [
+        {
+          "name": "inferTextLanguage",
+          "startLine": 53,
+          "endLine": 57,
+          "params": [
+            "message",
+            "current"
+          ]
+        },
+        {
+          "name": "categorizeBillingIssue",
+          "startLine": 59,
+          "endLine": 116,
+          "params": [
+            "message",
+            "language"
+          ]
+        },
+        {
+          "name": "routeTextFallbackIntent",
+          "startLine": 118,
+          "endLine": 207,
+          "params": [
+            "message",
+            "state"
+          ]
+        },
+        {
+          "name": "summaryLanguage",
+          "startLine": 209,
+          "endLine": 215,
+          "params": [
+            "usedEnglish",
+            "usedSpanish"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "inferTextLanguage",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "categorizeBillingIssue",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "routeTextFallbackIntent",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "summaryLanguage",
+          "line": 209,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "inferTextLanguage",
+          "callee": "englishRequest.test",
+          "lineNumber": 54
+        },
+        {
+          "caller": "inferTextLanguage",
+          "callee": "spanishRequest.test",
+          "lineNumber": 55
+        },
+        {
+          "caller": "inferTextLanguage",
+          "callee": "spanishWords.test",
+          "lineNumber": 55
+        },
+        {
+          "caller": "categorizeBillingIssue",
+          "callee": "message.toLowerCase",
+          "lineNumber": 63
+        },
+        {
+          "caller": "categorizeBillingIssue",
+          "callee": "/deductible|deducible/.test",
+          "lineNumber": 64
+        },
+        {
+          "caller": "categorizeBillingIssue",
+          "callee": "/coinsurance|coaseguro|coseguro/.test",
+          "lineNumber": 73
+        },
+        {
+          "caller": "categorizeBillingIssue",
+          "callee": "/not mine|didn'?t receive|don'?t recognize|no recibí|no recibi|no reconozco/.test",
+          "lineNumber": 82
+        },
+        {
+          "caller": "categorizeBillingIssue",
+          "callee": "/wrong amount|dispute|incorrect|cantidad incorrecta|monto incorrecto|disput/.test",
+          "lineNumber": 91
+        },
+        {
+          "caller": "categorizeBillingIssue",
+          "callee": "hardshipIntent.test",
+          "lineNumber": 100
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "message.trim",
+          "lineNumber": 122
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "inferTextLanguage",
+          "lineNumber": 123
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "explicitConfirmation.test",
+          "lineNumber": 125
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "allowedAmountInterruption.test",
+          "lineNumber": 138
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "confusionIntent.test",
+          "lineNumber": 142
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "categorizeBillingIssue",
+          "lineNumber": 146
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "saveIntent.test",
+          "lineNumber": 150
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "billIntent.test",
+          "lineNumber": 160
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "benefitsIntent.test",
+          "lineNumber": 161
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "hardshipIntent.test",
+          "lineNumber": 185
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "spanishRequest.test",
+          "lineNumber": 195
+        },
+        {
+          "caller": "routeTextFallbackIntent",
+          "callee": "englishRequest.test",
+          "lineNumber": 195
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/deepgram/tools.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 222,
+      "nonEmptyLines": 213,
+      "functions": [
+        {
+          "name": "isToolName",
+          "startLine": 175,
+          "endLine": 177,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "dispatchBeneBotTool",
+          "startLine": 179,
+          "endLine": 222,
+          "params": [
+            "options"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DEEPGRAM_TOOL_DEFINITIONS",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "TOOL_LABELS",
+          "line": 167,
+          "isDefault": false
+        },
+        {
+          "name": "isToolName",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "dispatchBeneBotTool",
+          "line": 179,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "isToolName",
+          "lineNumber": 186
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "JSON.stringify",
+          "lineNumber": 187
+        },
+        {
+          "caller": "activity",
+          "callee": "onActivity",
+          "lineNumber": 191
+        },
+        {
+          "caller": "activity",
+          "callee": "new Date().toISOString",
+          "lineNumber": 195
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "activity",
+          "lineNumber": 199
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "JSON.parse",
+          "lineNumber": 200
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "toolArguments[name].parse",
+          "lineNumber": 201
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "fetch",
+          "lineNumber": 202
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "JSON.stringify",
+          "lineNumber": 208
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "response.json",
+          "lineNumber": 210
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "activity",
+          "lineNumber": 214
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "JSON.stringify",
+          "lineNumber": 215
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "activity",
+          "lineNumber": 217
+        },
+        {
+          "caller": "dispatchBeneBotTool",
+          "callee": "JSON.stringify",
+          "lineNumber": 218
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/resources/provider.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 63,
+      "functions": [
+        {
+          "name": "toSupportResource",
+          "startLine": 38,
+          "endLine": 52,
+          "params": [
+            "resource",
+            "language"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "LocalJsonSupportResourceProvider",
+          "startLine": 54,
+          "endLine": 71,
+          "methods": [
+            "search"
+          ],
+          "properties": [
+            "resources"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LocalJsonSupportResourceProvider",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "localSupportResourceProvider",
+          "line": 73,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "search",
+          "callee": "Math.min",
+          "lineNumber": 58
+        },
+        {
+          "caller": "search",
+          "callee": "Math.max",
+          "lineNumber": 58
+        },
+        {
+          "caller": "search",
+          "callee": "this.resources\n      .filter((resource) => resource.needs.includes(input.need) && resource.languages.includes(input.language))\n      .sort((a, b) => sourceRank[a.sourceType] - sourceRank[b.sourceType] || b.priority - a.priority)\n      .slice(0, limit)\n      .map",
+          "lineNumber": 59
+        },
+        {
+          "caller": "search",
+          "callee": "this.resources\n      .filter((resource) => resource.needs.includes(input.need) && resource.languages.includes(input.language))\n      .sort((a, b) => sourceRank[a.sourceType] - sourceRank[b.sourceType] || b.priority - a.priority)\n      .slice",
+          "lineNumber": 59
+        },
+        {
+          "caller": "search",
+          "callee": "this.resources\n      .filter((resource) => resource.needs.includes(input.need) && resource.languages.includes(input.language))\n      .sort",
+          "lineNumber": 59
+        },
+        {
+          "caller": "search",
+          "callee": "this.resources\n      .filter",
+          "lineNumber": 59
+        },
+        {
+          "caller": "search",
+          "callee": "resource.needs.includes",
+          "lineNumber": 60
+        },
+        {
+          "caller": "search",
+          "callee": "resource.languages.includes",
+          "lineNumber": 60
+        },
+        {
+          "caller": "search",
+          "callee": "toSupportResource",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "tests/resource-provider.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/deepgram-config.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 48,
+      "nonEmptyLines": 43,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/deepgram-prompt.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 68,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/deepgram-tools.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 100,
+      "nonEmptyLines": 88,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/historical-narration.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 98,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/text-fallback.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 114,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

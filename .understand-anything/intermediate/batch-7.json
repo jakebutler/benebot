@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "config:fixtures/benebot-fhir-seed.json",
+      "type": "config",
+      "name": "benebot-fhir-seed.json",
+      "filePath": "fixtures/benebot-fhir-seed.json",
+      "summary": "Defines the synthetic FHIR R4 transaction bundle for BeneBot's Jane Doe billing scenario, linking the patient, provider, payer, coverage, encounter, ExplanationOfBenefit, and invoice. Its adjudication totals encode the canonical reconciled $620 patient-responsibility example used by the demo and tests.",
+      "tags": ["configuration", "fhir-r4", "synthetic-data", "billing-fixture", "medplum"],
+      "complexity": "complex",
+      "languageNotes": "The JSON models a FHIR transaction Bundle with urn:uuid references so dependent resources can be resolved before idempotent Medplum writes."
+    },
+    {
+      "id": "config:fixtures/demo-resources.json",
+      "type": "config",
+      "name": "demo-resources.json",
+      "filePath": "fixtures/demo-resources.json",
+      "summary": "Catalogs five bilingual synthetic support resources for payment plans, billing review, payer contact, advocacy, and financial assistance. Each record carries provenance, verification status, fictional-data disclosure, contact hours, and prioritized English and Spanish instructions.",
+      "tags": ["configuration", "synthetic-data", "bilingual", "resource-directory", "provenance"],
+      "complexity": "moderate",
+      "languageNotes": "Each resource stores parallel en/es summaries and instruction arrays while keeping verification and disclosure metadata language-independent."
+    },
+    {
+      "id": "config:fixtures/stedi-aetna-test-request.json",
+      "type": "config",
+      "name": "stedi-aetna-test-request.json",
+      "filePath": "fixtures/stedi-aetna-test-request.json",
+      "summary": "Captures the sole synthetic Aetna eligibility request permitted for BeneBot's Stedi test integration. It fixes the trading partner, provider NPI, Jane Doe subscriber identity, and service type 30 so deviations can fail before a network call.",
+      "tags": ["configuration", "stedi", "eligibility", "synthetic-data", "safety-guard"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:fixtures/stedi-normalized-fallback.json",
+      "type": "config",
+      "name": "stedi-normalized-fallback.json",
+      "filePath": "fixtures/stedi-normalized-fallback.json",
+      "summary": "Provides a visibly labeled normalized fallback for current-benefits retrieval when live Stedi test data is unavailable. It preserves a separate check timestamp, deductible and out-of-pocket scopes, sample copay and coinsurance details, and warnings that the fallback does not explain historical claim adjudication.",
+      "tags": ["configuration", "stedi", "fallback", "current-benefits", "safety-labeling"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:fixtures/benebot-fhir-seed.json",
+      "target": "file:lib/medplum/demo-fixture.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:fixtures/benebot-fhir-seed.json",
+      "target": "file:tests/unit/eob-normalizer.test.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:fixtures/stedi-aetna-test-request.json",
+      "target": "config:fixtures/stedi-normalized-fallback.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:fixtures/stedi-normalized-fallback.json",
+      "target": "file:lib/stedi/eligibility.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

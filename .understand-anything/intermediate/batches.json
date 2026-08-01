@@ -1,0 +1,1370 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 89,
+  "totalBatches": 8,
+  "exportsByPath": {
+    ".understand-anything/.understandignore": [],
+    "app/api/benebot/session/route.ts": [
+      "POST"
+    ],
+    "app/api/deepgram-token/route.ts": [
+      "GET"
+    ],
+    "app/api/tools/get-bill-context/route.ts": [
+      "runtime",
+      "POST"
+    ],
+    "app/api/tools/refresh-benefits/route.ts": [
+      "runtime",
+      "POST"
+    ],
+    "app/api/tools/request-followup/route.ts": [
+      "runtime",
+      "POST"
+    ],
+    "app/api/tools/save-summary/route.ts": [
+      "runtime",
+      "POST"
+    ],
+    "app/api/tools/search-resources/route.ts": [
+      "runtime",
+      "POST"
+    ],
+    "app/bill/[invoiceId]/page.tsx": [
+      "BillPage"
+    ],
+    "app/layout.tsx": [
+      "metadata",
+      "RootLayout"
+    ],
+    "app/page.tsx": [
+      "Home"
+    ],
+    "app/staff/page.tsx": [
+      "dynamic",
+      "StaffPage"
+    ],
+    "benebot-gold-packet/rejected-content.jsonl": [],
+    "benebot-gold-packet/transcript-eval-cases.jsonl": [],
+    "components/bill/bill-breakdown.tsx": [
+      "BillBreakdown"
+    ],
+    "components/bill/bill-experience.tsx": [
+      "BillExperience"
+    ],
+    "components/staff/artifact-timeline.tsx": [
+      "ArtifactTimeline"
+    ],
+    "components/voice/benebot-panel.tsx": [
+      "BeneBotPanel"
+    ],
+    "components/voice/tool-activity.tsx": [
+      "ToolActivity"
+    ],
+    "components/voice/transcript.tsx": [
+      "Transcript"
+    ],
+    "eslint.config.mjs": [],
+    "lib/billing/historical-narration.ts": [
+      "buildHistoricalRequiredSpokenSummary"
+    ],
+    "lib/billing/math.ts": [
+      "BILL_MATH_TOLERANCE",
+      "reconcileBillMath"
+    ],
+    "lib/billing/normalize-eob.ts": [
+      "BillNormalizationError",
+      "normalizeEob"
+    ],
+    "lib/billing/types.ts": [],
+    "lib/contracts.ts": [],
+    "lib/deepgram/concept-guidance.ts": [
+      "createApprovedConceptGuidance"
+    ],
+    "lib/deepgram/config.ts": [
+      "BENEBOT_FLUX_KEYTERMS",
+      "createDeepgramAgentConfig"
+    ],
+    "lib/deepgram/prerequisites.ts": [
+      "TOOL_PREREQUISITES",
+      "createToolPrerequisitePrompt"
+    ],
+    "lib/deepgram/prompt.ts": [
+      "BENEBOT_AGENT_PROMPT",
+      "createBeneBotAgentPrompt"
+    ],
+    "lib/deepgram/text-fallback.ts": [
+      "inferTextLanguage",
+      "categorizeBillingIssue",
+      "routeTextFallbackIntent",
+      "summaryLanguage"
+    ],
+    "lib/deepgram/tools.ts": [
+      "DEEPGRAM_TOOL_DEFINITIONS",
+      "TOOL_LABELS",
+      "isToolName",
+      "dispatchBeneBotTool"
+    ],
+    "lib/env.ts": [
+      "getEnv",
+      "requireMedplumEnv",
+      "requireDeepgramEnv",
+      "requireStediEnv"
+    ],
+    "lib/errors.ts": [
+      "BeneBotError",
+      "safeErrorResponse"
+    ],
+    "lib/evaluation/conversation-evaluation.ts": [
+      "RUBRIC_IDS",
+      "EXECUTABLE_RUBRICS",
+      "eightRubricSpecSchema",
+      "findResearchRubricConflicts",
+      "transcriptEvalCaseSchema",
+      "toolPrerequisiteEntrySchema",
+      "toolPrerequisiteMatrixSchema",
+      "RUNTIME_TOOL_NAMES",
+      "DEFERRED_PACKET_TOOL_NAMES",
+      "classifyPacketToolName",
+      "collectPacketToolReferences",
+      "loadGoldPacket",
+      "evidenceReferenceSchema",
+      "reviewScoreSchema",
+      "applicabilitySchema",
+      "rubricScoreSchema",
+      "evaluationRunRecordSchema"
+    ],
+    "lib/medplum/constants.ts": [
+      "IDENTIFIER_SYSTEMS",
+      "DEMO_IDENTIFIERS"
+    ],
+    "lib/medplum/demo-fixture.ts": [
+      "demoSeedBundle",
+      "getFixtureResource",
+      "getFixtureResources"
+    ],
+    "lib/medplum/queries.ts": [
+      "buildNormalizedBillContext",
+      "getBillContextForSession",
+      "getFixtureBillContext",
+      "resolveDemoSeedIds",
+      "isMissingMedplum"
+    ],
+    "lib/medplum/server.ts": [
+      "MedplumNotConfiguredError",
+      "isMedplumConfigured",
+      "getMedplumClient"
+    ],
+    "lib/medplum/write-artifacts.ts": [
+      "createFollowupTask",
+      "createConversationCommunication",
+      "persistEligibilityResult"
+    ],
+    "lib/resources/provider.ts": [
+      "LocalJsonSupportResourceProvider",
+      "localSupportResourceProvider"
+    ],
+    "lib/session.ts": [
+      "BENEBOT_SESSION_ISSUER",
+      "BENEBOT_SESSION_AUDIENCE",
+      "DEFAULT_SESSION_TTL_SECONDS",
+      "DEMO_SESSION_SCOPE",
+      "createBeneBotSession",
+      "verifyBeneBotSession",
+      "getBearerToken",
+      "verifyRequestSession",
+      "enforceDemoRateLimit"
+    ],
+    "lib/stedi/eligibility.ts": [
+      "STEDI_TEST_REQUEST",
+      "buildCurrentBenefitsSpokenSummary",
+      "deriveDeductibleSummary",
+      "assertStediTestIdentity",
+      "normalizeStediResponse",
+      "loadFixtureFallback",
+      "DirectStediTestProvider",
+      "createEligibilityProvider"
+    ],
+    "next.config.ts": [],
+    "playwright.config.ts": [],
+    "postcss.config.mjs": [],
+    "scripts/seed-medplum.ts": [],
+    "tests/e2e/text-happy-path.spec.ts": [],
+    "tests/integration/fixture-bill-context.test.ts": [],
+    "tests/integration/medplum-billing-case.test.ts": [],
+    "tests/resource-provider.test.ts": [],
+    "tests/server-only.ts": [],
+    "tests/stedi-eligibility.test.ts": [],
+    "tests/unit/billing-math.test.ts": [],
+    "tests/unit/conversation-evaluation.test.ts": [],
+    "tests/unit/deepgram-config.test.ts": [],
+    "tests/unit/deepgram-prompt.test.ts": [],
+    "tests/unit/deepgram-tools.test.ts": [],
+    "tests/unit/eob-normalizer.test.ts": [],
+    "tests/unit/historical-narration.test.ts": [],
+    "tests/unit/session.test.ts": [],
+    "tests/unit/text-fallback.test.ts": [],
+    "vitest.config.mts": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "app/api/tools/get-bill-context/route.ts",
+          "language": "typescript",
+          "sizeLines": 100,
+          "fileCategory": "code"
+        },
+        {
+          "path": "components/voice/benebot-panel.tsx",
+          "language": "typescript",
+          "sizeLines": 1103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "components/voice/tool-activity.tsx",
+          "language": "typescript",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "components/voice/transcript.tsx",
+          "language": "typescript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/billing/historical-narration.ts",
+          "language": "typescript",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/contracts.ts",
+          "language": "typescript",
+          "sizeLines": 178,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/deepgram/concept-guidance.ts",
+          "language": "typescript",
+          "sizeLines": 160,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/deepgram/config.ts",
+          "language": "typescript",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/deepgram/prerequisites.ts",
+          "language": "typescript",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/deepgram/prompt.ts",
+          "language": "typescript",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/deepgram/text-fallback.ts",
+          "language": "typescript",
+          "sizeLines": 215,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/deepgram/tools.ts",
+          "language": "typescript",
+          "sizeLines": 222,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/resources/provider.ts",
+          "language": "typescript",
+          "sizeLines": 73,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/resource-provider.test.ts",
+          "language": "typescript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/deepgram-config.test.ts",
+          "language": "typescript",
+          "sizeLines": 48,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/deepgram-prompt.test.ts",
+          "language": "typescript",
+          "sizeLines": 78,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/deepgram-tools.test.ts",
+          "language": "typescript",
+          "sizeLines": 100,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/historical-narration.test.ts",
+          "language": "typescript",
+          "sizeLines": 109,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/text-fallback.test.ts",
+          "language": "typescript",
+          "sizeLines": 128,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "app/api/tools/get-bill-context/route.ts": [
+          "lib/billing/historical-narration.ts",
+          "lib/contracts.ts",
+          "lib/env.ts",
+          "lib/errors.ts",
+          "lib/medplum/queries.ts",
+          "lib/session.ts"
+        ],
+        "components/voice/benebot-panel.tsx": [
+          "components/voice/tool-activity.tsx",
+          "components/voice/transcript.tsx",
+          "lib/contracts.ts",
+          "lib/deepgram/config.ts",
+          "lib/deepgram/text-fallback.ts",
+          "lib/deepgram/tools.ts"
+        ],
+        "components/voice/tool-activity.tsx": [
+          "lib/contracts.ts"
+        ],
+        "components/voice/transcript.tsx": [],
+        "lib/billing/historical-narration.ts": [
+          "lib/contracts.ts"
+        ],
+        "lib/contracts.ts": [],
+        "lib/deepgram/concept-guidance.ts": [
+          "lib/contracts.ts"
+        ],
+        "lib/deepgram/config.ts": [
+          "lib/contracts.ts",
+          "lib/deepgram/prompt.ts",
+          "lib/deepgram/tools.ts"
+        ],
+        "lib/deepgram/prerequisites.ts": [
+          "lib/contracts.ts"
+        ],
+        "lib/deepgram/prompt.ts": [
+          "lib/contracts.ts",
+          "lib/deepgram/concept-guidance.ts",
+          "lib/deepgram/prerequisites.ts"
+        ],
+        "lib/deepgram/text-fallback.ts": [
+          "lib/contracts.ts"
+        ],
+        "lib/deepgram/tools.ts": [
+          "lib/contracts.ts",
+          "lib/deepgram/prerequisites.ts"
+        ],
+        "lib/resources/provider.ts": [
+          "data/demo-resources.json",
+          "lib/contracts.ts"
+        ],
+        "tests/resource-provider.test.ts": [
+          "lib/resources/provider.ts"
+        ],
+        "tests/unit/deepgram-config.test.ts": [
+          "lib/deepgram/config.ts"
+        ],
+        "tests/unit/deepgram-prompt.test.ts": [
+          "benebot-gold-packet/runtime-concepts.json",
+          "lib/deepgram/concept-guidance.ts",
+          "lib/deepgram/prerequisites.ts",
+          "lib/deepgram/prompt.ts"
+        ],
+        "tests/unit/deepgram-tools.test.ts": [
+          "lib/deepgram/tools.ts"
+        ],
+        "tests/unit/historical-narration.test.ts": [
+          "lib/billing/historical-narration.ts",
+          "lib/contracts.ts"
+        ],
+        "tests/unit/text-fallback.test.ts": [
+          "lib/deepgram/text-fallback.ts"
+        ]
+      },
+      "neighborMap": {
+        "app/api/tools/get-bill-context/route.ts": [
+          {
+            "path": "lib/env.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "getEnv",
+              "requireMedplumEnv",
+              "requireDeepgramEnv",
+              "requireStediEnv"
+            ]
+          },
+          {
+            "path": "lib/errors.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "BeneBotError",
+              "safeErrorResponse"
+            ]
+          },
+          {
+            "path": "lib/medplum/queries.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "buildNormalizedBillContext",
+              "getBillContextForSession",
+              "getFixtureBillContext",
+              "resolveDemoSeedIds",
+              "isMissingMedplum"
+            ]
+          },
+          {
+            "path": "lib/session.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "BENEBOT_SESSION_ISSUER",
+              "BENEBOT_SESSION_AUDIENCE",
+              "DEFAULT_SESSION_TTL_SECONDS",
+              "DEMO_SESSION_SCOPE",
+              "createBeneBotSession",
+              "verifyBeneBotSession",
+              "getBearerToken",
+              "verifyRequestSession",
+              "enforceDemoRateLimit"
+            ]
+          }
+        ],
+        "components/voice/benebot-panel.tsx": [
+          {
+            "path": "components/bill/bill-experience.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "BillExperience"
+            ]
+          }
+        ],
+        "lib/contracts.ts": [
+          {
+            "path": "lib/medplum/write-artifacts.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "createFollowupTask",
+              "createConversationCommunication",
+              "persistEligibilityResult"
+            ]
+          },
+          {
+            "path": "lib/stedi/eligibility.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "STEDI_TEST_REQUEST",
+              "buildCurrentBenefitsSpokenSummary",
+              "deriveDeductibleSummary",
+              "assertStediTestIdentity",
+              "normalizeStediResponse",
+              "loadFixtureFallback",
+              "DirectStediTestProvider",
+              "createEligibilityProvider"
+            ]
+          }
+        ],
+        "lib/resources/provider.ts": [
+          {
+            "path": "data/demo-resources.json",
+            "batchIndex": 8,
+            "symbols": []
+          },
+          {
+            "path": "app/api/tools/search-resources/route.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "runtime",
+              "POST"
+            ]
+          }
+        ],
+        "tests/unit/deepgram-prompt.test.ts": [
+          {
+            "path": "benebot-gold-packet/runtime-concepts.json",
+            "batchIndex": 6,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "app/api/benebot/session/route.ts",
+          "language": "typescript",
+          "sizeLines": 59,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/api/deepgram-token/route.ts",
+          "language": "typescript",
+          "sizeLines": 56,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/api/tools/refresh-benefits/route.ts",
+          "language": "typescript",
+          "sizeLines": 51,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/api/tools/request-followup/route.ts",
+          "language": "typescript",
+          "sizeLines": 66,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/api/tools/save-summary/route.ts",
+          "language": "typescript",
+          "sizeLines": 44,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/api/tools/search-resources/route.ts",
+          "language": "typescript",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/env.ts",
+          "language": "typescript",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/errors.ts",
+          "language": "typescript",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/medplum/server.ts",
+          "language": "typescript",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/medplum/write-artifacts.ts",
+          "language": "typescript",
+          "sizeLines": 276,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/session.ts",
+          "language": "typescript",
+          "sizeLines": 192,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/stedi/eligibility.ts",
+          "language": "typescript",
+          "sizeLines": 427,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/integration/medplum-billing-case.test.ts",
+          "language": "typescript",
+          "sizeLines": 174,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/stedi-eligibility.test.ts",
+          "language": "typescript",
+          "sizeLines": 180,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/session.test.ts",
+          "language": "typescript",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "app/api/benebot/session/route.ts": [
+          "lib/errors.ts",
+          "lib/session.ts"
+        ],
+        "app/api/deepgram-token/route.ts": [
+          "lib/errors.ts",
+          "lib/session.ts"
+        ],
+        "app/api/tools/refresh-benefits/route.ts": [
+          "lib/env.ts",
+          "lib/errors.ts",
+          "lib/medplum/write-artifacts.ts",
+          "lib/session.ts",
+          "lib/stedi/eligibility.ts"
+        ],
+        "app/api/tools/request-followup/route.ts": [
+          "lib/errors.ts",
+          "lib/medplum/server.ts",
+          "lib/medplum/write-artifacts.ts",
+          "lib/session.ts"
+        ],
+        "app/api/tools/save-summary/route.ts": [
+          "lib/errors.ts",
+          "lib/medplum/server.ts",
+          "lib/medplum/write-artifacts.ts",
+          "lib/session.ts"
+        ],
+        "app/api/tools/search-resources/route.ts": [
+          "lib/errors.ts",
+          "lib/resources/provider.ts",
+          "lib/session.ts"
+        ],
+        "lib/env.ts": [],
+        "lib/errors.ts": [],
+        "lib/medplum/server.ts": [
+          "lib/env.ts"
+        ],
+        "lib/medplum/write-artifacts.ts": [
+          "lib/contracts.ts",
+          "lib/medplum/constants.ts",
+          "lib/medplum/server.ts",
+          "lib/session.ts"
+        ],
+        "lib/session.ts": [
+          "lib/errors.ts"
+        ],
+        "lib/stedi/eligibility.ts": [
+          "fixtures/stedi-normalized-fallback.json",
+          "lib/contracts.ts",
+          "lib/errors.ts"
+        ],
+        "tests/integration/medplum-billing-case.test.ts": [
+          "lib/medplum/write-artifacts.ts",
+          "lib/session.ts"
+        ],
+        "tests/stedi-eligibility.test.ts": [
+          "lib/stedi/eligibility.ts"
+        ],
+        "tests/unit/session.test.ts": [
+          "lib/session.ts"
+        ]
+      },
+      "neighborMap": {
+        "app/api/tools/search-resources/route.ts": [
+          {
+            "path": "lib/resources/provider.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "LocalJsonSupportResourceProvider",
+              "localSupportResourceProvider"
+            ]
+          }
+        ],
+        "lib/env.ts": [
+          {
+            "path": "app/api/tools/get-bill-context/route.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "runtime",
+              "POST"
+            ]
+          }
+        ],
+        "lib/errors.ts": [
+          {
+            "path": "app/api/tools/get-bill-context/route.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "runtime",
+              "POST"
+            ]
+          }
+        ],
+        "lib/medplum/server.ts": [
+          {
+            "path": "app/staff/page.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "dynamic",
+              "StaffPage"
+            ]
+          },
+          {
+            "path": "lib/medplum/queries.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "buildNormalizedBillContext",
+              "getBillContextForSession",
+              "getFixtureBillContext",
+              "resolveDemoSeedIds",
+              "isMissingMedplum"
+            ]
+          }
+        ],
+        "lib/medplum/write-artifacts.ts": [
+          {
+            "path": "lib/contracts.ts",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "lib/medplum/constants.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "IDENTIFIER_SYSTEMS",
+              "DEMO_IDENTIFIERS"
+            ]
+          }
+        ],
+        "lib/session.ts": [
+          {
+            "path": "app/api/tools/get-bill-context/route.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "runtime",
+              "POST"
+            ]
+          },
+          {
+            "path": "tests/integration/fixture-bill-context.test.ts",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "lib/stedi/eligibility.ts": [
+          {
+            "path": "fixtures/stedi-normalized-fallback.json",
+            "batchIndex": 7,
+            "symbols": []
+          },
+          {
+            "path": "lib/contracts.ts",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "app/staff/page.tsx",
+          "language": "typescript",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        },
+        {
+          "path": "components/staff/artifact-timeline.tsx",
+          "language": "typescript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/billing/math.ts",
+          "language": "typescript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/billing/normalize-eob.ts",
+          "language": "typescript",
+          "sizeLines": 156,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/billing/types.ts",
+          "language": "typescript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/medplum/constants.ts",
+          "language": "typescript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/medplum/demo-fixture.ts",
+          "language": "typescript",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/medplum/queries.ts",
+          "language": "typescript",
+          "sizeLines": 321,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/seed-medplum.ts",
+          "language": "typescript",
+          "sizeLines": 182,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/integration/fixture-bill-context.test.ts",
+          "language": "typescript",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/billing-math.test.ts",
+          "language": "typescript",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/eob-normalizer.test.ts",
+          "language": "typescript",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "app/staff/page.tsx": [
+          "components/staff/artifact-timeline.tsx",
+          "lib/medplum/queries.ts",
+          "lib/medplum/server.ts"
+        ],
+        "components/staff/artifact-timeline.tsx": [],
+        "lib/billing/math.ts": [
+          "lib/billing/types.ts"
+        ],
+        "lib/billing/normalize-eob.ts": [
+          "lib/billing/math.ts",
+          "lib/billing/types.ts"
+        ],
+        "lib/billing/types.ts": [],
+        "lib/medplum/constants.ts": [],
+        "lib/medplum/demo-fixture.ts": [
+          "fixtures/benebot-fhir-seed.json"
+        ],
+        "lib/medplum/queries.ts": [
+          "lib/billing/normalize-eob.ts",
+          "lib/billing/types.ts",
+          "lib/medplum/constants.ts",
+          "lib/medplum/demo-fixture.ts",
+          "lib/medplum/server.ts"
+        ],
+        "scripts/seed-medplum.ts": [
+          "lib/billing/normalize-eob.ts",
+          "lib/medplum/constants.ts",
+          "lib/medplum/demo-fixture.ts"
+        ],
+        "tests/integration/fixture-bill-context.test.ts": [
+          "lib/medplum/queries.ts",
+          "lib/session.ts"
+        ],
+        "tests/unit/billing-math.test.ts": [
+          "lib/billing/math.ts",
+          "lib/billing/types.ts"
+        ],
+        "tests/unit/eob-normalizer.test.ts": [
+          "fixtures/benebot-fhir-seed.json",
+          "lib/billing/normalize-eob.ts"
+        ]
+      },
+      "neighborMap": {
+        "app/staff/page.tsx": [
+          {
+            "path": "lib/medplum/server.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "MedplumNotConfiguredError",
+              "isMedplumConfigured",
+              "getMedplumClient"
+            ]
+          }
+        ],
+        "lib/medplum/constants.ts": [
+          {
+            "path": "lib/medplum/write-artifacts.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "createFollowupTask",
+              "createConversationCommunication",
+              "persistEligibilityResult"
+            ]
+          }
+        ],
+        "lib/medplum/demo-fixture.ts": [
+          {
+            "path": "fixtures/benebot-fhir-seed.json",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ],
+        "lib/medplum/queries.ts": [
+          {
+            "path": "lib/medplum/server.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "MedplumNotConfiguredError",
+              "isMedplumConfigured",
+              "getMedplumClient"
+            ]
+          },
+          {
+            "path": "app/api/tools/get-bill-context/route.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "runtime",
+              "POST"
+            ]
+          }
+        ],
+        "tests/integration/fixture-bill-context.test.ts": [
+          {
+            "path": "lib/session.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "BENEBOT_SESSION_ISSUER",
+              "BENEBOT_SESSION_AUDIENCE",
+              "DEFAULT_SESSION_TTL_SECONDS",
+              "DEMO_SESSION_SCOPE",
+              "createBeneBotSession",
+              "verifyBeneBotSession",
+              "getBearerToken",
+              "verifyRequestSession",
+              "enforceDemoRateLimit"
+            ]
+          }
+        ],
+        "tests/unit/eob-normalizer.test.ts": [
+          {
+            "path": "fixtures/benebot-fhir-seed.json",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "app/bill/[invoiceId]/page.tsx",
+          "language": "typescript",
+          "sizeLines": 52,
+          "fileCategory": "code"
+        },
+        {
+          "path": "components/bill/bill-breakdown.tsx",
+          "language": "typescript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "components/bill/bill-experience.tsx",
+          "language": "typescript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "app/bill/[invoiceId]/page.tsx": [
+          "components/bill/bill-breakdown.tsx",
+          "components/bill/bill-experience.tsx"
+        ],
+        "components/bill/bill-breakdown.tsx": [],
+        "components/bill/bill-experience.tsx": [
+          "components/voice/benebot-panel.tsx"
+        ]
+      },
+      "neighborMap": {
+        "components/bill/bill-experience.tsx": [
+          {
+            "path": "components/voice/benebot-panel.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "BeneBotPanel"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "AGENTS.md",
+          "language": "markdown",
+          "sizeLines": 157,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "BENEBOT_BUILD_SPEC.md",
+          "language": "markdown",
+          "sizeLines": 2132,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "BENEBOT_RESEARCH_AGENT_PROMPTS.md",
+          "language": "markdown",
+          "sizeLines": 463,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "CLAUDE.md",
+          "language": "markdown",
+          "sizeLines": 1,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "CODEX_START_PROMPT.md",
+          "language": "markdown",
+          "sizeLines": 27,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "CONVERSATION_RELIABILITY_PLAN.md",
+          "language": "markdown",
+          "sizeLines": 423,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "IMPLEMENTATION_PLAN.md",
+          "language": "markdown",
+          "sizeLines": 240,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 153,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "package.json",
+          "language": "json",
+          "sizeLines": 42,
+          "fileCategory": "config"
+        },
+        {
+          "path": "spanish-concept-library.json",
+          "language": "json",
+          "sizeLines": 171,
+          "fileCategory": "config"
+        },
+        {
+          "path": "spanish-review-notes.md",
+          "language": "markdown",
+          "sizeLines": 44,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "tsconfig.json",
+          "language": "json",
+          "sizeLines": 34,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "AGENTS.md": [],
+        "BENEBOT_BUILD_SPEC.md": [],
+        "BENEBOT_RESEARCH_AGENT_PROMPTS.md": [],
+        "CLAUDE.md": [],
+        "CODEX_START_PROMPT.md": [],
+        "CONVERSATION_RELIABILITY_PLAN.md": [],
+        "IMPLEMENTATION_PLAN.md": [],
+        "README.md": [],
+        "package.json": [],
+        "spanish-concept-library.json": [],
+        "spanish-review-notes.md": [],
+        "tsconfig.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "benebot-gold-packet/INTEGRATION_NOTES.md",
+          "language": "markdown",
+          "sizeLines": 65,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benebot-gold-packet/adjudication-report.md",
+          "language": "markdown",
+          "sizeLines": 70,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benebot-gold-packet/canonical-concepts.json",
+          "language": "json",
+          "sizeLines": 436,
+          "fileCategory": "config"
+        },
+        {
+          "path": "benebot-gold-packet/eight-rubric-spec.json",
+          "language": "json",
+          "sizeLines": 51,
+          "fileCategory": "config"
+        },
+        {
+          "path": "benebot-gold-packet/runtime-concepts.json",
+          "language": "json",
+          "sizeLines": 151,
+          "fileCategory": "config"
+        },
+        {
+          "path": "benebot-gold-packet/source-ledger.md",
+          "language": "markdown",
+          "sizeLines": 76,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "benebot-gold-packet/tool-prerequisite-matrix.json",
+          "language": "json",
+          "sizeLines": 127,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "benebot-gold-packet/INTEGRATION_NOTES.md": [],
+        "benebot-gold-packet/adjudication-report.md": [],
+        "benebot-gold-packet/canonical-concepts.json": [],
+        "benebot-gold-packet/eight-rubric-spec.json": [],
+        "benebot-gold-packet/runtime-concepts.json": [],
+        "benebot-gold-packet/source-ledger.md": [],
+        "benebot-gold-packet/tool-prerequisite-matrix.json": []
+      },
+      "neighborMap": {
+        "benebot-gold-packet/runtime-concepts.json": [
+          {
+            "path": "tests/unit/deepgram-prompt.test.ts",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "fixtures/benebot-fhir-seed.json",
+          "language": "json",
+          "sizeLines": 614,
+          "fileCategory": "config"
+        },
+        {
+          "path": "fixtures/demo-resources.json",
+          "language": "json",
+          "sizeLines": 182,
+          "fileCategory": "config"
+        },
+        {
+          "path": "fixtures/stedi-aetna-test-request.json",
+          "language": "json",
+          "sizeLines": 18,
+          "fileCategory": "config"
+        },
+        {
+          "path": "fixtures/stedi-normalized-fallback.json",
+          "language": "json",
+          "sizeLines": 39,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "fixtures/benebot-fhir-seed.json": [],
+        "fixtures/demo-resources.json": [],
+        "fixtures/stedi-aetna-test-request.json": [],
+        "fixtures/stedi-normalized-fallback.json": []
+      },
+      "neighborMap": {
+        "fixtures/benebot-fhir-seed.json": [
+          {
+            "path": "lib/medplum/demo-fixture.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "demoSeedBundle",
+              "getFixtureResource",
+              "getFixtureResources"
+            ]
+          },
+          {
+            "path": "tests/unit/eob-normalizer.test.ts",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "fixtures/stedi-normalized-fallback.json": [
+          {
+            "path": "lib/stedi/eligibility.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "STEDI_TEST_REQUEST",
+              "buildCurrentBenefitsSpokenSummary",
+              "deriveDeductibleSummary",
+              "assertStediTestIdentity",
+              "normalizeStediResponse",
+              "loadFixtureFallback",
+              "DirectStediTestProvider",
+              "createEligibilityProvider"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": ".understand-anything/.understandignore",
+          "language": "unknown",
+          "sizeLines": 72,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".understand-anything/config.json",
+          "language": "json",
+          "sizeLines": 3,
+          "fileCategory": "config"
+        },
+        {
+          "path": "app/globals.css",
+          "language": "css",
+          "sizeLines": 24,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "app/layout.tsx",
+          "language": "typescript",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/page.tsx",
+          "language": "typescript",
+          "sizeLines": 51,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benebot-gold-packet/rejected-content.jsonl",
+          "language": "jsonl",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "benebot-gold-packet/transcript-eval-cases.jsonl",
+          "language": "jsonl",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "data/demo-resources.json",
+          "language": "json",
+          "sizeLines": 82,
+          "fileCategory": "config"
+        },
+        {
+          "path": "eslint.config.mjs",
+          "language": "javascript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/evaluation/conversation-evaluation.ts",
+          "language": "typescript",
+          "sizeLines": 440,
+          "fileCategory": "code"
+        },
+        {
+          "path": "next.config.ts",
+          "language": "typescript",
+          "sizeLines": 9,
+          "fileCategory": "code"
+        },
+        {
+          "path": "playwright.config.ts",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "postcss.config.mjs",
+          "language": "javascript",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/e2e/text-happy-path.spec.ts",
+          "language": "typescript",
+          "sizeLines": 71,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/server-only.ts",
+          "language": "typescript",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/conversation-evaluation.test.ts",
+          "language": "typescript",
+          "sizeLines": 86,
+          "fileCategory": "code"
+        },
+        {
+          "path": "vitest.config.mts",
+          "language": "mts",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".understand-anything/.understandignore": [],
+        ".understand-anything/config.json": [],
+        "app/globals.css": [],
+        "app/layout.tsx": [
+          "app/globals.css"
+        ],
+        "app/page.tsx": [],
+        "benebot-gold-packet/rejected-content.jsonl": [],
+        "benebot-gold-packet/transcript-eval-cases.jsonl": [],
+        "data/demo-resources.json": [],
+        "eslint.config.mjs": [],
+        "lib/evaluation/conversation-evaluation.ts": [],
+        "next.config.ts": [],
+        "playwright.config.ts": [],
+        "postcss.config.mjs": [],
+        "tests/e2e/text-happy-path.spec.ts": [],
+        "tests/server-only.ts": [],
+        "tests/unit/conversation-evaluation.test.ts": [
+          "lib/evaluation/conversation-evaluation.ts"
+        ],
+        "vitest.config.mts": []
+      },
+      "neighborMap": {
+        "data/demo-resources.json": [
+          {
+            "path": "lib/resources/provider.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "LocalJsonSupportResourceProvider",
+              "localSupportResourceProvider"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "rubrics": [
+    {
+      "id": "R1",
+      "name": "No Invented Financial Facts",
+      "description": "No invented financial facts or model calculations. The agent must not hallucinate numbers, percentages, or payment splits.",
+      "priority": 1
+    },
+    {
+      "id": "R2",
+      "name": "Temporal Separation",
+      "description": "Historical/current temporal separation. The agent must distinguish between facts applied to a historical claim and current remaining limits.",
+      "priority": 2
+    },
+    {
+      "id": "R3",
+      "name": "Tool Prerequisite Order",
+      "description": "Correct prerequisite tool call and workflow order. Every patient-specific claim must be preceded by the correct tool call.",
+      "priority": 3
+    },
+    {
+      "id": "R4",
+      "name": "No False External Success",
+      "description": "No false claim of external success. The agent must not imply an EOB proves a claim is correct or that the insurer will definitely pay.",
+      "priority": 4
+    },
+    {
+      "id": "R5",
+      "name": "Semantic Equivalence",
+      "description": "Semantic equivalence across English and Spanish. Explanations must carry the same meaning without relying on literal, unnatural translations.",
+      "priority": 5
+    },
+    {
+      "id": "R6",
+      "name": "Natural Language",
+      "description": "Natural patient-facing language in each language. Use preferred terms and avoid policy-manual prose.",
+      "priority": 6
+    },
+    {
+      "id": "R7",
+      "name": "Analogy Safety",
+      "description": "Analogy accuracy and explicit limitations. Analogies must not contain invented values and must include their boundaries.",
+      "priority": 7
+    },
+    {
+      "id": "R8",
+      "name": "Brevity and Warmth",
+      "description": "Brevity and conversational warmth. Explanations should be short (under 55-60 words initially) and empathetic without being condescending.",
+      "priority": 8
+    }
+  ]
+}

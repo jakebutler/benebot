@@ -1,0 +1,56 @@
+{
+  "projectRoot": "/Users/jacobbutler/Documents/benebot",
+  "batchFiles": [
+    {
+      "path": "benebot-gold-packet/INTEGRATION_NOTES.md",
+      "language": "markdown",
+      "sizeLines": 65,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benebot-gold-packet/adjudication-report.md",
+      "language": "markdown",
+      "sizeLines": 70,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benebot-gold-packet/canonical-concepts.json",
+      "language": "json",
+      "sizeLines": 436,
+      "fileCategory": "config"
+    },
+    {
+      "path": "benebot-gold-packet/eight-rubric-spec.json",
+      "language": "json",
+      "sizeLines": 51,
+      "fileCategory": "config"
+    },
+    {
+      "path": "benebot-gold-packet/runtime-concepts.json",
+      "language": "json",
+      "sizeLines": 151,
+      "fileCategory": "config"
+    },
+    {
+      "path": "benebot-gold-packet/source-ledger.md",
+      "language": "markdown",
+      "sizeLines": 76,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "benebot-gold-packet/tool-prerequisite-matrix.json",
+      "language": "json",
+      "sizeLines": 127,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {
+    "benebot-gold-packet/INTEGRATION_NOTES.md": [],
+    "benebot-gold-packet/adjudication-report.md": [],
+    "benebot-gold-packet/canonical-concepts.json": [],
+    "benebot-gold-packet/eight-rubric-spec.json": [],
+    "benebot-gold-packet/runtime-concepts.json": [],
+    "benebot-gold-packet/source-ledger.md": [],
+    "benebot-gold-packet/tool-prerequisite-matrix.json": []
+  }
+}

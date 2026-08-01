@@ -16,6 +16,16 @@ describe("Deepgram tool bridge", () => {
       "request_human_followup",
       "save_conversation_summary",
     ]);
+    expect(DEEPGRAM_TOOL_DEFINITIONS[0].description).toContain(
+      "requiredSpokenSummary",
+    );
+    expect(DEEPGRAM_TOOL_DEFINITIONS[1].description).toContain(
+      "separately timestamped current result",
+    );
+    expect(DEEPGRAM_TOOL_DEFINITIONS[3].description).toContain(
+      "created=true",
+    );
+    expect(DEEPGRAM_TOOL_DEFINITIONS[4].description).toContain("saved=true");
   });
 
   it("sends only validated tool input and the signed session", async () => {

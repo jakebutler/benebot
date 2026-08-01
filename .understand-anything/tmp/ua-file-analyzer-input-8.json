@@ -1,0 +1,41 @@
+{
+  "projectRoot": "/Users/jacobbutler/Documents/benebot",
+  "batchFiles": [
+    {"path": ".understand-anything/.understandignore", "language": "unknown", "sizeLines": 72, "fileCategory": "code"},
+    {"path": ".understand-anything/config.json", "language": "json", "sizeLines": 3, "fileCategory": "config"},
+    {"path": "app/globals.css", "language": "css", "sizeLines": 24, "fileCategory": "markup"},
+    {"path": "app/layout.tsx", "language": "typescript", "sizeLines": 33, "fileCategory": "code"},
+    {"path": "app/page.tsx", "language": "typescript", "sizeLines": 51, "fileCategory": "code"},
+    {"path": "benebot-gold-packet/rejected-content.jsonl", "language": "jsonl", "sizeLines": 11, "fileCategory": "code"},
+    {"path": "benebot-gold-packet/transcript-eval-cases.jsonl", "language": "jsonl", "sizeLines": 24, "fileCategory": "code"},
+    {"path": "data/demo-resources.json", "language": "json", "sizeLines": 82, "fileCategory": "config"},
+    {"path": "eslint.config.mjs", "language": "javascript", "sizeLines": 18, "fileCategory": "code"},
+    {"path": "lib/evaluation/conversation-evaluation.ts", "language": "typescript", "sizeLines": 440, "fileCategory": "code"},
+    {"path": "next.config.ts", "language": "typescript", "sizeLines": 9, "fileCategory": "code"},
+    {"path": "playwright.config.ts", "language": "typescript", "sizeLines": 13, "fileCategory": "code"},
+    {"path": "postcss.config.mjs", "language": "javascript", "sizeLines": 7, "fileCategory": "code"},
+    {"path": "tests/e2e/text-happy-path.spec.ts", "language": "typescript", "sizeLines": 71, "fileCategory": "code"},
+    {"path": "tests/server-only.ts", "language": "typescript", "sizeLines": 1, "fileCategory": "code"},
+    {"path": "tests/unit/conversation-evaluation.test.ts", "language": "typescript", "sizeLines": 86, "fileCategory": "code"},
+    {"path": "vitest.config.mts", "language": "mts", "sizeLines": 18, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    ".understand-anything/.understandignore": [],
+    ".understand-anything/config.json": [],
+    "app/globals.css": [],
+    "app/layout.tsx": ["app/globals.css"],
+    "app/page.tsx": [],
+    "benebot-gold-packet/rejected-content.jsonl": [],
+    "benebot-gold-packet/transcript-eval-cases.jsonl": [],
+    "data/demo-resources.json": [],
+    "eslint.config.mjs": [],
+    "lib/evaluation/conversation-evaluation.ts": [],
+    "next.config.ts": [],
+    "playwright.config.ts": [],
+    "postcss.config.mjs": [],
+    "tests/e2e/text-happy-path.spec.ts": [],
+    "tests/server-only.ts": [],
+    "tests/unit/conversation-evaluation.test.ts": ["lib/evaluation/conversation-evaluation.ts"],
+    "vitest.config.mts": []
+  }
+}

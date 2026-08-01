@@ -1,0 +1,2057 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 15,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/api/benebot/session/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "requestKey",
+          "startLine": 14,
+          "endLine": 20,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "POST",
+          "startLine": 22,
+          "endLine": 59,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "POST",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "requestKey",
+          "callee": "request.headers.get(\"x-forwarded-for\")?.split(\",\")[0]?.trim",
+          "lineNumber": 16
+        },
+        {
+          "caller": "requestKey",
+          "callee": "request.headers.get(\"x-forwarded-for\")?.split",
+          "lineNumber": 16
+        },
+        {
+          "caller": "requestKey",
+          "callee": "request.headers.get",
+          "lineNumber": 16
+        },
+        {
+          "caller": "requestKey",
+          "callee": "request.headers.get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "POST",
+          "callee": "enforceDemoRateLimit",
+          "lineNumber": 24
+        },
+        {
+          "caller": "POST",
+          "callee": "requestKey",
+          "lineNumber": 24
+        },
+        {
+          "caller": "POST",
+          "callee": "requestSchema.parse",
+          "lineNumber": 25
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 25
+        },
+        {
+          "caller": "POST",
+          "callee": "import",
+          "lineNumber": 31
+        },
+        {
+          "caller": "POST",
+          "callee": "resolveDemoSeedIds",
+          "lineNumber": 34
+        },
+        {
+          "caller": "POST",
+          "callee": "import",
+          "lineNumber": 40
+        },
+        {
+          "caller": "POST",
+          "callee": "isMissingMedplum",
+          "lineNumber": 41
+        },
+        {
+          "caller": "POST",
+          "callee": "createBeneBotSession",
+          "lineNumber": 46
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 47
+        },
+        {
+          "caller": "POST",
+          "callee": "new Date(claims.exp * 1000).toISOString",
+          "lineNumber": 49
+        },
+        {
+          "caller": "POST",
+          "callee": "safeErrorResponse",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/deepgram-token/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "GET",
+          "startLine": 14,
+          "endLine": 55,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GET",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GET",
+          "callee": "verifyRequestSession",
+          "lineNumber": 16
+        },
+        {
+          "caller": "GET",
+          "callee": "enforceDemoRateLimit",
+          "lineNumber": 17
+        },
+        {
+          "caller": "GET",
+          "callee": "fetch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GET",
+          "callee": "JSON.stringify",
+          "lineNumber": 34
+        },
+        {
+          "caller": "GET",
+          "callee": "AbortSignal.timeout",
+          "lineNumber": 36
+        },
+        {
+          "caller": "GET",
+          "callee": "deepgramGrantSchema.parse",
+          "lineNumber": 47
+        },
+        {
+          "caller": "GET",
+          "callee": "response.json",
+          "lineNumber": 47
+        },
+        {
+          "caller": "GET",
+          "callee": "Response.json",
+          "lineNumber": 48
+        },
+        {
+          "caller": "GET",
+          "callee": "safeErrorResponse",
+          "lineNumber": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/tools/refresh-benefits/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "POST",
+          "startLine": 20,
+          "endLine": 51,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "runtime",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "POST",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "POST",
+          "callee": "verifyRequestSession",
+          "lineNumber": 22
+        },
+        {
+          "caller": "POST",
+          "callee": "refreshSchema.parse",
+          "lineNumber": 23
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 23
+        },
+        {
+          "caller": "POST",
+          "callee": "getEnv",
+          "lineNumber": 24
+        },
+        {
+          "caller": "POST",
+          "callee": "(await createEligibilityProvider()).checkCurrentBenefits",
+          "lineNumber": 26
+        },
+        {
+          "caller": "POST",
+          "callee": "createEligibilityProvider",
+          "lineNumber": 26
+        },
+        {
+          "caller": "POST",
+          "callee": "persistEligibilityResult",
+          "lineNumber": 28
+        },
+        {
+          "caller": "POST",
+          "callee": "result.warnings.push",
+          "lineNumber": 31
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 33
+        },
+        {
+          "caller": "POST",
+          "callee": "buildCurrentBenefitsSpokenSummary",
+          "lineNumber": 35
+        },
+        {
+          "caller": "POST",
+          "callee": "loadFixtureFallback",
+          "lineNumber": 40
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 41
+        },
+        {
+          "caller": "POST",
+          "callee": "buildCurrentBenefitsSpokenSummary",
+          "lineNumber": 43
+        },
+        {
+          "caller": "POST",
+          "callee": "safeErrorResponse",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/tools/request-followup/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "POST",
+          "startLine": 27,
+          "endLine": 66,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "runtime",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "POST",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "POST",
+          "callee": "verifyRequestSession",
+          "lineNumber": 29
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 30
+        },
+        {
+          "caller": "POST",
+          "callee": "inputSchema.parse",
+          "lineNumber": 43
+        },
+        {
+          "caller": "POST",
+          "callee": "createFollowupTask",
+          "lineNumber": 46
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 57
+        },
+        {
+          "caller": "POST",
+          "callee": "safeErrorResponse",
+          "lineNumber": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/tools/save-summary/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "POST",
+          "startLine": 22,
+          "endLine": 43,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "runtime",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "POST",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "POST",
+          "callee": "verifyRequestSession",
+          "lineNumber": 24
+        },
+        {
+          "caller": "POST",
+          "callee": "inputSchema.parse",
+          "lineNumber": 25
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 25
+        },
+        {
+          "caller": "POST",
+          "callee": "createConversationCommunication",
+          "lineNumber": 28
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 39
+        },
+        {
+          "caller": "POST",
+          "callee": "safeErrorResponse",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/api/tools/search-resources/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "POST",
+          "startLine": 20,
+          "endLine": 29,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "runtime",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "POST",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "POST",
+          "callee": "verifyRequestSession",
+          "lineNumber": 22
+        },
+        {
+          "caller": "POST",
+          "callee": "searchSchema.parse",
+          "lineNumber": 23
+        },
+        {
+          "caller": "POST",
+          "callee": "request.json",
+          "lineNumber": 23
+        },
+        {
+          "caller": "POST",
+          "callee": "Response.json",
+          "lineNumber": 25
+        },
+        {
+          "caller": "POST",
+          "callee": "localSupportResourceProvider.search",
+          "lineNumber": 25
+        },
+        {
+          "caller": "POST",
+          "callee": "safeErrorResponse",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/env.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 59,
+      "functions": [
+        {
+          "name": "getEnv",
+          "startLine": 35,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "requireMedplumEnv",
+          "startLine": 40,
+          "endLine": 52,
+          "params": []
+        },
+        {
+          "name": "requireDeepgramEnv",
+          "startLine": 54,
+          "endLine": 60,
+          "params": []
+        },
+        {
+          "name": "requireStediEnv",
+          "startLine": 62,
+          "endLine": 68,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "getEnv",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "requireMedplumEnv",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "requireDeepgramEnv",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "requireStediEnv",
+          "line": 62,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getEnv",
+          "callee": "envSchema.parse",
+          "lineNumber": 36
+        },
+        {
+          "caller": "requireMedplumEnv",
+          "callee": "getEnv",
+          "lineNumber": 44
+        },
+        {
+          "caller": "requireDeepgramEnv",
+          "callee": "getEnv",
+          "lineNumber": 55
+        },
+        {
+          "caller": "requireStediEnv",
+          "callee": "getEnv",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/errors.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "safeErrorResponse",
+          "startLine": 12,
+          "endLine": 35,
+          "params": [
+            "error"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "BeneBotError",
+          "startLine": 1,
+          "endLine": 10,
+          "methods": [
+            "constructor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "BeneBotError",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "safeErrorResponse",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 7
+        },
+        {
+          "caller": "safeErrorResponse",
+          "callee": "Response.json",
+          "lineNumber": 14
+        },
+        {
+          "caller": "safeErrorResponse",
+          "callee": "crypto.randomUUID",
+          "lineNumber": 20
+        },
+        {
+          "caller": "safeErrorResponse",
+          "callee": "console.error",
+          "lineNumber": 21
+        },
+        {
+          "caller": "safeErrorResponse",
+          "callee": "Response.json",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/medplum/server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "isMedplumConfigured",
+          "startLine": 18,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "connectMedplum",
+          "startLine": 23,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "getMedplumClient",
+          "startLine": 36,
+          "endLine": 42,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "MedplumNotConfiguredError",
+          "startLine": 7,
+          "endLine": 14,
+          "methods": [
+            "constructor"
+          ],
+          "properties": [
+            "code"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MedplumNotConfiguredError",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "isMedplumConfigured",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "getMedplumClient",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "super",
+          "lineNumber": 11
+        },
+        {
+          "caller": "isMedplumConfigured",
+          "callee": "getEnv",
+          "lineNumber": 19
+        },
+        {
+          "caller": "isMedplumConfigured",
+          "callee": "Boolean",
+          "lineNumber": 20
+        },
+        {
+          "caller": "connectMedplum",
+          "callee": "requireMedplumEnv",
+          "lineNumber": 26
+        },
+        {
+          "caller": "connectMedplum",
+          "callee": "client.startClientLogin",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getMedplumClient",
+          "callee": "connectMedplum().catch",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getMedplumClient",
+          "callee": "connectMedplum",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/medplum/write-artifacts.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 276,
+      "nonEmptyLines": 265,
+      "functions": [
+        {
+          "name": "validateSessionReferences",
+          "startLine": 21,
+          "endLine": 53,
+          "params": [
+            "claims"
+          ]
+        },
+        {
+          "name": "concise",
+          "startLine": 55,
+          "endLine": 57,
+          "params": [
+            "value",
+            "maxLength"
+          ]
+        },
+        {
+          "name": "createFollowupTask",
+          "startLine": 59,
+          "endLine": 97,
+          "params": [
+            "claims",
+            "input"
+          ]
+        },
+        {
+          "name": "buildSummary",
+          "startLine": 99,
+          "endLine": 114,
+          "params": [
+            "input",
+            "metadata"
+          ]
+        },
+        {
+          "name": "createConversationCommunication",
+          "startLine": 116,
+          "endLine": 178,
+          "params": [
+            "claims",
+            "input"
+          ]
+        },
+        {
+          "name": "eligibilityItems",
+          "startLine": 180,
+          "endLine": 214,
+          "params": [
+            "result"
+          ]
+        },
+        {
+          "name": "persistEligibilityResult",
+          "startLine": 216,
+          "endLine": 276,
+          "params": [
+            "claims",
+            "result"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createFollowupTask",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "createConversationCommunication",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "persistEligibilityResult",
+          "line": 216,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "validateSessionReferences",
+          "callee": "getMedplumClient",
+          "lineNumber": 22
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "Promise.all",
+          "lineNumber": 23
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "client.readResource",
+          "lineNumber": 24
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "client.readResource",
+          "lineNumber": 25
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "client.readResource",
+          "lineNumber": 26
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "client.readResource",
+          "lineNumber": 27
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "client.readResource",
+          "lineNumber": 28
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "client.readResource",
+          "lineNumber": 29
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "client.readResource",
+          "lineNumber": 30
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "coverage.payor.some",
+          "lineNumber": 36
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "eob.insurance.some",
+          "lineNumber": 42
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "eob.item?.some",
+          "lineNumber": 45
+        },
+        {
+          "caller": "validateSessionReferences",
+          "callee": "item.encounter?.some",
+          "lineNumber": 46
+        },
+        {
+          "caller": "concise",
+          "callee": "value.replaceAll(/\\s+/g, \" \").trim().slice",
+          "lineNumber": 56
+        },
+        {
+          "caller": "concise",
+          "callee": "value.replaceAll(/\\s+/g, \" \").trim",
+          "lineNumber": 56
+        },
+        {
+          "caller": "concise",
+          "callee": "value.replaceAll",
+          "lineNumber": 56
+        },
+        {
+          "caller": "createFollowupTask",
+          "callee": "validateSessionReferences",
+          "lineNumber": 63
+        },
+        {
+          "caller": "createFollowupTask",
+          "callee": "getMedplumClient",
+          "lineNumber": 64
+        },
+        {
+          "caller": "createFollowupTask",
+          "callee": "concise",
+          "lineNumber": 66
+        },
+        {
+          "caller": "createFollowupTask",
+          "callee": "new Date().toISOString",
+          "lineNumber": 76
+        },
+        {
+          "caller": "createFollowupTask",
+          "callee": "client.createResourceIfNoneExist",
+          "lineNumber": 89
+        },
+        {
+          "caller": "createFollowupTask",
+          "callee": "encodeURIComponent",
+          "lineNumber": 91
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "concise",
+          "lineNumber": 104
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "input.questionsAnswered.map((value) => concise(value, 100)).join",
+          "lineNumber": 108
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "input.questionsAnswered.map",
+          "lineNumber": 108
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "concise",
+          "lineNumber": 108
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "input.resourcesOffered.map((value) => concise(value, 100)).join",
+          "lineNumber": 109
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "input.resourcesOffered.map",
+          "lineNumber": 109
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "concise",
+          "lineNumber": 109
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "concise",
+          "lineNumber": 110
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "input.unresolvedIssues.map((value) => concise(value, 100)).join",
+          "lineNumber": 111
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "input.unresolvedIssues.map",
+          "lineNumber": 111
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "concise",
+          "lineNumber": 111
+        },
+        {
+          "caller": "buildSummary",
+          "callee": "parts.join",
+          "lineNumber": 113
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "validateSessionReferences",
+          "lineNumber": 120
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "getMedplumClient",
+          "lineNumber": 121
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "Promise.all",
+          "lineNumber": 122
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "client.readResource",
+          "lineNumber": 123
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "client.searchResources",
+          "lineNumber": 124
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "client.readResource",
+          "lineNumber": 130
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "task.input?.some",
+          "lineNumber": 135
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "new Date().toISOString",
+          "lineNumber": 157
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "buildSummary",
+          "lineNumber": 160
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "client.createResourceIfNoneExist",
+          "lineNumber": 170
+        },
+        {
+          "caller": "createConversationCommunication",
+          "callee": "encodeURIComponent",
+          "lineNumber": 172
+        },
+        {
+          "caller": "addMoney",
+          "callee": "items.push",
+          "lineNumber": 184
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "addMoney",
+          "lineNumber": 191
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "addMoney",
+          "lineNumber": 192
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "addMoney",
+          "lineNumber": 193
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "addMoney",
+          "lineNumber": 194
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "items.push",
+          "lineNumber": 196
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "concise",
+          "lineNumber": 197
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "concise",
+          "lineNumber": 198
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "items.push",
+          "lineNumber": 204
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "concise",
+          "lineNumber": 205
+        },
+        {
+          "caller": "eligibilityItems",
+          "callee": "concise",
+          "lineNumber": 206
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "validateSessionReferences",
+          "lineNumber": 223
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "getMedplumClient",
+          "lineNumber": 224
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "result.checkedAt.slice",
+          "lineNumber": 232
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "client.createResourceIfNoneExist",
+          "lineNumber": 238
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "encodeURIComponent",
+          "lineNumber": 240
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "result.checkedAt.slice",
+          "lineNumber": 253
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "eligibilityItems",
+          "lineNumber": 264
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "client.createResourceIfNoneExist",
+          "lineNumber": 268
+        },
+        {
+          "caller": "persistEligibilityResult",
+          "callee": "encodeURIComponent",
+          "lineNumber": 270
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 3,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/session.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 192,
+      "nonEmptyLines": 172,
+      "functions": [
+        {
+          "name": "getSessionSecret",
+          "startLine": 71,
+          "endLine": 81,
+          "params": [
+            "override"
+          ]
+        },
+        {
+          "name": "createBeneBotSession",
+          "startLine": 83,
+          "endLine": 113,
+          "params": [
+            "scope",
+            "options"
+          ]
+        },
+        {
+          "name": "verifyBeneBotSession",
+          "startLine": 115,
+          "endLine": 145,
+          "params": [
+            "token",
+            "options"
+          ]
+        },
+        {
+          "name": "getBearerToken",
+          "startLine": 147,
+          "endLine": 158,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "verifyRequestSession",
+          "startLine": 160,
+          "endLine": 164,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "enforceDemoRateLimit",
+          "startLine": 173,
+          "endLine": 192,
+          "params": [
+            "key",
+            "limit",
+            "windowMs"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BENEBOT_SESSION_ISSUER",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "BENEBOT_SESSION_AUDIENCE",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "DEFAULT_SESSION_TTL_SECONDS",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "DEMO_SESSION_SCOPE",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "createBeneBotSession",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "verifyBeneBotSession",
+          "line": 115,
+          "isDefault": false
+        },
+        {
+          "name": "getBearerToken",
+          "line": 147,
+          "isDefault": false
+        },
+        {
+          "name": "verifyRequestSession",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "enforceDemoRateLimit",
+          "line": 173,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getSessionSecret",
+          "callee": "new TextEncoder().encode",
+          "lineNumber": 73
+        },
+        {
+          "caller": "getSessionSecret",
+          "callee": "new TextEncoder().encode",
+          "lineNumber": 80
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "Number",
+          "lineNumber": 87
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "Number.isInteger",
+          "lineNumber": 88
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "Math.floor",
+          "lineNumber": 96
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "(options.now ?? new Date()).getTime",
+          "lineNumber": 96
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "crypto.randomUUID",
+          "lineNumber": 102
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "new SignJWT({ ...claims })\n    .setProtectedHeader({ alg: \"HS256\", typ: \"JWT\" })\n    .sign",
+          "lineNumber": 108
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "new SignJWT({ ...claims })\n    .setProtectedHeader",
+          "lineNumber": 108
+        },
+        {
+          "caller": "createBeneBotSession",
+          "callee": "getSessionSecret",
+          "lineNumber": 110
+        },
+        {
+          "caller": "verifyBeneBotSession",
+          "callee": "jwtVerify",
+          "lineNumber": 120
+        },
+        {
+          "caller": "verifyBeneBotSession",
+          "callee": "getSessionSecret",
+          "lineNumber": 122
+        },
+        {
+          "caller": "verifyBeneBotSession",
+          "callee": "claimsSchema.parse",
+          "lineNumber": 134
+        },
+        {
+          "caller": "getBearerToken",
+          "callee": "request.headers.get",
+          "lineNumber": 148
+        },
+        {
+          "caller": "getBearerToken",
+          "callee": "/^Bearer\\s+([^\\s]+)$/i.exec",
+          "lineNumber": 149
+        },
+        {
+          "caller": "verifyRequestSession",
+          "callee": "verifyBeneBotSession",
+          "lineNumber": 163
+        },
+        {
+          "caller": "verifyRequestSession",
+          "callee": "getBearerToken",
+          "lineNumber": 163
+        },
+        {
+          "caller": "enforceDemoRateLimit",
+          "callee": "Date.now",
+          "lineNumber": 178
+        },
+        {
+          "caller": "enforceDemoRateLimit",
+          "callee": "rateLimits.get",
+          "lineNumber": 179
+        },
+        {
+          "caller": "enforceDemoRateLimit",
+          "callee": "rateLimits.set",
+          "lineNumber": 181
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 9,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/stedi/eligibility.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 427,
+      "nonEmptyLines": 392,
+      "functions": [
+        {
+          "name": "spokenSource",
+          "startLine": 48,
+          "endLine": 65,
+          "params": [
+            "source",
+            "language"
+          ]
+        },
+        {
+          "name": "spokenCheckedAt",
+          "startLine": 67,
+          "endLine": 79,
+          "params": [
+            "checkedAt",
+            "language"
+          ]
+        },
+        {
+          "name": "spokenMoney",
+          "startLine": 81,
+          "endLine": 91,
+          "params": [
+            "value",
+            "language"
+          ]
+        },
+        {
+          "name": "buildCurrentBenefitsSpokenSummary",
+          "startLine": 93,
+          "endLine": 107,
+          "params": [
+            "result"
+          ]
+        },
+        {
+          "name": "decimal",
+          "startLine": 144,
+          "endLine": 148,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "networkFromIndicator",
+          "startLine": 150,
+          "endLine": 156,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "sameScope",
+          "startLine": 167,
+          "endLine": 174,
+          "params": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "name": "deriveDeductibleSummary",
+          "startLine": 180,
+          "endLine": 209,
+          "params": [
+            "annual",
+            "remaining"
+          ]
+        },
+        {
+          "name": "scopedAmount",
+          "startLine": 211,
+          "endLine": 228,
+          "params": [
+            "benefit"
+          ]
+        },
+        {
+          "name": "exactScopedAmount",
+          "startLine": 230,
+          "endLine": 253,
+          "params": [
+            "benefits",
+            "code",
+            "qualifier"
+          ]
+        },
+        {
+          "name": "serviceLabel",
+          "startLine": 255,
+          "endLine": 259,
+          "params": [
+            "benefit"
+          ]
+        },
+        {
+          "name": "payerNameFromResponse",
+          "startLine": 261,
+          "endLine": 266,
+          "params": [
+            "response"
+          ]
+        },
+        {
+          "name": "assertStediTestIdentity",
+          "startLine": 272,
+          "endLine": 281,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "normalizeStediResponse",
+          "startLine": 287,
+          "endLine": 371,
+          "params": [
+            "raw",
+            "checkedAt"
+          ]
+        },
+        {
+          "name": "loadFixtureFallback",
+          "startLine": 373,
+          "endLine": 375,
+          "params": []
+        },
+        {
+          "name": "createEligibilityProvider",
+          "startLine": 413,
+          "endLine": 427,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DirectStediTestProvider",
+          "startLine": 377,
+          "endLine": 411,
+          "methods": [
+            "constructor",
+            "checkCurrentBenefits"
+          ],
+          "properties": [
+            "fetchImpl",
+            "timeoutMs"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "STEDI_TEST_REQUEST",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "buildCurrentBenefitsSpokenSummary",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "deriveDeductibleSummary",
+          "line": 180,
+          "isDefault": false
+        },
+        {
+          "name": "assertStediTestIdentity",
+          "line": 272,
+          "isDefault": false
+        },
+        {
+          "name": "normalizeStediResponse",
+          "line": 287,
+          "isDefault": false
+        },
+        {
+          "name": "loadFixtureFallback",
+          "line": 373,
+          "isDefault": false
+        },
+        {
+          "name": "DirectStediTestProvider",
+          "line": 377,
+          "isDefault": false
+        },
+        {
+          "name": "createEligibilityProvider",
+          "line": 413,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "spokenCheckedAt",
+          "callee": "Number.isNaN",
+          "lineNumber": 69
+        },
+        {
+          "caller": "spokenCheckedAt",
+          "callee": "date.getTime",
+          "lineNumber": 69
+        },
+        {
+          "caller": "spokenCheckedAt",
+          "callee": "new Intl.DateTimeFormat(language === \"es\" ? \"es-US\" : \"en-US\", {\n    year: \"numeric\",\n    month: \"long\",\n    day: \"numeric\",\n    hour: \"numeric\",\n    minute: \"2-digit\",\n    timeZone: \"UTC\",\n    timeZoneName: \"short\",\n  }).format",
+          "lineNumber": 70
+        },
+        {
+          "caller": "spokenMoney",
+          "callee": "new Intl.NumberFormat(language === \"es\" ? \"es-US\" : \"en-US\", {\n    style: \"currency\",\n    currency: \"USD\",\n    maximumFractionDigits: 2,\n  }).format",
+          "lineNumber": 85
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenMoney",
+          "lineNumber": 96
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenMoney",
+          "lineNumber": 97
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenMoney",
+          "lineNumber": 98
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenMoney",
+          "lineNumber": 99
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenMoney",
+          "lineNumber": 100
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenMoney",
+          "lineNumber": 101
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenCheckedAt",
+          "lineNumber": 104
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenSource",
+          "lineNumber": 104
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenCheckedAt",
+          "lineNumber": 105
+        },
+        {
+          "caller": "buildCurrentBenefitsSpokenSummary",
+          "callee": "spokenSource",
+          "lineNumber": 105
+        },
+        {
+          "caller": "decimal",
+          "callee": "Number",
+          "lineNumber": 146
+        },
+        {
+          "caller": "decimal",
+          "callee": "Number.isFinite",
+          "lineNumber": 147
+        },
+        {
+          "caller": "networkFromIndicator",
+          "callee": "value.toLowerCase",
+          "lineNumber": 152
+        },
+        {
+          "caller": "networkFromIndicator",
+          "callee": "[\"in\", \"i\", \"y\", \"yes\"].includes",
+          "lineNumber": 153
+        },
+        {
+          "caller": "networkFromIndicator",
+          "callee": "[\"out\", \"o\", \"n\", \"no\"].includes",
+          "lineNumber": 154
+        },
+        {
+          "caller": "sameScope",
+          "callee": "[...left.serviceTypeCodes].sort().join",
+          "lineNumber": 171
+        },
+        {
+          "caller": "sameScope",
+          "callee": "[...left.serviceTypeCodes].sort",
+          "lineNumber": 171
+        },
+        {
+          "caller": "sameScope",
+          "callee": "[...right.serviceTypeCodes].sort().join",
+          "lineNumber": 172
+        },
+        {
+          "caller": "sameScope",
+          "callee": "[...right.serviceTypeCodes].sort",
+          "lineNumber": 172
+        },
+        {
+          "caller": "deriveDeductibleSummary",
+          "callee": "sameScope",
+          "lineNumber": 199
+        },
+        {
+          "caller": "scopedAmount",
+          "callee": "decimal",
+          "lineNumber": 214
+        },
+        {
+          "caller": "scopedAmount",
+          "callee": "[...new Set(benefit.serviceTypeCodes ?? [])].sort",
+          "lineNumber": 216
+        },
+        {
+          "caller": "scopedAmount",
+          "callee": "networkFromIndicator",
+          "lineNumber": 222
+        },
+        {
+          "caller": "exactScopedAmount",
+          "callee": "benefits.filter",
+          "lineNumber": 235
+        },
+        {
+          "caller": "exactScopedAmount",
+          "callee": "networkFromIndicator",
+          "lineNumber": 239
+        },
+        {
+          "caller": "exactScopedAmount",
+          "callee": "candidates.filter",
+          "lineNumber": 245
+        },
+        {
+          "caller": "exactScopedAmount",
+          "callee": "benefit.timeQualifier?.toLowerCase",
+          "lineNumber": 248
+        },
+        {
+          "caller": "exactScopedAmount",
+          "callee": "benefit.timeQualifier?.toLowerCase",
+          "lineNumber": 250
+        },
+        {
+          "caller": "exactScopedAmount",
+          "callee": "scopedAmount",
+          "lineNumber": 252
+        },
+        {
+          "caller": "serviceLabel",
+          "callee": "benefit.serviceTypes?.filter(Boolean).join",
+          "lineNumber": 256
+        },
+        {
+          "caller": "serviceLabel",
+          "callee": "benefit.serviceTypes?.filter",
+          "lineNumber": 256
+        },
+        {
+          "caller": "serviceLabel",
+          "callee": "benefit.serviceTypeCodes?.filter(Boolean).join",
+          "lineNumber": 257
+        },
+        {
+          "caller": "serviceLabel",
+          "callee": "benefit.serviceTypeCodes?.filter",
+          "lineNumber": 257
+        },
+        {
+          "caller": "assertStediTestIdentity",
+          "callee": "stediRequestSchema.safeParse",
+          "lineNumber": 273
+        },
+        {
+          "caller": "assertStediTestIdentity",
+          "callee": "JSON.stringify",
+          "lineNumber": 274
+        },
+        {
+          "caller": "assertStediTestIdentity",
+          "callee": "JSON.stringify",
+          "lineNumber": 274
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "new Date().toISOString",
+          "lineNumber": 287
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "externalResponseSchema.safeParse",
+          "lineNumber": 288
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.filter",
+          "lineNumber": 297
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "/active coverage/i.test",
+          "lineNumber": 297
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.filter",
+          "lineNumber": 298
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "/inactive|terminated/i.test",
+          "lineNumber": 298
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "warnings.push",
+          "lineNumber": 300
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.flatMap",
+          "lineNumber": 302
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "decimal",
+          "lineNumber": 304
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "serviceLabel",
+          "lineNumber": 307
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "networkFromIndicator",
+          "lineNumber": 309
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.flatMap",
+          "lineNumber": 314
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "decimal",
+          "lineNumber": 316
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "serviceLabel",
+          "lineNumber": 319
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "networkFromIndicator",
+          "lineNumber": 321
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "exactScopedAmount",
+          "lineNumber": 327
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "exactScopedAmount",
+          "lineNumber": 328
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "deriveDeductibleSummary",
+          "lineNumber": 329
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.some",
+          "lineNumber": 334
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "warnings.push",
+          "lineNumber": 337
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "exactScopedAmount",
+          "lineNumber": 339
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "exactScopedAmount",
+          "lineNumber": 340
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.some",
+          "lineNumber": 344
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "sameScope",
+          "lineNumber": 347
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "warnings.push",
+          "lineNumber": 349
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.some",
+          "lineNumber": 351
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefit.serviceTypeCodes?.includes",
+          "lineNumber": 351
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "warnings.push",
+          "lineNumber": 352
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "payerNameFromResponse",
+          "lineNumber": 359
+        },
+        {
+          "caller": "normalizeStediResponse",
+          "callee": "benefits.find",
+          "lineNumber": 360
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "assertStediTestIdentity",
+          "lineNumber": 387
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "setTimeout",
+          "lineNumber": 389
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "controller.abort",
+          "lineNumber": 389
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "this.fetchImpl",
+          "lineNumber": 391
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "JSON.stringify",
+          "lineNumber": 397
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "normalizeStediResponse",
+          "lineNumber": 403
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "response.json",
+          "lineNumber": 403
+        },
+        {
+          "caller": "checkCurrentBenefits",
+          "callee": "clearTimeout",
+          "lineNumber": 408
+        },
+        {
+          "caller": "createEligibilityProvider",
+          "callee": "import",
+          "lineNumber": 415
+        },
+        {
+          "caller": "createEligibilityProvider",
+          "callee": "getEnv",
+          "lineNumber": 416
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 8,
+        "functionCount": 16,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "tests/integration/medplum-billing-case.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 174,
+      "nonEmptyLines": 162,
+      "functions": [
+        {
+          "name": "scopedResources",
+          "startLine": 19,
+          "endLine": 74,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/stedi-eligibility.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 180,
+      "nonEmptyLines": 167,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/session.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 86,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

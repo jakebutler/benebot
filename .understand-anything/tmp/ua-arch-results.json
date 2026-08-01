@@ -1,0 +1,1236 @@
+{
+  "scriptCompleted": true,
+  "commonPrefix": "",
+  "directoryGroups": {
+    "app": [
+      "file:app/api/tools/get-bill-context/route.ts",
+      "file:app/api/benebot/session/route.ts",
+      "file:app/api/deepgram-token/route.ts",
+      "file:app/api/tools/refresh-benefits/route.ts",
+      "file:app/api/tools/request-followup/route.ts",
+      "file:app/api/tools/save-summary/route.ts",
+      "file:app/api/tools/search-resources/route.ts",
+      "file:app/staff/page.tsx",
+      "file:app/bill/[invoiceId]/page.tsx",
+      "file:app/globals.css",
+      "file:app/layout.tsx",
+      "file:app/page.tsx"
+    ],
+    "components": [
+      "file:components/voice/benebot-panel.tsx",
+      "file:components/voice/tool-activity.tsx",
+      "file:components/voice/transcript.tsx",
+      "file:components/staff/artifact-timeline.tsx",
+      "file:components/bill/bill-breakdown.tsx",
+      "file:components/bill/bill-experience.tsx"
+    ],
+    "lib": [
+      "file:lib/billing/historical-narration.ts",
+      "file:lib/contracts.ts",
+      "file:lib/deepgram/concept-guidance.ts",
+      "file:lib/deepgram/config.ts",
+      "file:lib/deepgram/prerequisites.ts",
+      "file:lib/deepgram/prompt.ts",
+      "file:lib/deepgram/text-fallback.ts",
+      "file:lib/deepgram/tools.ts",
+      "file:lib/resources/provider.ts",
+      "file:lib/env.ts",
+      "file:lib/errors.ts",
+      "file:lib/medplum/server.ts",
+      "file:lib/medplum/write-artifacts.ts",
+      "file:lib/session.ts",
+      "file:lib/stedi/eligibility.ts",
+      "file:lib/billing/math.ts",
+      "file:lib/billing/normalize-eob.ts",
+      "file:lib/billing/types.ts",
+      "file:lib/medplum/constants.ts",
+      "file:lib/medplum/demo-fixture.ts",
+      "file:lib/medplum/queries.ts",
+      "file:lib/evaluation/conversation-evaluation.ts"
+    ],
+    "tests": [
+      "file:tests/resource-provider.test.ts",
+      "file:tests/unit/deepgram-config.test.ts",
+      "file:tests/unit/deepgram-prompt.test.ts",
+      "file:tests/unit/deepgram-tools.test.ts",
+      "file:tests/unit/historical-narration.test.ts",
+      "file:tests/unit/text-fallback.test.ts",
+      "file:tests/integration/medplum-billing-case.test.ts",
+      "file:tests/stedi-eligibility.test.ts",
+      "file:tests/unit/session.test.ts",
+      "file:tests/integration/fixture-bill-context.test.ts",
+      "file:tests/unit/billing-math.test.ts",
+      "file:tests/unit/eob-normalizer.test.ts",
+      "file:tests/e2e/text-happy-path.spec.ts",
+      "file:tests/server-only.ts",
+      "file:tests/unit/conversation-evaluation.test.ts"
+    ],
+    "scripts": [
+      "file:scripts/seed-medplum.ts"
+    ],
+    "root": [
+      "document:AGENTS.md",
+      "document:BENEBOT_BUILD_SPEC.md",
+      "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md",
+      "document:CLAUDE.md",
+      "document:CODEX_START_PROMPT.md",
+      "document:CONVERSATION_RELIABILITY_PLAN.md",
+      "document:IMPLEMENTATION_PLAN.md",
+      "document:README.md",
+      "config:spanish-concept-library.json",
+      "document:spanish-review-notes.md"
+    ],
+    "config": [
+      "config:package.json",
+      "config:tsconfig.json",
+      "file:eslint.config.mjs",
+      "file:next.config.ts",
+      "file:playwright.config.ts",
+      "file:postcss.config.mjs",
+      "file:vitest.config.mts"
+    ],
+    "benebot-gold-packet": [
+      "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "document:benebot-gold-packet/adjudication-report.md",
+      "config:benebot-gold-packet/canonical-concepts.json",
+      "config:benebot-gold-packet/eight-rubric-spec.json",
+      "config:benebot-gold-packet/runtime-concepts.json",
+      "document:benebot-gold-packet/source-ledger.md",
+      "config:benebot-gold-packet/tool-prerequisite-matrix.json",
+      "file:benebot-gold-packet/rejected-content.jsonl",
+      "file:benebot-gold-packet/transcript-eval-cases.jsonl"
+    ],
+    "fixtures": [
+      "config:fixtures/benebot-fhir-seed.json",
+      "config:fixtures/demo-resources.json",
+      "config:fixtures/stedi-aetna-test-request.json",
+      "config:fixtures/stedi-normalized-fallback.json"
+    ],
+    ".understand-anything": [
+      "file:.understand-anything/.understandignore",
+      "config:.understand-anything/config.json"
+    ],
+    "data": [
+      "config:data/demo-resources.json"
+    ]
+  },
+  "nodeTypeGroups": {
+    "file": [
+      "file:app/api/tools/get-bill-context/route.ts",
+      "file:components/voice/benebot-panel.tsx",
+      "file:components/voice/tool-activity.tsx",
+      "file:components/voice/transcript.tsx",
+      "file:lib/billing/historical-narration.ts",
+      "file:lib/contracts.ts",
+      "file:lib/deepgram/concept-guidance.ts",
+      "file:lib/deepgram/config.ts",
+      "file:lib/deepgram/prerequisites.ts",
+      "file:lib/deepgram/prompt.ts",
+      "file:lib/deepgram/text-fallback.ts",
+      "file:lib/deepgram/tools.ts",
+      "file:lib/resources/provider.ts",
+      "file:tests/resource-provider.test.ts",
+      "file:tests/unit/deepgram-config.test.ts",
+      "file:tests/unit/deepgram-prompt.test.ts",
+      "file:tests/unit/deepgram-tools.test.ts",
+      "file:tests/unit/historical-narration.test.ts",
+      "file:tests/unit/text-fallback.test.ts",
+      "file:app/api/benebot/session/route.ts",
+      "file:app/api/deepgram-token/route.ts",
+      "file:app/api/tools/refresh-benefits/route.ts",
+      "file:app/api/tools/request-followup/route.ts",
+      "file:app/api/tools/save-summary/route.ts",
+      "file:app/api/tools/search-resources/route.ts",
+      "file:lib/env.ts",
+      "file:lib/errors.ts",
+      "file:lib/medplum/server.ts",
+      "file:lib/medplum/write-artifacts.ts",
+      "file:lib/session.ts",
+      "file:lib/stedi/eligibility.ts",
+      "file:tests/integration/medplum-billing-case.test.ts",
+      "file:tests/stedi-eligibility.test.ts",
+      "file:tests/unit/session.test.ts",
+      "file:app/staff/page.tsx",
+      "file:components/staff/artifact-timeline.tsx",
+      "file:lib/billing/math.ts",
+      "file:lib/billing/normalize-eob.ts",
+      "file:lib/billing/types.ts",
+      "file:lib/medplum/constants.ts",
+      "file:lib/medplum/demo-fixture.ts",
+      "file:lib/medplum/queries.ts",
+      "file:scripts/seed-medplum.ts",
+      "file:tests/integration/fixture-bill-context.test.ts",
+      "file:tests/unit/billing-math.test.ts",
+      "file:tests/unit/eob-normalizer.test.ts",
+      "file:app/bill/[invoiceId]/page.tsx",
+      "file:components/bill/bill-breakdown.tsx",
+      "file:components/bill/bill-experience.tsx",
+      "file:.understand-anything/.understandignore",
+      "file:app/globals.css",
+      "file:app/layout.tsx",
+      "file:app/page.tsx",
+      "file:benebot-gold-packet/rejected-content.jsonl",
+      "file:benebot-gold-packet/transcript-eval-cases.jsonl",
+      "file:eslint.config.mjs",
+      "file:lib/evaluation/conversation-evaluation.ts",
+      "file:next.config.ts",
+      "file:playwright.config.ts",
+      "file:postcss.config.mjs",
+      "file:tests/e2e/text-happy-path.spec.ts",
+      "file:tests/server-only.ts",
+      "file:tests/unit/conversation-evaluation.test.ts",
+      "file:vitest.config.mts"
+    ],
+    "document": [
+      "document:AGENTS.md",
+      "document:BENEBOT_BUILD_SPEC.md",
+      "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md",
+      "document:CLAUDE.md",
+      "document:CODEX_START_PROMPT.md",
+      "document:CONVERSATION_RELIABILITY_PLAN.md",
+      "document:IMPLEMENTATION_PLAN.md",
+      "document:README.md",
+      "document:spanish-review-notes.md",
+      "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "document:benebot-gold-packet/adjudication-report.md",
+      "document:benebot-gold-packet/source-ledger.md"
+    ],
+    "config": [
+      "config:package.json",
+      "config:spanish-concept-library.json",
+      "config:tsconfig.json",
+      "config:benebot-gold-packet/canonical-concepts.json",
+      "config:benebot-gold-packet/eight-rubric-spec.json",
+      "config:benebot-gold-packet/runtime-concepts.json",
+      "config:benebot-gold-packet/tool-prerequisite-matrix.json",
+      "config:fixtures/benebot-fhir-seed.json",
+      "config:fixtures/demo-resources.json",
+      "config:fixtures/stedi-aetna-test-request.json",
+      "config:fixtures/stedi-normalized-fallback.json",
+      "config:.understand-anything/config.json",
+      "config:data/demo-resources.json"
+    ]
+  },
+  "importAdjacency": {
+    "file:app/api/tools/get-bill-context/route.ts": [
+      "file:lib/billing/historical-narration.ts",
+      "file:lib/contracts.ts",
+      "file:lib/env.ts",
+      "file:lib/errors.ts",
+      "file:lib/medplum/queries.ts",
+      "file:lib/session.ts"
+    ],
+    "file:components/voice/benebot-panel.tsx": [
+      "file:components/voice/tool-activity.tsx",
+      "file:components/voice/transcript.tsx",
+      "file:lib/contracts.ts",
+      "file:lib/deepgram/config.ts",
+      "file:lib/deepgram/text-fallback.ts",
+      "file:lib/deepgram/tools.ts"
+    ],
+    "file:components/voice/tool-activity.tsx": [
+      "file:lib/contracts.ts"
+    ],
+    "file:components/voice/transcript.tsx": [],
+    "file:lib/billing/historical-narration.ts": [
+      "file:lib/contracts.ts"
+    ],
+    "file:lib/contracts.ts": [],
+    "file:lib/deepgram/concept-guidance.ts": [
+      "file:lib/contracts.ts"
+    ],
+    "file:lib/deepgram/config.ts": [
+      "file:lib/contracts.ts",
+      "file:lib/deepgram/prompt.ts",
+      "file:lib/deepgram/tools.ts"
+    ],
+    "file:lib/deepgram/prerequisites.ts": [
+      "file:lib/contracts.ts"
+    ],
+    "file:lib/deepgram/prompt.ts": [
+      "file:lib/contracts.ts",
+      "file:lib/deepgram/concept-guidance.ts",
+      "file:lib/deepgram/prerequisites.ts"
+    ],
+    "file:lib/deepgram/text-fallback.ts": [
+      "file:lib/contracts.ts"
+    ],
+    "file:lib/deepgram/tools.ts": [
+      "file:lib/contracts.ts",
+      "file:lib/deepgram/prerequisites.ts"
+    ],
+    "file:lib/resources/provider.ts": [
+      "file:lib/contracts.ts",
+      "config:data/demo-resources.json"
+    ],
+    "file:tests/resource-provider.test.ts": [
+      "file:lib/resources/provider.ts"
+    ],
+    "file:tests/unit/deepgram-config.test.ts": [
+      "file:lib/deepgram/config.ts"
+    ],
+    "file:tests/unit/deepgram-prompt.test.ts": [
+      "file:lib/deepgram/concept-guidance.ts",
+      "file:lib/deepgram/prerequisites.ts",
+      "file:lib/deepgram/prompt.ts",
+      "config:benebot-gold-packet/runtime-concepts.json"
+    ],
+    "file:tests/unit/deepgram-tools.test.ts": [
+      "file:lib/deepgram/tools.ts"
+    ],
+    "file:tests/unit/historical-narration.test.ts": [
+      "file:lib/billing/historical-narration.ts",
+      "file:lib/contracts.ts"
+    ],
+    "file:tests/unit/text-fallback.test.ts": [
+      "file:lib/deepgram/text-fallback.ts"
+    ],
+    "file:app/api/benebot/session/route.ts": [
+      "file:lib/errors.ts",
+      "file:lib/session.ts"
+    ],
+    "file:app/api/deepgram-token/route.ts": [
+      "file:lib/errors.ts",
+      "file:lib/session.ts"
+    ],
+    "file:app/api/tools/refresh-benefits/route.ts": [
+      "file:lib/env.ts",
+      "file:lib/errors.ts",
+      "file:lib/medplum/write-artifacts.ts",
+      "file:lib/session.ts",
+      "file:lib/stedi/eligibility.ts"
+    ],
+    "file:app/api/tools/request-followup/route.ts": [
+      "file:lib/errors.ts",
+      "file:lib/medplum/server.ts",
+      "file:lib/medplum/write-artifacts.ts",
+      "file:lib/session.ts"
+    ],
+    "file:app/api/tools/save-summary/route.ts": [
+      "file:lib/errors.ts",
+      "file:lib/medplum/server.ts",
+      "file:lib/medplum/write-artifacts.ts",
+      "file:lib/session.ts"
+    ],
+    "file:app/api/tools/search-resources/route.ts": [
+      "file:lib/errors.ts",
+      "file:lib/resources/provider.ts",
+      "file:lib/session.ts"
+    ],
+    "file:lib/env.ts": [],
+    "file:lib/errors.ts": [],
+    "file:lib/medplum/server.ts": [
+      "file:lib/env.ts"
+    ],
+    "file:lib/medplum/write-artifacts.ts": [
+      "file:lib/contracts.ts",
+      "file:lib/medplum/constants.ts",
+      "file:lib/medplum/server.ts",
+      "file:lib/session.ts"
+    ],
+    "file:lib/session.ts": [
+      "file:lib/errors.ts"
+    ],
+    "file:lib/stedi/eligibility.ts": [
+      "file:lib/contracts.ts",
+      "file:lib/errors.ts",
+      "config:fixtures/stedi-normalized-fallback.json"
+    ],
+    "file:tests/integration/medplum-billing-case.test.ts": [
+      "file:lib/medplum/write-artifacts.ts",
+      "file:lib/session.ts"
+    ],
+    "file:tests/stedi-eligibility.test.ts": [
+      "file:lib/stedi/eligibility.ts"
+    ],
+    "file:tests/unit/session.test.ts": [
+      "file:lib/session.ts"
+    ],
+    "file:app/staff/page.tsx": [
+      "file:components/staff/artifact-timeline.tsx",
+      "file:lib/medplum/queries.ts",
+      "file:lib/medplum/server.ts"
+    ],
+    "file:components/staff/artifact-timeline.tsx": [],
+    "file:lib/billing/math.ts": [
+      "file:lib/billing/types.ts"
+    ],
+    "file:lib/billing/normalize-eob.ts": [
+      "file:lib/billing/math.ts",
+      "file:lib/billing/types.ts"
+    ],
+    "file:lib/billing/types.ts": [],
+    "file:lib/medplum/constants.ts": [],
+    "file:lib/medplum/demo-fixture.ts": [
+      "config:fixtures/benebot-fhir-seed.json"
+    ],
+    "file:lib/medplum/queries.ts": [
+      "file:lib/billing/normalize-eob.ts",
+      "file:lib/billing/types.ts",
+      "file:lib/medplum/constants.ts",
+      "file:lib/medplum/demo-fixture.ts",
+      "file:lib/medplum/server.ts"
+    ],
+    "file:scripts/seed-medplum.ts": [
+      "file:lib/billing/normalize-eob.ts",
+      "file:lib/medplum/constants.ts",
+      "file:lib/medplum/demo-fixture.ts"
+    ],
+    "file:tests/integration/fixture-bill-context.test.ts": [
+      "file:lib/medplum/queries.ts",
+      "file:lib/session.ts"
+    ],
+    "file:tests/unit/billing-math.test.ts": [
+      "file:lib/billing/math.ts",
+      "file:lib/billing/types.ts"
+    ],
+    "file:tests/unit/eob-normalizer.test.ts": [
+      "file:lib/billing/normalize-eob.ts",
+      "config:fixtures/benebot-fhir-seed.json"
+    ],
+    "file:app/bill/[invoiceId]/page.tsx": [
+      "file:components/bill/bill-breakdown.tsx",
+      "file:components/bill/bill-experience.tsx"
+    ],
+    "file:components/bill/bill-breakdown.tsx": [],
+    "file:components/bill/bill-experience.tsx": [
+      "file:components/voice/benebot-panel.tsx"
+    ],
+    "document:AGENTS.md": [],
+    "document:BENEBOT_BUILD_SPEC.md": [],
+    "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md": [],
+    "document:CLAUDE.md": [],
+    "document:CODEX_START_PROMPT.md": [],
+    "document:CONVERSATION_RELIABILITY_PLAN.md": [],
+    "document:IMPLEMENTATION_PLAN.md": [],
+    "document:README.md": [],
+    "config:package.json": [],
+    "config:spanish-concept-library.json": [],
+    "document:spanish-review-notes.md": [],
+    "config:tsconfig.json": [],
+    "document:benebot-gold-packet/INTEGRATION_NOTES.md": [],
+    "document:benebot-gold-packet/adjudication-report.md": [],
+    "config:benebot-gold-packet/canonical-concepts.json": [],
+    "config:benebot-gold-packet/eight-rubric-spec.json": [],
+    "config:benebot-gold-packet/runtime-concepts.json": [],
+    "document:benebot-gold-packet/source-ledger.md": [],
+    "config:benebot-gold-packet/tool-prerequisite-matrix.json": [],
+    "config:fixtures/benebot-fhir-seed.json": [],
+    "config:fixtures/demo-resources.json": [],
+    "config:fixtures/stedi-aetna-test-request.json": [],
+    "config:fixtures/stedi-normalized-fallback.json": [],
+    "file:.understand-anything/.understandignore": [],
+    "config:.understand-anything/config.json": [],
+    "file:app/globals.css": [],
+    "file:app/layout.tsx": [
+      "file:app/globals.css"
+    ],
+    "file:app/page.tsx": [],
+    "file:benebot-gold-packet/rejected-content.jsonl": [],
+    "file:benebot-gold-packet/transcript-eval-cases.jsonl": [],
+    "config:data/demo-resources.json": [],
+    "file:eslint.config.mjs": [],
+    "file:lib/evaluation/conversation-evaluation.ts": [],
+    "file:next.config.ts": [],
+    "file:playwright.config.ts": [],
+    "file:postcss.config.mjs": [],
+    "file:tests/e2e/text-happy-path.spec.ts": [],
+    "file:tests/server-only.ts": [],
+    "file:tests/unit/conversation-evaluation.test.ts": [
+      "file:lib/evaluation/conversation-evaluation.ts"
+    ],
+    "file:vitest.config.mts": []
+  },
+  "groupImports": {
+    "app": {
+      "importsFrom": [
+        "components",
+        "lib"
+      ],
+      "importedBy": []
+    },
+    "components": {
+      "importsFrom": [
+        "lib"
+      ],
+      "importedBy": [
+        "app"
+      ]
+    },
+    "lib": {
+      "importsFrom": [
+        "data",
+        "fixtures"
+      ],
+      "importedBy": [
+        "app",
+        "components",
+        "scripts",
+        "tests"
+      ]
+    },
+    "tests": {
+      "importsFrom": [
+        "benebot-gold-packet",
+        "fixtures",
+        "lib"
+      ],
+      "importedBy": []
+    },
+    "scripts": {
+      "importsFrom": [
+        "lib"
+      ],
+      "importedBy": []
+    },
+    "root": {
+      "importsFrom": [],
+      "importedBy": []
+    },
+    "config": {
+      "importsFrom": [],
+      "importedBy": []
+    },
+    "benebot-gold-packet": {
+      "importsFrom": [],
+      "importedBy": [
+        "tests"
+      ]
+    },
+    "fixtures": {
+      "importsFrom": [],
+      "importedBy": [
+        "lib",
+        "tests"
+      ]
+    },
+    ".understand-anything": {
+      "importsFrom": [],
+      "importedBy": []
+    },
+    "data": {
+      "importsFrom": [],
+      "importedBy": [
+        "lib"
+      ]
+    }
+  },
+  "crossCategoryEdges": [
+    {
+      "fromType": "file",
+      "toType": "file",
+      "edgeType": "imports",
+      "count": 91
+    },
+    {
+      "fromType": "file",
+      "toType": "file",
+      "edgeType": "tested_by",
+      "count": 18
+    },
+    {
+      "fromType": "document",
+      "toType": "config",
+      "edgeType": "documents",
+      "count": 13
+    },
+    {
+      "fromType": "document",
+      "toType": "document",
+      "edgeType": "documents",
+      "count": 10
+    },
+    {
+      "fromType": "config",
+      "toType": "config",
+      "edgeType": "related",
+      "count": 6
+    },
+    {
+      "fromType": "document",
+      "toType": "document",
+      "edgeType": "related",
+      "count": 5
+    },
+    {
+      "fromType": "file",
+      "toType": "config",
+      "edgeType": "imports",
+      "count": 5
+    },
+    {
+      "fromType": "config",
+      "toType": "file",
+      "edgeType": "configures",
+      "count": 3
+    },
+    {
+      "fromType": "document",
+      "toType": "config",
+      "edgeType": "related",
+      "count": 1
+    },
+    {
+      "fromType": "config",
+      "toType": "document",
+      "edgeType": "related",
+      "count": 1
+    },
+    {
+      "fromType": "config",
+      "toType": "file",
+      "edgeType": "related",
+      "count": 1
+    },
+    {
+      "fromType": "file",
+      "toType": "file",
+      "edgeType": "depends_on",
+      "count": 1
+    }
+  ],
+  "nonCodeConnections": [
+    {
+      "source": "document:AGENTS.md",
+      "target": "document:BENEBOT_BUILD_SPEC.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "document:IMPLEMENTATION_PLAN.md",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:BENEBOT_BUILD_SPEC.md",
+      "target": "config:package.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:BENEBOT_BUILD_SPEC.md",
+      "target": "config:spanish-concept-library.json",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md",
+      "target": "document:CONVERSATION_RELIABILITY_PLAN.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md",
+      "target": "config:spanish-concept-library.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md",
+      "target": "document:spanish-review-notes.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "document:AGENTS.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:CODEX_START_PROMPT.md",
+      "target": "document:AGENTS.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:CODEX_START_PROMPT.md",
+      "target": "document:BENEBOT_BUILD_SPEC.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:CODEX_START_PROMPT.md",
+      "target": "document:IMPLEMENTATION_PLAN.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:CONVERSATION_RELIABILITY_PLAN.md",
+      "target": "document:BENEBOT_BUILD_SPEC.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:CONVERSATION_RELIABILITY_PLAN.md",
+      "target": "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:CONVERSATION_RELIABILITY_PLAN.md",
+      "target": "config:spanish-concept-library.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:IMPLEMENTATION_PLAN.md",
+      "target": "document:BENEBOT_BUILD_SPEC.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:IMPLEMENTATION_PLAN.md",
+      "target": "document:CONVERSATION_RELIABILITY_PLAN.md",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:BENEBOT_BUILD_SPEC.md",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:IMPLEMENTATION_PLAN.md",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:package.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "config:package.json",
+      "target": "config:tsconfig.json",
+      "edgeType": "related"
+    },
+    {
+      "source": "config:spanish-concept-library.json",
+      "target": "document:spanish-review-notes.md",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:spanish-review-notes.md",
+      "target": "config:spanish-concept-library.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "config:package.json",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/canonical-concepts.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/eight-rubric-spec.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/tool-prerequisite-matrix.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "document:benebot-gold-packet/source-ledger.md",
+      "edgeType": "related"
+    },
+    {
+      "source": "document:benebot-gold-packet/adjudication-report.md",
+      "target": "config:benebot-gold-packet/canonical-concepts.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:benebot-gold-packet/adjudication-report.md",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:benebot-gold-packet/source-ledger.md",
+      "target": "config:benebot-gold-packet/canonical-concepts.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "document:benebot-gold-packet/source-ledger.md",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "edgeType": "documents"
+    },
+    {
+      "source": "config:benebot-gold-packet/canonical-concepts.json",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "edgeType": "related"
+    },
+    {
+      "source": "config:benebot-gold-packet/eight-rubric-spec.json",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "edgeType": "related"
+    },
+    {
+      "source": "config:benebot-gold-packet/tool-prerequisite-matrix.json",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "edgeType": "related"
+    },
+    {
+      "source": "config:fixtures/benebot-fhir-seed.json",
+      "target": "file:lib/medplum/demo-fixture.ts",
+      "edgeType": "configures"
+    },
+    {
+      "source": "config:fixtures/benebot-fhir-seed.json",
+      "target": "file:tests/unit/eob-normalizer.test.ts",
+      "edgeType": "related"
+    },
+    {
+      "source": "config:fixtures/stedi-aetna-test-request.json",
+      "target": "config:fixtures/stedi-normalized-fallback.json",
+      "edgeType": "related"
+    },
+    {
+      "source": "config:fixtures/stedi-normalized-fallback.json",
+      "target": "file:lib/stedi/eligibility.ts",
+      "edgeType": "configures"
+    },
+    {
+      "source": "config:data/demo-resources.json",
+      "target": "file:lib/resources/provider.ts",
+      "edgeType": "configures"
+    },
+    {
+      "source": "file:lib/medplum/demo-fixture.ts",
+      "target": "config:fixtures/benebot-fhir-seed.json",
+      "edgeType": "imports"
+    },
+    {
+      "source": "file:lib/resources/provider.ts",
+      "target": "config:data/demo-resources.json",
+      "edgeType": "imports"
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "config:fixtures/stedi-normalized-fallback.json",
+      "edgeType": "imports"
+    },
+    {
+      "source": "file:tests/unit/deepgram-prompt.test.ts",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "edgeType": "imports"
+    },
+    {
+      "source": "file:tests/unit/eob-normalizer.test.ts",
+      "target": "config:fixtures/benebot-fhir-seed.json",
+      "edgeType": "imports"
+    }
+  ],
+  "interGroupImports": [
+    {
+      "from": "app",
+      "to": "lib",
+      "count": 28
+    },
+    {
+      "from": "tests",
+      "to": "lib",
+      "count": 19
+    },
+    {
+      "from": "components",
+      "to": "lib",
+      "count": 5
+    },
+    {
+      "from": "app",
+      "to": "components",
+      "count": 3
+    },
+    {
+      "from": "scripts",
+      "to": "lib",
+      "count": 3
+    },
+    {
+      "from": "lib",
+      "to": "fixtures",
+      "count": 2
+    },
+    {
+      "from": "lib",
+      "to": "data",
+      "count": 1
+    },
+    {
+      "from": "tests",
+      "to": "benebot-gold-packet",
+      "count": 1
+    },
+    {
+      "from": "tests",
+      "to": "fixtures",
+      "count": 1
+    }
+  ],
+  "intraGroupDensity": {
+    "app": {
+      "internalEdges": 1,
+      "totalEdges": 32,
+      "density": 0.0313
+    },
+    "components": {
+      "internalEdges": 3,
+      "totalEdges": 11,
+      "density": 0.2727
+    },
+    "lib": {
+      "internalEdges": 29,
+      "totalEdges": 87,
+      "density": 0.3333
+    },
+    "tests": {
+      "internalEdges": 0,
+      "totalEdges": 21,
+      "density": 0
+    },
+    "scripts": {
+      "internalEdges": 0,
+      "totalEdges": 3,
+      "density": 0
+    },
+    "root": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "config": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "benebot-gold-packet": {
+      "internalEdges": 0,
+      "totalEdges": 1,
+      "density": 0
+    },
+    "fixtures": {
+      "internalEdges": 0,
+      "totalEdges": 3,
+      "density": 0
+    },
+    ".understand-anything": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "data": {
+      "internalEdges": 0,
+      "totalEdges": 1,
+      "density": 0
+    }
+  },
+  "patternMatches": {
+    "app": "ui",
+    "components": "ui",
+    "lib": "service",
+    "tests": "test",
+    "scripts": "unclassified",
+    "root": "documentation",
+    "config": "config",
+    "benebot-gold-packet": "documentation",
+    "fixtures": "unclassified",
+    ".understand-anything": "unclassified",
+    "data": "data"
+  },
+  "deploymentTopology": {
+    "hasDockerfile": false,
+    "hasCompose": false,
+    "hasK8s": false,
+    "hasTerraform": false,
+    "hasCI": false,
+    "infraFiles": []
+  },
+  "dataPipeline": {
+    "schemaFiles": [],
+    "migrationFiles": [],
+    "dataModelFiles": [
+      "fixtures/benebot-fhir-seed.json",
+      "fixtures/demo-resources.json",
+      "fixtures/stedi-aetna-test-request.json",
+      "fixtures/stedi-normalized-fallback.json",
+      "data/demo-resources.json"
+    ],
+    "apiHandlerFiles": [
+      "app/api/tools/get-bill-context/route.ts",
+      "app/api/benebot/session/route.ts",
+      "app/api/deepgram-token/route.ts",
+      "app/api/tools/refresh-benefits/route.ts",
+      "app/api/tools/request-followup/route.ts",
+      "app/api/tools/save-summary/route.ts",
+      "app/api/tools/search-resources/route.ts"
+    ]
+  },
+  "docCoverage": {
+    "groupsWithDocs": 5,
+    "totalGroups": 11,
+    "coverageRatio": 0.4545,
+    "undocumentedGroups": [
+      "components",
+      "tests",
+      "scripts",
+      "fixtures",
+      ".understand-anything",
+      "data"
+    ]
+  },
+  "dependencyDirection": [
+    {
+      "dependent": "app",
+      "dependsOn": "lib",
+      "count": 28,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "tests",
+      "dependsOn": "lib",
+      "count": 19,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "components",
+      "dependsOn": "lib",
+      "count": 5,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "app",
+      "dependsOn": "components",
+      "count": 3,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "scripts",
+      "dependsOn": "lib",
+      "count": 3,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "lib",
+      "dependsOn": "fixtures",
+      "count": 2,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "lib",
+      "dependsOn": "data",
+      "count": 1,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "tests",
+      "dependsOn": "benebot-gold-packet",
+      "count": 1,
+      "reverseCount": 0
+    },
+    {
+      "dependent": "tests",
+      "dependsOn": "fixtures",
+      "count": 1,
+      "reverseCount": 0
+    }
+  ],
+  "fileStats": {
+    "totalFileNodes": 89,
+    "filesPerGroup": {
+      "app": 12,
+      "components": 6,
+      "lib": 22,
+      "tests": 15,
+      "scripts": 1,
+      "root": 10,
+      "config": 7,
+      "benebot-gold-packet": 9,
+      "fixtures": 4,
+      ".understand-anything": 2,
+      "data": 1
+    },
+    "nodeTypeCounts": {
+      "file": 64,
+      "document": 12,
+      "config": 13
+    }
+  },
+  "fileFanIn": {
+    "file:app/api/tools/get-bill-context/route.ts": 0,
+    "file:components/voice/benebot-panel.tsx": 1,
+    "file:components/voice/tool-activity.tsx": 1,
+    "file:components/voice/transcript.tsx": 1,
+    "file:lib/billing/historical-narration.ts": 2,
+    "file:lib/contracts.ts": 14,
+    "file:lib/deepgram/concept-guidance.ts": 2,
+    "file:lib/deepgram/config.ts": 2,
+    "file:lib/deepgram/prerequisites.ts": 3,
+    "file:lib/deepgram/prompt.ts": 2,
+    "file:lib/deepgram/text-fallback.ts": 2,
+    "file:lib/deepgram/tools.ts": 3,
+    "file:lib/resources/provider.ts": 2,
+    "file:tests/resource-provider.test.ts": 0,
+    "file:tests/unit/deepgram-config.test.ts": 0,
+    "file:tests/unit/deepgram-prompt.test.ts": 0,
+    "file:tests/unit/deepgram-tools.test.ts": 0,
+    "file:tests/unit/historical-narration.test.ts": 0,
+    "file:tests/unit/text-fallback.test.ts": 0,
+    "file:app/api/benebot/session/route.ts": 0,
+    "file:app/api/deepgram-token/route.ts": 0,
+    "file:app/api/tools/refresh-benefits/route.ts": 0,
+    "file:app/api/tools/request-followup/route.ts": 0,
+    "file:app/api/tools/save-summary/route.ts": 0,
+    "file:app/api/tools/search-resources/route.ts": 0,
+    "file:lib/env.ts": 3,
+    "file:lib/errors.ts": 9,
+    "file:lib/medplum/server.ts": 5,
+    "file:lib/medplum/write-artifacts.ts": 4,
+    "file:lib/session.ts": 11,
+    "file:lib/stedi/eligibility.ts": 2,
+    "file:tests/integration/medplum-billing-case.test.ts": 0,
+    "file:tests/stedi-eligibility.test.ts": 0,
+    "file:tests/unit/session.test.ts": 0,
+    "file:app/staff/page.tsx": 0,
+    "file:components/staff/artifact-timeline.tsx": 1,
+    "file:lib/billing/math.ts": 2,
+    "file:lib/billing/normalize-eob.ts": 3,
+    "file:lib/billing/types.ts": 4,
+    "file:lib/medplum/constants.ts": 3,
+    "file:lib/medplum/demo-fixture.ts": 2,
+    "file:lib/medplum/queries.ts": 3,
+    "file:scripts/seed-medplum.ts": 0,
+    "file:tests/integration/fixture-bill-context.test.ts": 0,
+    "file:tests/unit/billing-math.test.ts": 0,
+    "file:tests/unit/eob-normalizer.test.ts": 0,
+    "file:app/bill/[invoiceId]/page.tsx": 0,
+    "file:components/bill/bill-breakdown.tsx": 1,
+    "file:components/bill/bill-experience.tsx": 1,
+    "document:AGENTS.md": 0,
+    "document:BENEBOT_BUILD_SPEC.md": 0,
+    "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md": 0,
+    "document:CLAUDE.md": 0,
+    "document:CODEX_START_PROMPT.md": 0,
+    "document:CONVERSATION_RELIABILITY_PLAN.md": 0,
+    "document:IMPLEMENTATION_PLAN.md": 0,
+    "document:README.md": 0,
+    "config:package.json": 0,
+    "config:spanish-concept-library.json": 0,
+    "document:spanish-review-notes.md": 0,
+    "config:tsconfig.json": 0,
+    "document:benebot-gold-packet/INTEGRATION_NOTES.md": 0,
+    "document:benebot-gold-packet/adjudication-report.md": 0,
+    "config:benebot-gold-packet/canonical-concepts.json": 0,
+    "config:benebot-gold-packet/eight-rubric-spec.json": 0,
+    "config:benebot-gold-packet/runtime-concepts.json": 1,
+    "document:benebot-gold-packet/source-ledger.md": 0,
+    "config:benebot-gold-packet/tool-prerequisite-matrix.json": 0,
+    "config:fixtures/benebot-fhir-seed.json": 2,
+    "config:fixtures/demo-resources.json": 0,
+    "config:fixtures/stedi-aetna-test-request.json": 0,
+    "config:fixtures/stedi-normalized-fallback.json": 1,
+    "file:.understand-anything/.understandignore": 0,
+    "config:.understand-anything/config.json": 0,
+    "file:app/globals.css": 1,
+    "file:app/layout.tsx": 0,
+    "file:app/page.tsx": 0,
+    "file:benebot-gold-packet/rejected-content.jsonl": 0,
+    "file:benebot-gold-packet/transcript-eval-cases.jsonl": 0,
+    "config:data/demo-resources.json": 1,
+    "file:eslint.config.mjs": 0,
+    "file:lib/evaluation/conversation-evaluation.ts": 1,
+    "file:next.config.ts": 0,
+    "file:playwright.config.ts": 0,
+    "file:postcss.config.mjs": 0,
+    "file:tests/e2e/text-happy-path.spec.ts": 0,
+    "file:tests/server-only.ts": 0,
+    "file:tests/unit/conversation-evaluation.test.ts": 0,
+    "file:vitest.config.mts": 0
+  },
+  "fileFanOut": {
+    "file:app/api/tools/get-bill-context/route.ts": 6,
+    "file:components/voice/benebot-panel.tsx": 6,
+    "file:components/voice/tool-activity.tsx": 1,
+    "file:components/voice/transcript.tsx": 0,
+    "file:lib/billing/historical-narration.ts": 1,
+    "file:lib/contracts.ts": 0,
+    "file:lib/deepgram/concept-guidance.ts": 1,
+    "file:lib/deepgram/config.ts": 3,
+    "file:lib/deepgram/prerequisites.ts": 1,
+    "file:lib/deepgram/prompt.ts": 3,
+    "file:lib/deepgram/text-fallback.ts": 1,
+    "file:lib/deepgram/tools.ts": 2,
+    "file:lib/resources/provider.ts": 2,
+    "file:tests/resource-provider.test.ts": 1,
+    "file:tests/unit/deepgram-config.test.ts": 1,
+    "file:tests/unit/deepgram-prompt.test.ts": 4,
+    "file:tests/unit/deepgram-tools.test.ts": 1,
+    "file:tests/unit/historical-narration.test.ts": 2,
+    "file:tests/unit/text-fallback.test.ts": 1,
+    "file:app/api/benebot/session/route.ts": 2,
+    "file:app/api/deepgram-token/route.ts": 2,
+    "file:app/api/tools/refresh-benefits/route.ts": 5,
+    "file:app/api/tools/request-followup/route.ts": 4,
+    "file:app/api/tools/save-summary/route.ts": 4,
+    "file:app/api/tools/search-resources/route.ts": 3,
+    "file:lib/env.ts": 0,
+    "file:lib/errors.ts": 0,
+    "file:lib/medplum/server.ts": 1,
+    "file:lib/medplum/write-artifacts.ts": 4,
+    "file:lib/session.ts": 1,
+    "file:lib/stedi/eligibility.ts": 3,
+    "file:tests/integration/medplum-billing-case.test.ts": 2,
+    "file:tests/stedi-eligibility.test.ts": 1,
+    "file:tests/unit/session.test.ts": 1,
+    "file:app/staff/page.tsx": 3,
+    "file:components/staff/artifact-timeline.tsx": 0,
+    "file:lib/billing/math.ts": 1,
+    "file:lib/billing/normalize-eob.ts": 2,
+    "file:lib/billing/types.ts": 0,
+    "file:lib/medplum/constants.ts": 0,
+    "file:lib/medplum/demo-fixture.ts": 1,
+    "file:lib/medplum/queries.ts": 5,
+    "file:scripts/seed-medplum.ts": 3,
+    "file:tests/integration/fixture-bill-context.test.ts": 2,
+    "file:tests/unit/billing-math.test.ts": 2,
+    "file:tests/unit/eob-normalizer.test.ts": 2,
+    "file:app/bill/[invoiceId]/page.tsx": 2,
+    "file:components/bill/bill-breakdown.tsx": 0,
+    "file:components/bill/bill-experience.tsx": 1,
+    "document:AGENTS.md": 0,
+    "document:BENEBOT_BUILD_SPEC.md": 0,
+    "document:BENEBOT_RESEARCH_AGENT_PROMPTS.md": 0,
+    "document:CLAUDE.md": 0,
+    "document:CODEX_START_PROMPT.md": 0,
+    "document:CONVERSATION_RELIABILITY_PLAN.md": 0,
+    "document:IMPLEMENTATION_PLAN.md": 0,
+    "document:README.md": 0,
+    "config:package.json": 0,
+    "config:spanish-concept-library.json": 0,
+    "document:spanish-review-notes.md": 0,
+    "config:tsconfig.json": 0,
+    "document:benebot-gold-packet/INTEGRATION_NOTES.md": 0,
+    "document:benebot-gold-packet/adjudication-report.md": 0,
+    "config:benebot-gold-packet/canonical-concepts.json": 0,
+    "config:benebot-gold-packet/eight-rubric-spec.json": 0,
+    "config:benebot-gold-packet/runtime-concepts.json": 0,
+    "document:benebot-gold-packet/source-ledger.md": 0,
+    "config:benebot-gold-packet/tool-prerequisite-matrix.json": 0,
+    "config:fixtures/benebot-fhir-seed.json": 0,
+    "config:fixtures/demo-resources.json": 0,
+    "config:fixtures/stedi-aetna-test-request.json": 0,
+    "config:fixtures/stedi-normalized-fallback.json": 0,
+    "file:.understand-anything/.understandignore": 0,
+    "config:.understand-anything/config.json": 0,
+    "file:app/globals.css": 0,
+    "file:app/layout.tsx": 1,
+    "file:app/page.tsx": 0,
+    "file:benebot-gold-packet/rejected-content.jsonl": 0,
+    "file:benebot-gold-packet/transcript-eval-cases.jsonl": 0,
+    "config:data/demo-resources.json": 0,
+    "file:eslint.config.mjs": 0,
+    "file:lib/evaluation/conversation-evaluation.ts": 0,
+    "file:next.config.ts": 0,
+    "file:playwright.config.ts": 0,
+    "file:postcss.config.mjs": 0,
+    "file:tests/e2e/text-happy-path.spec.ts": 0,
+    "file:tests/server-only.ts": 0,
+    "file:tests/unit/conversation-evaluation.test.ts": 1,
+    "file:vitest.config.mts": 0
+  }
+}

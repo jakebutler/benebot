@@ -110,8 +110,8 @@ export function categorizeBillingIssue(
     issueType: "bill-explanation",
     patientIssueSummary:
       language === "es"
-        ? "La paciente sigue confundida sobre cómo se calculó su responsabilidad de $620."
-        : "The patient remains confused about how the $620 responsibility was determined.",
+        ? "La paciente sigue confundida sobre cómo se calculó su responsabilidad en la factura."
+        : "The patient remains confused about how the bill responsibility was determined.",
   };
 }
 

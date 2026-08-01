@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "type": "document",
+      "name": "INTEGRATION_NOTES.md",
+      "filePath": "benebot-gold-packet/INTEGRATION_NOTES.md",
+      "summary": "Records how the approved research packet was incorporated into the bounded Jane Doe P0 while keeping patient-specific values out of prompts. It also resolves conflicts between research rubrics, unsupported tool prerequisites, runtime authority, and evaluation-only material.",
+      "tags": ["documentation", "integration", "safety-boundaries", "provenance", "evaluation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:benebot-gold-packet/adjudication-report.md",
+      "type": "document",
+      "name": "adjudication-report.md",
+      "filePath": "benebot-gold-packet/adjudication-report.md",
+      "summary": "Documents the final adjudication of six BeneBot research packets, including the accepted six-concept P0 vocabulary, repaired bilingual analogies, evaluation-only content, and rejected unsafe material. The report recommends the reconciled packet for bounded P0 incorporation.",
+      "tags": ["documentation", "adjudication", "bilingual", "content-safety", "p0-scope"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:benebot-gold-packet/canonical-concepts.json",
+      "type": "config",
+      "name": "canonical-concepts.json",
+      "filePath": "benebot-gold-packet/canonical-concepts.json",
+      "summary": "Defines the canonical English and Spanish health-literacy library for six P0 billing concepts. Each entry combines preferred terminology, definitions, utterance variants, comprehension checks, Spanish pronunciation guidance, and shared factual boundaries.",
+      "tags": ["configuration", "bilingual", "health-literacy", "concept-library", "fact-boundaries"],
+      "complexity": "complex",
+      "languageNotes": "The JSON uses parallel English and Spanish structures so evaluators can compare meaning while preserving language-specific terminology and pronunciation guidance."
+    },
+    {
+      "id": "config:benebot-gold-packet/eight-rubric-spec.json",
+      "type": "config",
+      "name": "eight-rubric-spec.json",
+      "filePath": "benebot-gold-packet/eight-rubric-spec.json",
+      "summary": "Defines eight prioritized research evaluation dimensions covering financial non-invention, historical/current separation, prerequisite tool ordering, confirmed external outcomes, bilingual equivalence, natural language, safe analogies, and conversational warmth.",
+      "tags": ["configuration", "evaluation", "rubric", "safety", "bilingual"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:benebot-gold-packet/runtime-concepts.json",
+      "type": "config",
+      "name": "runtime-concepts.json",
+      "filePath": "benebot-gold-packet/runtime-concepts.json",
+      "summary": "Provides runtime-oriented English and Spanish explanation patterns for the six P0 billing concepts, including first explanations, confusion repairs, forbidden phrases, optional analogies, and explicit analogy boundaries. Integration notes constrain patient-specific values in this research artifact from entering live prompt guidance.",
+      "tags": ["configuration", "bilingual", "prompt-guidance", "content-safety", "health-literacy"],
+      "complexity": "moderate",
+      "languageNotes": "Each concept has parallel language-scoped response fields, enabling semantic alignment without requiring literal translation."
+    },
+    {
+      "id": "document:benebot-gold-packet/source-ledger.md",
+      "type": "document",
+      "name": "source-ledger.md",
+      "filePath": "benebot-gold-packet/source-ledger.md",
+      "summary": "Traces the packet's factual boundaries, English and Spanish concept content, analogy decisions, and synthetic bilingual evaluation cases back to five upstream research sources. A coverage matrix exposes source gaps and normalized concept identifiers for the six-concept P0 set.",
+      "tags": ["documentation", "provenance", "source-ledger", "bilingual", "traceability"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:benebot-gold-packet/tool-prerequisite-matrix.json",
+      "type": "config",
+      "name": "tool-prerequisite-matrix.json",
+      "filePath": "benebot-gold-packet/tool-prerequisite-matrix.json",
+      "summary": "Maps patient-specific claims about the six P0 billing concepts to the research packet's proposed prerequisite tools. The integration notes treat this matrix as evaluation provenance because several named tools and requested facts are unsupported by the closed BeneBot runtime tool set.",
+      "tags": ["configuration", "tool-prerequisites", "patient-safety", "evaluation", "scope-control"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/canonical-concepts.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/eight-rubric-spec.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "config:benebot-gold-packet/tool-prerequisite-matrix.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/INTEGRATION_NOTES.md",
+      "target": "document:benebot-gold-packet/source-ledger.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/adjudication-report.md",
+      "target": "config:benebot-gold-packet/canonical-concepts.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/adjudication-report.md",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/source-ledger.md",
+      "target": "config:benebot-gold-packet/canonical-concepts.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:benebot-gold-packet/source-ledger.md",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:benebot-gold-packet/canonical-concepts.json",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:benebot-gold-packet/eight-rubric-spec.json",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:benebot-gold-packet/tool-prerequisite-matrix.json",
+      "target": "config:benebot-gold-packet/runtime-concepts.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

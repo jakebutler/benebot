@@ -1,0 +1,31 @@
+{
+  "projectRoot": "/Users/jacobbutler/Documents/benebot",
+  "batchFiles": [
+    {"path":"app/staff/page.tsx","language":"typescript","sizeLines":156,"fileCategory":"code"},
+    {"path":"components/staff/artifact-timeline.tsx","language":"typescript","sizeLines":5,"fileCategory":"code"},
+    {"path":"lib/billing/math.ts","language":"typescript","sizeLines":45,"fileCategory":"code"},
+    {"path":"lib/billing/normalize-eob.ts","language":"typescript","sizeLines":156,"fileCategory":"code"},
+    {"path":"lib/billing/types.ts","language":"typescript","sizeLines":55,"fileCategory":"code"},
+    {"path":"lib/medplum/constants.ts","language":"typescript","sizeLines":21,"fileCategory":"code"},
+    {"path":"lib/medplum/demo-fixture.ts","language":"typescript","sizeLines":58,"fileCategory":"code"},
+    {"path":"lib/medplum/queries.ts","language":"typescript","sizeLines":321,"fileCategory":"code"},
+    {"path":"scripts/seed-medplum.ts","language":"typescript","sizeLines":182,"fileCategory":"code"},
+    {"path":"tests/integration/fixture-bill-context.test.ts","language":"typescript","sizeLines":30,"fileCategory":"code"},
+    {"path":"tests/unit/billing-math.test.ts","language":"typescript","sizeLines":47,"fileCategory":"code"},
+    {"path":"tests/unit/eob-normalizer.test.ts","language":"typescript","sizeLines":68,"fileCategory":"code"}
+  ],
+  "batchImportData": {
+    "app/staff/page.tsx": ["components/staff/artifact-timeline.tsx","lib/medplum/queries.ts","lib/medplum/server.ts"],
+    "components/staff/artifact-timeline.tsx": [],
+    "lib/billing/math.ts": ["lib/billing/types.ts"],
+    "lib/billing/normalize-eob.ts": ["lib/billing/math.ts","lib/billing/types.ts"],
+    "lib/billing/types.ts": [],
+    "lib/medplum/constants.ts": [],
+    "lib/medplum/demo-fixture.ts": ["fixtures/benebot-fhir-seed.json"],
+    "lib/medplum/queries.ts": ["lib/billing/normalize-eob.ts","lib/billing/types.ts","lib/medplum/constants.ts","lib/medplum/demo-fixture.ts","lib/medplum/server.ts"],
+    "scripts/seed-medplum.ts": ["lib/billing/normalize-eob.ts","lib/medplum/constants.ts","lib/medplum/demo-fixture.ts"],
+    "tests/integration/fixture-bill-context.test.ts": ["lib/medplum/queries.ts","lib/session.ts"],
+    "tests/unit/billing-math.test.ts": ["lib/billing/math.ts","lib/billing/types.ts"],
+    "tests/unit/eob-normalizer.test.ts": ["fixtures/benebot-fhir-seed.json","lib/billing/normalize-eob.ts"]
+  }
+}

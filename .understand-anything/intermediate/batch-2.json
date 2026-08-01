@@ -1,0 +1,1767 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/api/benebot/session/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/benebot/session/route.ts",
+      "summary": "Creates a rate-limited synthetic BeneBot session for the fixed demo invoice, resolving Medplum seed identifiers when available and failing closed for configured-but-broken Medplum access.",
+      "tags": [
+        "api-handler",
+        "session",
+        "security",
+        "medplum"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/api/benebot/session/route.ts:POST",
+      "type": "function",
+      "name": "POST",
+      "filePath": "app/api/benebot/session/route.ts",
+      "lineRange": [
+        22,
+        59
+      ],
+      "summary": "Validates the fixed invoice request, resolves the signed session scope, mints a short-lived token, and returns only the synthetic patient and invoice bootstrap data.",
+      "tags": [
+        "api-handler",
+        "session",
+        "validation",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/deepgram-token/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/deepgram-token/route.ts",
+      "summary": "Issues a five-minute Deepgram temporary access token to an authenticated, rate-limited BeneBot session while keeping the long-lived Deepgram API key server-only.",
+      "tags": [
+        "api-handler",
+        "deepgram",
+        "voice",
+        "security"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/api/deepgram-token/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "app/api/deepgram-token/route.ts",
+      "lineRange": [
+        14,
+        55
+      ],
+      "summary": "Authenticates the BeneBot request, enforces a per-session voice-token limit, obtains a temporary Deepgram grant, and returns a sanitized fallback-friendly error on failure.",
+      "tags": [
+        "api-handler",
+        "deepgram",
+        "authentication",
+        "rate-limiting"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/tools/refresh-benefits/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/tools/refresh-benefits/route.ts",
+      "summary": "Refreshes current benefits through the guarded Stedi test provider, optionally persists the successful snapshot to Medplum, and returns a deterministic bilingual spoken summary distinct from historical claim data.",
+      "tags": [
+        "api-handler",
+        "stedi",
+        "medplum",
+        "bilingual",
+        "fallback"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "type": "function",
+      "name": "POST",
+      "filePath": "app/api/tools/refresh-benefits/route.ts",
+      "lineRange": [
+        20,
+        51
+      ],
+      "summary": "Authenticates the session, performs the fixed synthetic current-benefits check, records persistence warnings separately, and uses a visibly labeled fixture only when explicitly allowed.",
+      "tags": [
+        "api-handler",
+        "eligibility",
+        "validation",
+        "fallback"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/tools/request-followup/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/tools/request-followup/route.ts",
+      "summary": "Creates a Medplum billing-review Task only after explicit patient confirmation, strict input validation, session-scope verification, and server confirmation of the persisted resource ID.",
+      "tags": [
+        "api-handler",
+        "medplum",
+        "patient-confirmation",
+        "workflow"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/api/tools/request-followup/route.ts:POST",
+      "type": "function",
+      "name": "POST",
+      "filePath": "app/api/tools/request-followup/route.ts",
+      "lineRange": [
+        27,
+        66
+      ],
+      "summary": "Rejects unconfirmed requests, validates a bounded billing issue summary and contact preference, then creates a scoped Medplum follow-up Task and reports its confirmed ID.",
+      "tags": [
+        "api-handler",
+        "patient-confirmation",
+        "medplum",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/tools/save-summary/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/tools/save-summary/route.ts",
+      "summary": "Persists a bounded conversation summary as a Medplum Communication, keeping language, answered questions, resources, follow-up, and unresolved issues structured without storing a transcript.",
+      "tags": [
+        "api-handler",
+        "medplum",
+        "summary",
+        "privacy"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/api/tools/save-summary/route.ts:POST",
+      "type": "function",
+      "name": "POST",
+      "filePath": "app/api/tools/save-summary/route.ts",
+      "lineRange": [
+        22,
+        43
+      ],
+      "summary": "Authenticates and validates the summary payload, creates the scoped Communication, and returns success only after Medplum provides a resource ID.",
+      "tags": [
+        "api-handler",
+        "medplum",
+        "validation",
+        "persistence"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/tools/search-resources/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/tools/search-resources/route.ts",
+      "summary": "Searches the local support-resource provider using only generic need and language filters so patient and claim data never leave BeneBot through resource discovery.",
+      "tags": [
+        "api-handler",
+        "resource-search",
+        "privacy",
+        "bilingual"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/api/tools/search-resources/route.ts:POST",
+      "type": "function",
+      "name": "POST",
+      "filePath": "app/api/tools/search-resources/route.ts",
+      "lineRange": [
+        20,
+        29
+      ],
+      "summary": "Verifies the session, validates a generic resource need and English/Spanish language, and returns up to three local support resources.",
+      "tags": [
+        "api-handler",
+        "resource-search",
+        "privacy",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/env.ts",
+      "type": "file",
+      "name": "env.ts",
+      "filePath": "lib/env.ts",
+      "summary": "Defines and validates server-only BeneBot configuration, constraining Stedi to its fixed test identifiers and exposing typed guards for Medplum, Deepgram, and Stedi credentials.",
+      "tags": [
+        "configuration",
+        "validation",
+        "server-only",
+        "security"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses Zod defaults, literals, coercion, and inferred intersection return types to keep environment validation explicit and typed."
+    },
+    {
+      "id": "function:lib/env.ts:getEnv",
+      "type": "function",
+      "name": "getEnv",
+      "filePath": "lib/env.ts",
+      "lineRange": [
+        35,
+        38
+      ],
+      "summary": "Parses the process environment once and returns the cached typed BeneBot configuration.",
+      "tags": [
+        "configuration",
+        "validation",
+        "singleton"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/env.ts:requireMedplumEnv",
+      "type": "function",
+      "name": "requireMedplumEnv",
+      "filePath": "lib/env.ts",
+      "lineRange": [
+        40,
+        52
+      ],
+      "summary": "Requires both Medplum client credentials and narrows the returned environment type for authenticated server use.",
+      "tags": [
+        "configuration",
+        "medplum",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/env.ts:requireDeepgramEnv",
+      "type": "function",
+      "name": "requireDeepgramEnv",
+      "filePath": "lib/env.ts",
+      "lineRange": [
+        54,
+        60
+      ],
+      "summary": "Requires the server-side Deepgram API key and narrows the environment type before voice integration code uses it.",
+      "tags": [
+        "configuration",
+        "deepgram",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/env.ts:requireStediEnv",
+      "type": "function",
+      "name": "requireStediEnv",
+      "filePath": "lib/env.ts",
+      "lineRange": [
+        62,
+        68
+      ],
+      "summary": "Requires the Stedi test API key and returns a narrowed environment type for eligibility requests.",
+      "tags": [
+        "configuration",
+        "stedi",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/errors.ts",
+      "type": "file",
+      "name": "errors.ts",
+      "filePath": "lib/errors.ts",
+      "summary": "Centralizes typed BeneBot errors and sanitized HTTP responses, preserving intentional user-safe messages while logging unexpected failures only with an opaque request ID and error class.",
+      "tags": [
+        "error-handling",
+        "security",
+        "api-response",
+        "logging"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/errors.ts:BeneBotError",
+      "type": "class",
+      "name": "BeneBotError",
+      "filePath": "lib/errors.ts",
+      "lineRange": [
+        1,
+        10
+      ],
+      "summary": "Carries a stable public error code, safe message, and HTTP status for expected BeneBot failures.",
+      "tags": [
+        "error-handling",
+        "data-model",
+        "api-response"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/errors.ts:safeErrorResponse",
+      "type": "function",
+      "name": "safeErrorResponse",
+      "filePath": "lib/errors.ts",
+      "lineRange": [
+        12,
+        35
+      ],
+      "summary": "Converts expected errors directly and unexpected errors into sanitized JSON with an opaque diagnostic request ID.",
+      "tags": [
+        "error-handling",
+        "serialization",
+        "security",
+        "api-response"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/medplum/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "lib/medplum/server.ts",
+      "summary": "Provides the server-only Medplum client boundary, credential-state detection, client-credentials login, and a retry-safe cached client promise.",
+      "tags": [
+        "medplum",
+        "server-only",
+        "service",
+        "authentication"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/medplum/server.ts:MedplumNotConfiguredError",
+      "type": "class",
+      "name": "MedplumNotConfiguredError",
+      "filePath": "lib/medplum/server.ts",
+      "lineRange": [
+        7,
+        14
+      ],
+      "summary": "Represents the explicit absence of Medplum client credentials so API routes can fail with a precise safe response.",
+      "tags": [
+        "medplum",
+        "error-handling",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/medplum/server.ts:isMedplumConfigured",
+      "type": "function",
+      "name": "isMedplumConfigured",
+      "filePath": "lib/medplum/server.ts",
+      "lineRange": [
+        18,
+        21
+      ],
+      "summary": "Reports whether both Medplum client credentials are present without initiating a network connection.",
+      "tags": [
+        "medplum",
+        "configuration",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/medplum/server.ts:connectMedplum",
+      "type": "function",
+      "name": "connectMedplum",
+      "filePath": "lib/medplum/server.ts",
+      "lineRange": [
+        23,
+        34
+      ],
+      "summary": "Creates a Medplum client and performs server-side client-credentials login, translating missing configuration to a domain error.",
+      "tags": [
+        "medplum",
+        "authentication",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/medplum/server.ts:getMedplumClient",
+      "type": "function",
+      "name": "getMedplumClient",
+      "filePath": "lib/medplum/server.ts",
+      "lineRange": [
+        36,
+        42
+      ],
+      "summary": "Returns a shared asynchronous Medplum client and clears the cached promise after failed connection attempts so later calls may retry.",
+      "tags": [
+        "medplum",
+        "singleton",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/medplum/write-artifacts.ts",
+      "type": "file",
+      "name": "write-artifacts.ts",
+      "filePath": "lib/medplum/write-artifacts.ts",
+      "summary": "Validates every FHIR reference against the signed session before idempotently creating Medplum Task, Communication, CoverageEligibilityRequest, and CoverageEligibilityResponse workflow artifacts.",
+      "tags": [
+        "medplum",
+        "fhir-r4",
+        "persistence",
+        "security",
+        "idempotency"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Uses typed FHIR R4 resources and stable identifiers so writes are scoped, reference-safe, and idempotent."
+    },
+    {
+      "id": "function:lib/medplum/write-artifacts.ts:validateSessionReferences",
+      "type": "function",
+      "name": "validateSessionReferences",
+      "filePath": "lib/medplum/write-artifacts.ts",
+      "lineRange": [
+        21,
+        53
+      ],
+      "summary": "Reads the signed session's patient, bill, coverage, encounter, EOB, provider, and payer resources and rejects any broken cross-resource binding before a write.",
+      "tags": [
+        "medplum",
+        "validation",
+        "authorization",
+        "fhir-r4"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/medplum/write-artifacts.ts:createFollowupTask",
+      "type": "function",
+      "name": "createFollowupTask",
+      "filePath": "lib/medplum/write-artifacts.ts",
+      "lineRange": [
+        59,
+        97
+      ],
+      "summary": "Creates an idempotent requested FHIR Task containing only the confirmed issue summary, contact preference, and signed bill context, then requires a returned ID.",
+      "tags": [
+        "medplum",
+        "fhir-r4",
+        "workflow",
+        "idempotency"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/medplum/write-artifacts.ts:buildSummary",
+      "type": "function",
+      "name": "buildSummary",
+      "filePath": "lib/medplum/write-artifacts.ts",
+      "lineRange": [
+        99,
+        114
+      ],
+      "summary": "Builds a bounded summary that explicitly labels the historical EOB date separately from the latest eligibility status and records no full transcript.",
+      "tags": [
+        "summary",
+        "privacy",
+        "serialization",
+        "historical-current-separation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/medplum/write-artifacts.ts:createConversationCommunication",
+      "type": "function",
+      "name": "createConversationCommunication",
+      "filePath": "lib/medplum/write-artifacts.ts",
+      "lineRange": [
+        116,
+        178
+      ],
+      "summary": "Validates session and optional follow-up Task scope, then idempotently persists a completed FHIR Communication linking the bill, EOB, encounter, and confirmed Task.",
+      "tags": [
+        "medplum",
+        "fhir-r4",
+        "summary",
+        "idempotency"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/medplum/write-artifacts.ts:eligibilityItems",
+      "type": "function",
+      "name": "eligibilityItems",
+      "filePath": "lib/medplum/write-artifacts.ts",
+      "lineRange": [
+        180,
+        214
+      ],
+      "summary": "Deterministically maps only known deductible, out-of-pocket, copay, and coinsurance values into FHIR eligibility insurance items.",
+      "tags": [
+        "fhir-r4",
+        "eligibility",
+        "serialization",
+        "deterministic"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/medplum/write-artifacts.ts:persistEligibilityResult",
+      "type": "function",
+      "name": "persistEligibilityResult",
+      "filePath": "lib/medplum/write-artifacts.ts",
+      "lineRange": [
+        216,
+        276
+      ],
+      "summary": "Skips fixture data and idempotently records live eligibility request and response resources tied to the signed patient, coverage, provider, and payer context.",
+      "tags": [
+        "medplum",
+        "fhir-r4",
+        "eligibility",
+        "idempotency"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/session.ts",
+      "type": "file",
+      "name": "session.ts",
+      "filePath": "lib/session.ts",
+      "summary": "Implements signed, short-lived BeneBot JWT sessions bound to one synthetic patient, invoice, EOB, coverage, encounter, provider, and payer, plus bearer parsing and in-memory demo rate limiting.",
+      "tags": [
+        "session",
+        "jwt",
+        "authorization",
+        "rate-limiting",
+        "security"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses JOSE HS256 verification with fixed issuer, audience, algorithm, token type, and Zod claim validation before accepting browser requests."
+    },
+    {
+      "id": "function:lib/session.ts:getSessionSecret",
+      "type": "function",
+      "name": "getSessionSecret",
+      "filePath": "lib/session.ts",
+      "lineRange": [
+        71,
+        81
+      ],
+      "summary": "Loads the session signing secret and rejects missing or shorter-than-32-byte values before any JWT operation.",
+      "tags": [
+        "session",
+        "security",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/session.ts:createBeneBotSession",
+      "type": "function",
+      "name": "createBeneBotSession",
+      "filePath": "lib/session.ts",
+      "lineRange": [
+        83,
+        113
+      ],
+      "summary": "Validates a bounded TTL, binds the full bill scope into claims, and signs a short-lived HS256 JWT with a unique token ID.",
+      "tags": [
+        "session",
+        "jwt",
+        "security",
+        "factory"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/session.ts:verifyBeneBotSession",
+      "type": "function",
+      "name": "verifyBeneBotSession",
+      "filePath": "lib/session.ts",
+      "lineRange": [
+        115,
+        145
+      ],
+      "summary": "Verifies signature, algorithm, issuer, audience, token type, expiry, and every required bill-scope claim before returning a session.",
+      "tags": [
+        "session",
+        "jwt",
+        "authorization",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/session.ts:getBearerToken",
+      "type": "function",
+      "name": "getBearerToken",
+      "filePath": "lib/session.ts",
+      "lineRange": [
+        147,
+        158
+      ],
+      "summary": "Extracts exactly one bearer token from the Authorization header and raises a safe authentication error otherwise.",
+      "tags": [
+        "session",
+        "authentication",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/session.ts:verifyRequestSession",
+      "type": "function",
+      "name": "verifyRequestSession",
+      "filePath": "lib/session.ts",
+      "lineRange": [
+        160,
+        164
+      ],
+      "summary": "Combines bearer extraction with full BeneBot JWT verification for server route handlers.",
+      "tags": [
+        "session",
+        "authentication",
+        "authorization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/session.ts:enforceDemoRateLimit",
+      "type": "function",
+      "name": "enforceDemoRateLimit",
+      "filePath": "lib/session.ts",
+      "lineRange": [
+        173,
+        192
+      ],
+      "summary": "Applies a bounded in-memory fixed-window request limit and emits a safe retry-later error when the demo limit is exceeded.",
+      "tags": [
+        "rate-limiting",
+        "security",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/stedi/eligibility.ts",
+      "type": "file",
+      "name": "eligibility.ts",
+      "filePath": "lib/stedi/eligibility.ts",
+      "summary": "Guards the fixed Jane Doe Stedi test request, normalizes only unambiguous payer fields, performs the sole permitted deductible derivation in deterministic code, and produces timestamped English/Spanish spoken summaries.",
+      "tags": [
+        "stedi",
+        "eligibility",
+        "deterministic",
+        "bilingual",
+        "validation"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Zod passthrough schemas preserve tolerance for payer payload additions while explicit extraction leaves omitted or ambiguous benefit values unknown."
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:spokenSource",
+      "type": "function",
+      "name": "spokenSource",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        48,
+        65
+      ],
+      "summary": "Produces an English or Spanish source label that clearly distinguishes live Stedi, Medplum-bot test, and non-live fixture data.",
+      "tags": [
+        "bilingual",
+        "voice",
+        "eligibility",
+        "source-labeling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:spokenCheckedAt",
+      "type": "function",
+      "name": "spokenCheckedAt",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        67,
+        79
+      ],
+      "summary": "Formats an eligibility snapshot timestamp in English or Spanish with an explicit UTC time zone.",
+      "tags": [
+        "bilingual",
+        "voice",
+        "date-formatting"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:spokenMoney",
+      "type": "function",
+      "name": "spokenMoney",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        81,
+        91
+      ],
+      "summary": "Formats a known USD amount for English or Spanish speech while rendering omitted values as not returned.",
+      "tags": [
+        "bilingual",
+        "voice",
+        "money-formatting",
+        "unknown-preservation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:buildCurrentBenefitsSpokenSummary",
+      "type": "function",
+      "name": "buildCurrentBenefitsSpokenSummary",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        93,
+        107
+      ],
+      "summary": "Builds deterministic English and Spanish voice text that timestamps current eligibility and explicitly states it cannot explain, validate, or replace the historical claim.",
+      "tags": [
+        "bilingual",
+        "voice",
+        "eligibility",
+        "historical-current-separation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:deriveDeductibleSummary",
+      "type": "function",
+      "name": "deriveDeductibleSummary",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        180,
+        209
+      ],
+      "summary": "Subtracts remaining from annual deductible only when both nonnegative values share the exact benefit level, network, and service scope; otherwise it preserves known inputs without derivation.",
+      "tags": [
+        "deterministic",
+        "financial-calculation",
+        "validation",
+        "eligibility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:scopedAmount",
+      "type": "function",
+      "name": "scopedAmount",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        211,
+        228
+      ],
+      "summary": "Converts an individual benefit amount into a normalized value paired with explicit network and service-type scope.",
+      "tags": [
+        "eligibility",
+        "normalization",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:exactScopedAmount",
+      "type": "function",
+      "name": "exactScopedAmount",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        230,
+        253
+      ],
+      "summary": "Selects exactly one individual in-network service-type-30 annual or remaining benefit, returning unknown when payer scope is ambiguous.",
+      "tags": [
+        "eligibility",
+        "normalization",
+        "unknown-preservation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:assertStediTestIdentity",
+      "type": "function",
+      "name": "assertStediTestIdentity",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        272,
+        281
+      ],
+      "summary": "Fails before networking unless the entire request exactly matches the fixed synthetic Jane Doe identity and documented Stedi test literals.",
+      "tags": [
+        "stedi",
+        "security",
+        "validation",
+        "synthetic-data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:normalizeStediResponse",
+      "type": "function",
+      "name": "normalizeStediResponse",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        287,
+        371
+      ],
+      "summary": "Parses a Stedi response and emits only clearly supported coverage, deductible, out-of-pocket, copay, and coinsurance fields with warnings for missing or ambiguous scope.",
+      "tags": [
+        "stedi",
+        "normalization",
+        "validation",
+        "unknown-preservation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:loadFixtureFallback",
+      "type": "function",
+      "name": "loadFixtureFallback",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        373,
+        375
+      ],
+      "summary": "Returns the captured normalized fallback fixture whose source and warnings visibly mark it as non-live.",
+      "tags": [
+        "fixture",
+        "fallback",
+        "eligibility",
+        "source-labeling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/stedi/eligibility.ts:DirectStediTestProvider",
+      "type": "class",
+      "name": "DirectStediTestProvider",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        377,
+        411
+      ],
+      "summary": "Implements the direct Stedi test call with preflight identity enforcement, API-key authentication, timeout cancellation, response normalization, and sanitized failures.",
+      "tags": [
+        "stedi",
+        "service",
+        "security",
+        "timeout"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/stedi/eligibility.ts:createEligibilityProvider",
+      "type": "function",
+      "name": "createEligibilityProvider",
+      "filePath": "lib/stedi/eligibility.ts",
+      "lineRange": [
+        413,
+        427
+      ],
+      "summary": "Selects the direct test provider only when a Stedi test key is configured and rejects unsupported provider modes.",
+      "tags": [
+        "stedi",
+        "factory",
+        "configuration",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/integration/medplum-billing-case.test.ts",
+      "type": "file",
+      "name": "medplum-billing-case.test.ts",
+      "filePath": "tests/integration/medplum-billing-case.test.ts",
+      "summary": "Integration tests prove that billing-review Tasks contain only confirmed scoped fields, omit transcripts, and are never written when the EOB-to-encounter relationship violates the signed session.",
+      "tags": [
+        "test",
+        "integration-test",
+        "medplum",
+        "security",
+        "privacy"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/integration/medplum-billing-case.test.ts:scopedResources",
+      "type": "function",
+      "name": "scopedResources",
+      "filePath": "tests/integration/medplum-billing-case.test.ts",
+      "lineRange": [
+        19,
+        74
+      ],
+      "summary": "Builds the minimal linked FHIR resource fixture used to exercise session-bound Medplum write validation.",
+      "tags": [
+        "test",
+        "fixture",
+        "fhir-r4"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/stedi-eligibility.test.ts",
+      "type": "file",
+      "name": "stedi-eligibility.test.ts",
+      "filePath": "tests/stedi-eligibility.test.ts",
+      "summary": "Tests the fixed-identity pre-network guard, literal Stedi request, conservative benefit normalization, scope-safe deductible derivation, bilingual historical/current disclaimer, and visibly non-live fixture fallback.",
+      "tags": [
+        "test",
+        "stedi",
+        "eligibility",
+        "deterministic",
+        "bilingual"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/unit/session.test.ts",
+      "type": "file",
+      "name": "session.test.ts",
+      "filePath": "tests/unit/session.test.ts",
+      "summary": "Unit tests cover valid bill-scoped sessions and reject tampered, expired, wrong-audience, or incomplete JWTs.",
+      "tags": [
+        "test",
+        "unit-test",
+        "session",
+        "jwt",
+        "security"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/api/benebot/session/route.ts",
+      "target": "function:app/api/benebot/session/route.ts:POST",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/benebot/session/route.ts",
+      "target": "function:app/api/benebot/session/route.ts:POST",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/deepgram-token/route.ts",
+      "target": "function:app/api/deepgram-token/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/deepgram-token/route.ts",
+      "target": "function:app/api/deepgram-token/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/tools/refresh-benefits/route.ts",
+      "target": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/tools/refresh-benefits/route.ts",
+      "target": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/tools/request-followup/route.ts",
+      "target": "function:app/api/tools/request-followup/route.ts:POST",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/tools/request-followup/route.ts",
+      "target": "function:app/api/tools/request-followup/route.ts:POST",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/tools/save-summary/route.ts",
+      "target": "function:app/api/tools/save-summary/route.ts:POST",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/tools/save-summary/route.ts",
+      "target": "function:app/api/tools/save-summary/route.ts:POST",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/tools/search-resources/route.ts",
+      "target": "function:app/api/tools/search-resources/route.ts:POST",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/tools/search-resources/route.ts",
+      "target": "function:app/api/tools/search-resources/route.ts:POST",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:getEnv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:getEnv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:requireMedplumEnv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:requireMedplumEnv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:requireDeepgramEnv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:requireDeepgramEnv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:requireStediEnv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/env.ts",
+      "target": "function:lib/env.ts:requireStediEnv",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/errors.ts",
+      "target": "class:lib/errors.ts:BeneBotError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/errors.ts",
+      "target": "class:lib/errors.ts:BeneBotError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/errors.ts",
+      "target": "function:lib/errors.ts:safeErrorResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/errors.ts",
+      "target": "function:lib/errors.ts:safeErrorResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "class:lib/medplum/server.ts:MedplumNotConfiguredError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "class:lib/medplum/server.ts:MedplumNotConfiguredError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "function:lib/medplum/server.ts:isMedplumConfigured",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "function:lib/medplum/server.ts:isMedplumConfigured",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "function:lib/medplum/server.ts:connectMedplum",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "function:lib/medplum/server.ts:getMedplumClient",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "function:lib/medplum/server.ts:getMedplumClient",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:validateSessionReferences",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:createFollowupTask",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:createFollowupTask",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:buildSummary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:createConversationCommunication",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:createConversationCommunication",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:eligibilityItems",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:persistEligibilityResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "function:lib/medplum/write-artifacts.ts:persistEligibilityResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:getSessionSecret",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:createBeneBotSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:createBeneBotSession",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:verifyBeneBotSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:verifyBeneBotSession",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:getBearerToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:getBearerToken",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:verifyRequestSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:verifyRequestSession",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:enforceDemoRateLimit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "function:lib/session.ts:enforceDemoRateLimit",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:spokenSource",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:spokenCheckedAt",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:spokenMoney",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:buildCurrentBenefitsSpokenSummary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:buildCurrentBenefitsSpokenSummary",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:deriveDeductibleSummary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:deriveDeductibleSummary",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:scopedAmount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:exactScopedAmount",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:assertStediTestIdentity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:assertStediTestIdentity",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:normalizeStediResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:normalizeStediResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:loadFixtureFallback",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:loadFixtureFallback",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "class:lib/stedi/eligibility.ts:DirectStediTestProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "class:lib/stedi/eligibility.ts:DirectStediTestProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:createEligibilityProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "function:lib/stedi/eligibility.ts:createEligibilityProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:tests/integration/medplum-billing-case.test.ts",
+      "target": "function:tests/integration/medplum-billing-case.test.ts:scopedResources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/benebot/session/route.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/benebot/session/route.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/deepgram-token/route.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/deepgram-token/route.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/refresh-benefits/route.ts",
+      "target": "file:lib/env.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/refresh-benefits/route.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/refresh-benefits/route.ts",
+      "target": "file:lib/medplum/write-artifacts.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/refresh-benefits/route.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/refresh-benefits/route.ts",
+      "target": "file:lib/stedi/eligibility.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/request-followup/route.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/request-followup/route.ts",
+      "target": "file:lib/medplum/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/request-followup/route.ts",
+      "target": "file:lib/medplum/write-artifacts.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/request-followup/route.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/save-summary/route.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/save-summary/route.ts",
+      "target": "file:lib/medplum/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/save-summary/route.ts",
+      "target": "file:lib/medplum/write-artifacts.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/save-summary/route.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/search-resources/route.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/search-resources/route.ts",
+      "target": "file:lib/resources/provider.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/tools/search-resources/route.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/medplum/server.ts",
+      "target": "file:lib/env.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "file:lib/contracts.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "file:lib/medplum/constants.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "file:lib/medplum/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "file:fixtures/stedi-normalized-fallback.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "file:lib/contracts.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "file:lib/errors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/integration/medplum-billing-case.test.ts",
+      "target": "file:lib/medplum/write-artifacts.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/integration/medplum-billing-case.test.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/stedi-eligibility.test.ts",
+      "target": "file:lib/stedi/eligibility.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/unit/session.test.ts",
+      "target": "file:lib/session.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:app/api/benebot/session/route.ts:POST",
+      "target": "function:lib/session.ts:createBeneBotSession",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/benebot/session/route.ts:POST",
+      "target": "function:lib/session.ts:enforceDemoRateLimit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/deepgram-token/route.ts:GET",
+      "target": "function:lib/session.ts:verifyRequestSession",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/deepgram-token/route.ts:GET",
+      "target": "function:lib/session.ts:enforceDemoRateLimit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "target": "function:lib/stedi/eligibility.ts:createEligibilityProvider",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "target": "function:lib/medplum/write-artifacts.ts:persistEligibilityResult",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "target": "function:lib/stedi/eligibility.ts:buildCurrentBenefitsSpokenSummary",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "target": "function:lib/stedi/eligibility.ts:loadFixtureFallback",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/tools/refresh-benefits/route.ts:POST",
+      "target": "function:lib/session.ts:verifyRequestSession",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/tools/request-followup/route.ts:POST",
+      "target": "function:lib/medplum/write-artifacts.ts:createFollowupTask",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/medplum/write-artifacts.ts",
+      "target": "file:tests/integration/medplum-billing-case.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/stedi/eligibility.ts",
+      "target": "file:tests/stedi-eligibility.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/session.ts",
+      "target": "file:tests/unit/session.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

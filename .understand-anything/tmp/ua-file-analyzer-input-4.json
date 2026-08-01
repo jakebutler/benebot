@@ -1,0 +1,33 @@
+{
+  "projectRoot": "/Users/jacobbutler/Documents/benebot",
+  "batchFiles": [
+    {
+      "path": "app/bill/[invoiceId]/page.tsx",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "components/bill/bill-breakdown.tsx",
+      "language": "typescript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "components/bill/bill-experience.tsx",
+      "language": "typescript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "app/bill/[invoiceId]/page.tsx": [
+      "components/bill/bill-breakdown.tsx",
+      "components/bill/bill-experience.tsx"
+    ],
+    "components/bill/bill-breakdown.tsx": [],
+    "components/bill/bill-experience.tsx": [
+      "components/voice/benebot-panel.tsx"
+    ]
+  }
+}

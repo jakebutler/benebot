@@ -1,0 +1,31 @@
+{
+  "projectRoot": "/Users/jacobbutler/Documents/benebot",
+  "batchFiles": [
+    {"path": "AGENTS.md", "language": "markdown", "sizeLines": 157, "fileCategory": "docs"},
+    {"path": "BENEBOT_BUILD_SPEC.md", "language": "markdown", "sizeLines": 2132, "fileCategory": "docs"},
+    {"path": "BENEBOT_RESEARCH_AGENT_PROMPTS.md", "language": "markdown", "sizeLines": 463, "fileCategory": "docs"},
+    {"path": "CLAUDE.md", "language": "markdown", "sizeLines": 1, "fileCategory": "docs"},
+    {"path": "CODEX_START_PROMPT.md", "language": "markdown", "sizeLines": 27, "fileCategory": "docs"},
+    {"path": "CONVERSATION_RELIABILITY_PLAN.md", "language": "markdown", "sizeLines": 423, "fileCategory": "docs"},
+    {"path": "IMPLEMENTATION_PLAN.md", "language": "markdown", "sizeLines": 240, "fileCategory": "docs"},
+    {"path": "README.md", "language": "markdown", "sizeLines": 153, "fileCategory": "docs"},
+    {"path": "package.json", "language": "json", "sizeLines": 42, "fileCategory": "config"},
+    {"path": "spanish-concept-library.json", "language": "json", "sizeLines": 171, "fileCategory": "config"},
+    {"path": "spanish-review-notes.md", "language": "markdown", "sizeLines": 44, "fileCategory": "docs"},
+    {"path": "tsconfig.json", "language": "json", "sizeLines": 34, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    "AGENTS.md": [],
+    "BENEBOT_BUILD_SPEC.md": [],
+    "BENEBOT_RESEARCH_AGENT_PROMPTS.md": [],
+    "CLAUDE.md": [],
+    "CODEX_START_PROMPT.md": [],
+    "CONVERSATION_RELIABILITY_PLAN.md": [],
+    "IMPLEMENTATION_PLAN.md": [],
+    "README.md": [],
+    "package.json": [],
+    "spanish-concept-library.json": [],
+    "spanish-review-notes.md": [],
+    "tsconfig.json": []
+  }
+}
