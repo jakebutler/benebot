@@ -1,7 +1,7 @@
 # BeneBot gold-packet integration notes
 
-**Integration date:** 2026-08-01  
-**Runtime authority:** `AGENTS.md`, `BENEBOT_BUILD_SPEC.md`, and `CONVERSATION_RELIABILITY_PLAN.md`  
+**Integration date:** 2026-08-01
+**Runtime authority:** `AGENTS.md`, `BENEBOT_BUILD_SPEC.md`, and `CONVERSATION_RELIABILITY_PLAN.md`
 **Research source:** the eight original files in this directory
 
 The product owner approved this packet for incorporation. The original packet files remain unchanged. This note records the transformations and conflicts found while promoting the research into the bounded Jane Doe P0.
