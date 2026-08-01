@@ -11,9 +11,11 @@ const resourceFixtureSchema = z.array(
     needs: z.array(z.string()),
     languages: z.array(z.enum(["en", "es"])),
     type: z.string(),
-    sourceType: z.enum(["practice-policy", "fictional-demo-provider", "community-reported"]),
-    verification: z.enum(["practice-provided", "fictional-demo-data", "unverified"]),
-    demo: z.literal(true),
+    sourceType: z.enum(["practice-policy", "government-program", "fictional-demo-provider", "community-reported"]),
+    verification: z.enum(["practice-provided", "government-published", "fictional-demo-data", "unverified"]),
+    // Government programs are real public services, so they are the one tier
+    // that is not demo-only. Everything else in this directory is invented.
+    demo: z.boolean(),
     phone: z.string().optional(),
     url: z.string().url().optional(),
     summary: z.object({ en: z.string(), es: z.string() }),
@@ -31,8 +33,9 @@ export interface SupportResourceProvider {
 
 const sourceRank: Record<FixtureResource["sourceType"], number> = {
   "practice-policy": 0,
-  "fictional-demo-provider": 1,
-  "community-reported": 2,
+  "government-program": 1,
+  "fictional-demo-provider": 2,
+  "community-reported": 3,
 };
 
 function toSupportResource(resource: FixtureResource, language: "en" | "es"): SupportResource {

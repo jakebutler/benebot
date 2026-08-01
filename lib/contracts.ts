@@ -94,7 +94,8 @@ export type SupportNeed =
   | "financial-assistance"
   | "payer-contact"
   | "billing-advocate"
-  | "dispute-or-review";
+  | "dispute-or-review"
+  | "medicare-billing-problem";
 
 export interface SearchResourcesInput {
   need: SupportNeed;
@@ -112,10 +113,12 @@ export interface SupportResource {
   instructions?: string[];
   sourceType:
     | "practice-policy"
+    | "government-program"
     | "fictional-demo-provider"
     | "community-reported";
   verification:
     | "practice-provided"
+    | "government-published"
     | "fictional-demo-data"
     | "unverified";
   disclosure: string;

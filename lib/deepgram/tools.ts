@@ -32,7 +32,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "search_support_resources",
     description:
-      "Find up to three billing-help resources. Results identify practice-provided, fictional demo, and unverified community sources.",
+      "Find up to three billing-help resources. Results identify practice-provided, government-published, fictional demo, and unverified community sources. Use medicare-billing-problem when a Medicare or dual-eligible patient reports a bill they may not owe.",
     parameters: {
       type: "object",
       properties: {
@@ -44,6 +44,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
             "payer-contact",
             "billing-advocate",
             "dispute-or-review",
+            "medicare-billing-problem",
           ],
         },
         language: { type: "string", enum: ["en", "es"] },
@@ -128,6 +129,7 @@ const toolArguments = {
       "payer-contact",
       "billing-advocate",
       "dispute-or-review",
+      "medicare-billing-problem",
     ]),
     language: z.enum(["en", "es"]),
   }).strict(),

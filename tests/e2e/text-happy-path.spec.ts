@@ -6,10 +6,13 @@ async function sendText(panel: Locator, message: string): Promise<void> {
 }
 
 test("rehearses Jane's Spanish-first billing journey through the text fallback", async ({ page }) => {
-  // Next development hydration uses localhost as its canonical origin. Keep
-  // the rehearsal on that same origin instead of the Playwright base URL.
-  await page.goto("http://localhost:3000/");
+  await page.goto("/");
 
+  // The landing page opens with the pitch. The synthetic billing email that
+  // starts the patient journey lives further down, under "Try it".
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "Nobody should need their kid to translate a medical bill.",
+  );
   await expect(page.getByText("Vista previa de correo sintético")).toBeVisible();
   await expect(page.getByRole("link", { name: "Quiero hablar sobre esta factura" })).toBeVisible();
   await page.getByRole("link", { name: "Quiero hablar sobre esta factura" }).click();
@@ -57,7 +60,7 @@ test("rehearses Jane's Spanish-first billing journey through the text fallback",
   await expect(panel).toContainText("El servidor confirmó el caso de revisión de facturación");
   await expect(panel).toContainText("También confirmó el resumen breve para el personal");
 
-  await page.goto("http://localhost:3000/staff");
+  await page.goto("/staff");
   await expect(page.getByRole("heading", { name: "EOB, factura, elegibilidad, caso y comunicación" })).toBeVisible();
   await expect(page.getByText("Preocupación sin resolver")).toBeVisible();
   await expect(page.getByText("ExplanationOfBenefit")).toBeVisible();
