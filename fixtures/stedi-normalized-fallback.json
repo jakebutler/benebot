@@ -1,0 +1,33 @@
+{
+  "source": "fixture-fallback",
+  "checkedAt": "2026-08-01T18:00:00Z",
+  "coverageActive": true,
+  "payerName": "Aetna Test Payer",
+  "planName": "BeneBot Demo PPO",
+  "benefits": {
+    "annualDeductible": 1500,
+    "remainingDeductible": 0,
+    "annualOutOfPocketMaximum": 6000,
+    "remainingOutOfPocketMaximum": 4120,
+    "copays": [
+      {
+        "serviceLabel": "Specialist visit",
+        "amount": 50,
+        "network": "in"
+      }
+    ],
+    "coinsurance": [
+      {
+        "serviceLabel": "Diagnostic imaging",
+        "percentage": 20,
+        "network": "in"
+      }
+    ]
+  },
+  "medplum": {},
+  "warnings": [
+    "Demo fallback data—not a live payer response.",
+    "Current benefits do not replace the historical claim adjudication.",
+    "Service-specific coverage must be confirmed with the payer."
+  ]
+}

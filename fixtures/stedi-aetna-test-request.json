@@ -1,0 +1,18 @@
+{
+  "tradingPartnerServiceId": "60054",
+  "provider": {
+    "organizationName": "Provider Name",
+    "npi": "1999999984"
+  },
+  "subscriber": {
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "dateOfBirth": "20040404",
+    "memberId": "AETNA12345"
+  },
+  "encounter": {
+    "serviceTypeCodes": [
+      "30"
+    ]
+  }
+}

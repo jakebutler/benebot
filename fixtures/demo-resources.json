@@ -1,0 +1,182 @@
+[
+  {
+    "id": "bayview-payment-plan",
+    "name": "Bayview Imaging Flexible Payment Plan",
+    "organization": "Bayview Imaging",
+    "needs": [
+      "payment-plan",
+      "financial-assistance"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "provider-payment-plan",
+    "sourceType": "practice-policy",
+    "verification": "practice-provided",
+    "demo": true,
+    "phone": "(555) 010-2020",
+    "hours": "Monday–Friday, 8:00 AM–6:00 PM",
+    "summary": {
+      "en": "A fictional Bayview policy offering up to 12 monthly payments with no interest for this demo.",
+      "es": "Una política ficticia de Bayview que ofrece hasta 12 pagos mensuales sin intereses para esta demostración."
+    },
+    "instructions": {
+      "en": [
+        "Call the billing team and select option 3.",
+        "Ask for the flexible payment-plan desk.",
+        "Have the statement number available."
+      ],
+      "es": [
+        "Llame al equipo de facturación y seleccione la opción 3.",
+        "Pida hablar con el equipo de planes de pago.",
+        "Tenga disponible el número del estado de cuenta."
+      ]
+    },
+    "disclosure": "Fictional practice policy created only for the BeneBot hackathon demo.",
+    "priority": 100
+  },
+  {
+    "id": "acme-bill-help",
+    "name": "Acme Health Bill Help Inc.",
+    "organization": "Acme Health Bill Help Inc.",
+    "needs": [
+      "billing-advocate",
+      "dispute-or-review"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "independent-billing-advocate",
+    "sourceType": "fictional-demo-provider",
+    "verification": "fictional-demo-data",
+    "demo": true,
+    "phone": "(555) 010-4411",
+    "hours": "Monday–Friday, 9:00 AM–5:00 PM",
+    "summary": {
+      "en": "A fictional billing advocate that can review an EOB and bill with a patient.",
+      "es": "Un defensor ficticio de facturación que puede revisar una EOB y una factura con el paciente."
+    },
+    "instructions": {
+      "en": [
+        "Ask for a medical-bill review.",
+        "Share only the minimum information needed.",
+        "Confirm any fee before agreeing to service."
+      ],
+      "es": [
+        "Solicite una revisión de la factura médica.",
+        "Comparta solo la información mínima necesaria.",
+        "Confirme cualquier tarifa antes de aceptar el servicio."
+      ]
+    },
+    "disclosure": "Acme Health Bill Help Inc. is fictional demo data and is not a real referral.",
+    "priority": 60
+  },
+  {
+    "id": "aetna-test-member-services",
+    "name": "Aetna Test Member Services",
+    "organization": "Aetna Test Payer",
+    "needs": [
+      "payer-contact",
+      "dispute-or-review"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "payer-member-services",
+    "sourceType": "community-reported",
+    "verification": "unverified",
+    "demo": true,
+    "phone": "(555) 010-8800",
+    "hours": "Monday–Friday, 8:00 AM–8:00 PM",
+    "summary": {
+      "en": "A fictional member-services contact for asking how the test claim was processed.",
+      "es": "Un contacto ficticio de servicios para miembros para preguntar cómo se procesó la reclamación de prueba."
+    },
+    "instructions": {
+      "en": [
+        "Say “claims” at the first prompt.",
+        "A community-reported tip suggests saying “representative” twice, then pressing 0.",
+        "This shortcut is unverified and may not work."
+      ],
+      "es": [
+        "Diga “reclamaciones” en el primer menú.",
+        "Un consejo comunitario sugiere decir “representante” dos veces y luego marcar 0.",
+        "Este atajo no está verificado y puede no funcionar."
+      ]
+    },
+    "disclosure": "Fictional phone number and unverified community-reported phone-tree tip for demonstration only.",
+    "priority": 40
+  },
+  {
+    "id": "northstar-financial-assistance",
+    "name": "Northstar Community Financial Assistance",
+    "organization": "Northstar Community Financial Assistance",
+    "needs": [
+      "financial-assistance"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "financial-assistance-screening",
+    "sourceType": "fictional-demo-provider",
+    "verification": "fictional-demo-data",
+    "demo": true,
+    "phone": "(555) 010-1188",
+    "hours": "Tuesday–Saturday, 9:00 AM–4:00 PM",
+    "summary": {
+      "en": "A fictional community resource that screens patients for possible financial-assistance programs.",
+      "es": "Un recurso comunitario ficticio que evalúa posibles programas de asistencia financiera."
+    },
+    "instructions": {
+      "en": [
+        "Ask for a no-cost initial screening.",
+        "Do not send financial documents until the organization is verified."
+      ],
+      "es": [
+        "Solicite una evaluación inicial sin costo.",
+        "No envíe documentos financieros hasta verificar la organización."
+      ]
+    },
+    "disclosure": "Fictional organization created only for the BeneBot hackathon demo.",
+    "priority": 50
+  },
+  {
+    "id": "billing-review",
+    "name": "Bayview Billing Review",
+    "organization": "Bayview Imaging",
+    "needs": [
+      "dispute-or-review",
+      "billing-advocate"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "provider-billing-review",
+    "sourceType": "practice-policy",
+    "verification": "practice-provided",
+    "demo": true,
+    "phone": "(555) 010-2020",
+    "hours": "Monday–Friday, 8:00 AM–6:00 PM",
+    "summary": {
+      "en": "A fictional internal review for missing services, identity errors, or claim amounts that do not reconcile.",
+      "es": "Una revisión interna ficticia para servicios no recibidos, errores de identidad o importes que no coinciden."
+    },
+    "instructions": {
+      "en": [
+        "Request a claim and statement review.",
+        "Describe the specific charge or service in question."
+      ],
+      "es": [
+        "Solicite una revisión de la reclamación y del estado de cuenta.",
+        "Describa el cargo o servicio específico en cuestión."
+      ]
+    },
+    "disclosure": "Fictional Bayview workflow created only for the BeneBot hackathon demo.",
+    "priority": 90
+  }
+]
