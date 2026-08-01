@@ -44,3 +44,11 @@ next-env.d.ts
 
 # local documentation source checkout
 /medplum-link
+
+# local agent worktrees and generated codebase maps
+/.claude/
+/.understand-anything/
+
+# local research/planning drafts preserved outside the public demo source
+/BENEBOT_RESEARCH_AGENT_PROMPTS.md
+/CONVERSATION_RELIABILITY_PLAN.md
