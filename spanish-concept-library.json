@@ -1,0 +1,171 @@
+{
+  "locale": "es-419",
+  "concepts": [
+    {
+      "conceptId": "allowed-amount",
+      "preferredTerm": "monto permitido",
+      "recognizedAlternatives": ["cantidad permitida", "cargo permitido", "tarifa negociada", "costo permitido"],
+      "oneSentenceDefinition": "Es la cantidad máxima que el seguro médico acepta pagar por un servicio de salud cubierto, tras aplicar el descuento negociado con el proveedor.",
+      "firstExplanation": "El monto permitido es la cantidad negociada que su plan de salud usa para procesar este reclamo. Aquí fue de $1,100. Es diferente y menor a los $2,400 que el proveedor facturó originalmente, gracias al descuento de su red.",
+      "confusionRepair": "No significa que el reclamo esté correcto ni que usted deba esa cantidad completa. Es simplemente el límite máximo que su seguro reconoce para ese servicio antes de calcular lo que usted y ellos pagarán.",
+      "analogy": "Piense en el monto permitido como un precio de mayoreo. El proveedor tiene un precio de lista para el público, pero su seguro tiene un acuerdo especial para pagar un precio menor.",
+      "analogyBoundary": "A diferencia de comprar algo al por mayor, usted no paga este monto completo directamente; el seguro paga una parte y usted otra, dependiendo de sus beneficios.",
+      "comprehensionCheck": "¿Tiene sentido cómo el descuento de la aseguradora redujo la factura al monto permitido?",
+      "commonQuestions": [
+        "¿Por qué el proveedor cobró más que el monto permitido?",
+        "¿Tengo que pagar la diferencia entre lo facturado y el monto permitido?",
+        "¿El monto permitido incluye mi deducible?"
+      ],
+      "utteranceVariants": [
+        "¿Qué significa monto permitido?",
+        "¿Por qué dice cantidad permitida si me cobraron más?",
+        "No entiendo de dónde salió ese monto permitido."
+      ],
+      "forbiddenPhrases": [
+        "prueba que la factura es correcta",
+        "es lo que usted debe pagar",
+        "precio real"
+      ],
+      "pronunciationNotes": []
+    },
+    {
+      "conceptId": "deductible",
+      "preferredTerm": "deducible",
+      "recognizedAlternatives": ["deducible anual", "franquicia"],
+      "oneSentenceDefinition": "Es la cantidad que usted debe pagar de su bolsillo por servicios médicos cada año antes de que su seguro comience a pagar su parte.",
+      "firstExplanation": "El deducible es la cantidad que usted paga cada año antes de que el seguro empiece a compartir los costos. De este reclamo histórico, $500 se aplicaron a su deducible.",
+      "confusionRepair": "Los $500 son la parte del deducible que se cobró en este reclamo de julio en específico. No indica cuánto deducible le queda por pagar hoy, ya que eso depende de otros servicios que haya recibido desde entonces.",
+      "analogy": "Es como el depósito de un seguro de auto. Si tiene un choque, usted paga los primeros $500 del arreglo y el seguro cubre el resto. En salud, funciona igual cada año.",
+      "analogyBoundary": "A diferencia del seguro de auto, en salud algunos servicios preventivos se cubren al 100% sin importar si ya pagó su deducible o no.",
+      "comprehensionCheck": "¿Queda claro cómo estos $500 fueron parte de su deducible para este reclamo?",
+      "commonQuestions": [
+        "¿Todavía me queda deducible por pagar este año?",
+        "¿Por qué me cobran el deducible si tengo seguro?",
+        "¿Ese es mi deducible de todo el año o solo de esta visita?"
+      ],
+      "utteranceVariants": [
+        "¿Todavía me quedan gastos del deducible?",
+        "Sigo confundida sobre el deducible aplicado.",
+        "¿Ese deducible es lo que tengo que pagar ahora?"
+      ],
+      "forbiddenPhrases": [
+        "es una multa",
+        "es lo que usted debe hoy",
+        "es su deducible total"
+      ],
+      "pronunciationNotes": []
+    },
+    {
+      "conceptId": "coinsurance",
+      "preferredTerm": "coseguro",
+      "recognizedAlternatives": ["coaseguro", "porcentaje de costo compartido", "porcentaje"],
+      "oneSentenceDefinition": "Es el porcentaje del costo de un servicio médico que usted paga después de haber alcanzado su deducible anual.",
+      "firstExplanation": "El coseguro es el porcentaje del costo que usted comparte con su seguro después de pagar el deducible. En este caso, su porción fue de $120.",
+      "confusionRepair": "A diferencia de un copago, que es una cantidad fija, el coseguro es un porcentaje. Por ejemplo, si su coseguro es del 20%, usted paga el 20% del monto permitido y el seguro paga el 80%.",
+      "analogy": "Piense en el coseguro como dividir la cuenta en un restaurante. Después de pagar la entrada (el deducible), usted y el seguro acuerdan pagar siempre el plato principal en porcentajes, como 80% ellos y 20% usted.",
+      "analogyBoundary": "A diferencia de una cena, usted tiene un límite máximo de gastos en el año. Una vez que lo alcanza, el seguro paga el 100%.",
+      "comprehensionCheck": "¿Tiene alguna pregunta sobre cómo se calculó la porción de su coseguro?",
+      "commonQuestions": [
+        "¿Cuál es la diferencia entre copago y coseguro?",
+        "¿Por qué me cobran coseguro si ya pagué el deducible?",
+        "¿De qué porcentaje es mi coseguro?"
+      ],
+      "utteranceVariants": [
+        "Sigo confundido sobre el coaseguro de la factura.",
+        "No entiendo qué es el coseguro.",
+        "¿Por qué tengo un coseguro tan alto?"
+      ],
+      "forbiddenPhrases": [
+        "es igual que el copago",
+        "es un cargo extra",
+        "es un impuesto"
+      ],
+      "pronunciationNotes": [
+        "Se pronuncia 'co-se-gu-ro'. Ambas formas, 'coseguro' y 'coaseguro', son ampliamente entendidas por pacientes hispanos en EE. UU."
+      ]
+    },
+    {
+      "conceptId": "copay",
+      "preferredTerm": "copago",
+      "recognizedAlternatives": ["pago fijo", "cuota"],
+      "oneSentenceDefinition": "Es una cantidad fija de dinero que usted paga por un servicio médico cubierto, usualmente al momento de la visita.",
+      "firstExplanation": "El copago es una cantidad fija que usted paga por ciertos servicios, como una visita al doctor o una medicina. Para este reclamo, no hubo un copago aplicado.",
+      "confusionRepair": "El copago es una tarifa plana, como $20 por consulta, sin importar el costo total del servicio. Esto es distinto al deducible o al coseguro, que dependen del costo total del tratamiento.",
+      "analogy": "Es como pagar la entrada al cine. Usted paga un precio fijo de $15 en la taquilla para entrar, sin importar qué tan cara haya sido la producción de la película.",
+      "analogyBoundary": "A diferencia del cine, en salud a veces puede recibir una factura adicional después de la visita si hubo servicios extras que el copago no cubría.",
+      "comprehensionCheck": "¿Queda clara la diferencia entre un copago fijo y los otros costos?",
+      "commonQuestions": [
+        "¿Por qué me llegó una factura si ya pagué mi copago en la clínica?",
+        "¿Tengo que pagar copago y deducible a la vez?",
+        "¿De cuánto es mi copago para especialistas?"
+      ],
+      "utteranceVariants": [
+        "Pero si yo ya pagué mi copago cuando fui.",
+        "¿El copago no cubría todo?",
+        "¿Cuánto es el copago para esto?"
+      ],
+      "forbiddenPhrases": [
+        "cubre todo el costo",
+        "es el único pago que hará",
+        "es lo mismo que el deducible"
+      ],
+      "pronunciationNotes": []
+    },
+    {
+      "conceptId": "patient-responsibility",
+      "preferredTerm": "responsabilidad del paciente",
+      "recognizedAlternatives": ["su responsabilidad", "saldo del paciente", "lo que usted debe", "su parte"],
+      "oneSentenceDefinition": "Es la cantidad total que usted debe pagar de su bolsillo por un servicio médico, después de que el seguro ha pagado su parte.",
+      "firstExplanation": "La responsabilidad del paciente es el total que le corresponde pagar a usted por este servicio. En este reclamo histórico, su responsabilidad fue de $620, que incluye el deducible y el coseguro.",
+      "confusionRepair": "Esta es la porción que el seguro determinó que usted debe pagar al proveedor. No es la cantidad que la aseguradora pagó, sino la suma de sus costos compartidos para esta visita.",
+      "analogy": "Es como la parte de la cuenta que le toca pagar a usted después de aplicar un cupón de descuento. Es el total final que sale de su bolsillo.",
+      "analogyBoundary": "A diferencia de una compra normal, este monto no siempre se paga de inmediato; el proveedor le enviará una factura por esta responsabilidad más adelante.",
+      "comprehensionCheck": "¿Le queda claro cómo llegamos a su responsabilidad total de $620?",
+      "commonQuestions": [
+        "¿Por qué mi responsabilidad es tan alta?",
+        "¿Puedo hacer un plan de pagos para mi responsabilidad?",
+        "¿Mi responsabilidad incluye lo que ya pagué en la clínica?"
+      ],
+      "utteranceVariants": [
+        "No entiendo por qué mi responsabilidad es de 620.",
+        "¿Ese saldo del paciente es lo que tengo que pagar?",
+        "¿Por qué me toca pagar esa parte?"
+      ],
+      "forbiddenPhrases": [
+        "es una multa",
+        "es lo que el seguro no quiso pagar",
+        "cantidad incorrecta"
+      ],
+      "pronunciationNotes": []
+    },
+    {
+      "conceptId": "explanation-of-benefits",
+      "preferredTerm": "Explicación de Beneficios",
+      "recognizedAlternatives": ["EOB", "resumen de beneficios", "explicación del reclamo"],
+      "oneSentenceDefinition": "Es un documento enviado por su seguro médico que detalla los costos de su atención, cuánto pagó el seguro y cuánto le corresponde pagar a usted.",
+      "firstExplanation": "La Explicación de Beneficios, o EOB, es un documento de su seguro que muestra cómo procesaron su reclamo. La EOB histórica de julio muestra cómo calcularon su factura, pero no es una factura en sí.",
+      "confusionRepair": "La EOB le informa cómo el seguro dividió los costos con usted, pero no le exige un pago. Usted debe esperar la factura oficial del proveedor (como Bayview Imaging) para hacer el pago.",
+      "analogy": "Es como el recibo detallado del supermercado que muestra el precio original y los descuentos aplicados. Le informa cómo se calculó el total, pero la EOB es solo para sus archivos, no para pagar.",
+      "analogyBoundary": "A diferencia de un recibo de supermercado que usted recibe al instante, la EOB suele llegar por correo semanas después de su visita médica.",
+      "comprehensionCheck": "¿Tiene sentido que la Explicación de Beneficios sea solo un resumen y no la factura final?",
+      "commonQuestions": [
+        "¿Tengo que pagar la cantidad que dice la EOB?",
+        "¿Por qué recibí una EOB si ya pagué en la clínica?",
+        "¿La EOB significa que mi seguro aprobó todo?"
+      ],
+      "utteranceVariants": [
+        "Me llegó una explicación de beneficios y no sé si pagarla.",
+        "¿Qué es la EOB histórica?",
+        "¿Por qué dice EOB en lugar de factura?"
+      ],
+      "forbiddenPhrases": [
+        "es una factura",
+        "debe pagar esta EOB",
+        "prueba que el cobro es correcto"
+      ],
+      "pronunciationNotes": [
+        "Las siglas EOB pueden leerse letra por letra ('E-O-B') o referirse a ella como 'la Explicación de Beneficios'. Si se usa la sigla, pronunciar en español: 'E-O-Be'."
+      ]
+    }
+  ]
+}
