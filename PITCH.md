@@ -42,7 +42,7 @@ BeneBot takes the first pass on that call and hands the team a structured case i
 
 Every bill carries an **"I wanna talk about this"** button. When the patient presses it:
 
-1. A real-time voice conversation opens, in English or Spanish, with mid-conversation switching.
+1. The patient chooses English or Spanish, and a real-time voice conversation opens in that language with a native voice.
 2. The session is already scoped to that patient and that bill, so BeneBot never asks for an SSN, date of birth, or member ID.
 3. It reads the **historical adjudication** from Medplum and explains, in plain language, how the insurer arrived at the patient-responsibility amount.
 4. On request — as a separate, clearly-labeled step — it refreshes **current** eligibility through Stedi and reports it with its own timestamp.
@@ -87,6 +87,8 @@ If reconciliation fails, BeneBot produces no numeric explanation at all. The lan
 - Never expose a Medplum, Deepgram, or Stedi key to the browser.
 - Never trust a patient or bill ID sent by the browser after the session is created.
 - Never store raw audio, and never persist a full transcript by default.
+- Never explain an exact amount before the tool call that grounds it in the bill.
+- Never open onto the patient's chart — the session is bound to one bill.
 - Never present a fixture as a live payer response.
 - Never present a fictional demo resource without labeling it as one.
 - Never tell a patient whether a federal protection applies to them — name who can confirm it, and let them make the call.
@@ -97,7 +99,7 @@ If reconciliation fails, BeneBot produces no numeric explanation at all. The lan
 
 **Medplum — system of record.** FHIR R4 throughout. Patient, Coverage, Encounter, ExplanationOfBenefit, and Invoice are seeded idempotently and validated against the server. Task, Communication, and CoverageEligibilityResponse are written back as the conversation resolves. Client credentials stay server-side; every patient read is scoped to the signed BeneBot session. BeneBot is a surface on the revenue cycle, not a second copy of it.
 
-**Deepgram — real-time voice.** Multilingual English/Spanish speech with model-level turn detection, so a patient can interrupt mid-sentence and BeneBot stops, answers the interruption, and asks whether to continue. The browser receives only a short-lived server-issued token, never the API key, and every tool call routes back through BeneBot's own server. Text input stays available the whole time as a fallback.
+**Deepgram — real-time voice.** The patient selects English or Spanish before the session opens, and Deepgram runs it with a native voice for that language rather than one voice straining across both. Model-level turn detection means a patient can interrupt mid-sentence: BeneBot stops, answers the interruption, and asks whether to continue. The browser receives only a short-lived server-issued token, never the API key, and every tool call routes back through BeneBot's own server. Text input stays available the whole time as a fallback.
 
 **Stedi — current eligibility.** Test-mode 270/271 eligibility against the fixed synthetic identity. Benefits the payer omits are preserved as *unknown* rather than filled in, and a fixture fallback is labeled conspicuously rather than passed off as live.
 
@@ -111,6 +113,12 @@ Stated plainly, because it is the difference between a demo and a claim:
 - **Demo-scoped:** one synthetic patient, Jane Doe, whose identity is fixed by Stedi's test-mode requirements. She is 22 and commercially insured, not the elderly Medicare patient the product is built for — that identity is a constraint of the sandbox, not a design choice. The billing-help directory besides the government entries is fictional and labeled as such. No real email is sent. No real PHI exists anywhere in the build.
 
 ---
+
+## Claims we deliberately do not make
+
+BeneBot does not prove a bill or a claim is correct, and it does not detect every billing error. It does not replace billing staff or payer representatives — it handles the routine explanation and escalates the rest with a better handoff. It is not production-authenticated and makes no HIPAA-compliance claim today; it is a synthetic-data build. It is not "fully deterministic" — the *financial calculations* are deterministic and the model is barred from performing them, which is a narrower and more honest claim. It supports English and Spanish, and no other language.
+
+BeneBot is currently being evaluated against an expert-developed bilingual medical-billing language library. That library is not integrated yet, so nothing here claims expert-reviewed explanations.
 
 ## What comes next
 

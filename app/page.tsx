@@ -45,14 +45,14 @@ const audiences = [
           "Every resolved conversation writes a FHIR Task and a concise Communication into Medplum — assigned, timestamped, and auditable next to the EOB and Invoice they came from.",
       },
       {
-        title: "Bilingual coverage without an interpreter line",
+        title: "Bilingual without an interpreter line",
         body:
-          "English and Spanish in the same session, with mid-conversation switching, so language is not a staffing constraint on routine billing questions.",
+          "The patient picks English or Spanish before the session opens and hears a native voice in that language throughout, so routine billing questions are not gated on interpreter availability.",
       },
       {
         title: "No new system of record",
         body:
-          "BeneBot reads and writes the FHIR resources already in Medplum. It is a surface on the revenue cycle, not a second copy of it.",
+          "BeneBot reads the FHIR resources already in Medplum and writes the follow-up back into them. The session is bound to one bill, not opened onto the patient’s chart.",
       },
       {
         title: "Staff see exactly what the patient saw",
@@ -126,6 +126,7 @@ const math = [
 const guardrails = [
   "Never let a current eligibility response explain or validate a historical claim.",
   "Never let the language model calculate a dollar amount.",
+  "Never explain an exact amount before the tool call that grounds it in the bill.",
   "Never claim an external action succeeded before the server confirms it.",
   "Never expose a Medplum, Deepgram, or Stedi key to the browser.",
   "Never trust a patient or bill ID sent by the browser after the session is created.",
@@ -145,7 +146,7 @@ const stack = [
     name: "Deepgram",
     role: "Real-time voice",
     body:
-      "Multilingual English and Spanish speech with model-level turn detection, so an interruption stops the explanation mid-sentence. The browser holds only a short-lived server-issued token, and every tool call routes back through BeneBot’s server.",
+      "The patient chooses English or Spanish before the session opens, and Deepgram runs it with a native voice for that language and model-level turn detection — so an interruption stops the explanation mid-sentence. The browser holds only a short-lived server-issued token, and every tool call routes back through BeneBot’s server.",
   },
   {
     name: "Stedi",
@@ -282,7 +283,7 @@ export default function Home() {
       </section>
 
       <section className="pitch-section" aria-labelledby="math-heading">
-        <p className="eyebrow">Determinism</p>
+        <p className="eyebrow">Math handled by software, not AI</p>
         <h2 id="math-heading" className="pitch-h2">
           The model explains the arithmetic. It never performs it.
         </h2>
