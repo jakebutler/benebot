@@ -9,22 +9,38 @@ export const runtime = "nodejs";
 
 const inputSchema = z
   .object({
-    resourceId: z.enum([
-      "bayview-payment-plan",
-      "acme-bill-help",
-      "aetna-test-member-services",
-      "northstar-financial-assistance",
-      "billing-review",
+    issueType: z.enum([
+      "bill-explanation",
+      "deductible",
+      "coinsurance",
+      "service-not-recognized",
+      "amount-dispute",
+      "financial-hardship",
+      "other",
     ]),
+    patientIssueSummary: z.string().trim().min(1).max(300),
     preferredContact: z.enum(["phone", "secure-message"]),
-    notes: z.string().trim().min(1).max(300).optional(),
+    patientConfirmed: z.literal(true),
   })
   .strict();
 
 export async function POST(request: Request): Promise<Response> {
   try {
     const claims = await verifyRequestSession(request);
-    const input = inputSchema.parse(await request.json());
+    const rawInput: unknown = await request.json();
+    if (
+      typeof rawInput !== "object" ||
+      rawInput === null ||
+      !("patientConfirmed" in rawInput) ||
+      rawInput.patientConfirmed !== true
+    ) {
+      throw new BeneBotError(
+        "PATIENT_CONFIRMATION_REQUIRED",
+        "The billing-review case was not created because the patient has not confirmed the issue summary.",
+        409,
+      );
+    }
+    const input = inputSchema.parse(rawInput);
     let task;
     try {
       task = await createFollowupTask(claims, input);
@@ -42,10 +58,9 @@ export async function POST(request: Request): Promise<Response> {
       created: true,
       taskId: task.id,
       status: "requested",
-      message: "The billing follow-up was created in Medplum.",
+      message: `Caso de revisión de facturación confirmado: ${task.id}`,
     });
   } catch (error) {
     return safeErrorResponse(error);
   }
 }
-

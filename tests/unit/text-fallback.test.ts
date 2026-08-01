@@ -33,6 +33,33 @@ describe("disconnected text fallback routing", () => {
     ).toMatchObject({ language: "es", tool: "get_bill_context" });
   });
 
+  it("runs the Spanish complex demo question as historical then current checks", () => {
+    expect(
+      routeTextFallbackIntent(
+        "Me cobraron $2,400 por la resonancia, pero el monto permitido fue $1,100 y todavía debo $620. ¿Cómo llegaron a esa cantidad? ¿Y significa que todavía me quedan $500 de deducible?",
+        { language: "es" },
+      ),
+    ).toEqual({
+      kind: "tool-sequence",
+      language: "es",
+      tools: [
+        { tool: "get_bill_context", arguments: {} },
+        {
+          tool: "refresh_current_benefits",
+          arguments: { reason: "compare-with-historical-claim" },
+        },
+      ],
+    });
+  });
+
+  it("handles the rehearsed allowed-amount interruption without a tool call", () => {
+    expect(
+      routeTextFallbackIntent("Espere — ¿qué significa monto permitido?", {
+        language: "es",
+      }),
+    ).toEqual({ kind: "allowed-amount-interruption", language: "es" });
+  });
+
   it("routes payment hardship to payment-plan resources", () => {
     expect(
       routeTextFallbackIntent("I cannot afford this bill", { language: "en" }),
@@ -42,28 +69,55 @@ describe("disconnected text fallback routing", () => {
     });
   });
 
-  it("requires an offered resource before confirmation can request follow-up", () => {
+  it("requires a categorized issue before confirmation can create a case", () => {
     expect(
       routeTextFallbackIntent("yes", { language: "en" }),
     ).toMatchObject({ tool: "get_bill_context" });
 
     expect(
-      routeTextFallbackIntent("yes please", {
-        language: "en",
-        pendingResourceId: "bayview-payment-plan",
+      routeTextFallbackIntent("sí", {
+        language: "es",
+        pendingIssue: {
+          issueType: "deductible",
+          patientIssueSummary:
+            "La paciente sigue confundida sobre el deducible aplicado al reclamo histórico y el deducible actual.",
+        },
       }),
     ).toMatchObject({
       tool: "request_human_followup",
       arguments: {
-        resourceId: "bayview-payment-plan",
+        issueType: "deductible",
+        patientIssueSummary:
+          "La paciente sigue confundida sobre el deducible aplicado al reclamo histórico y el deducible actual.",
         preferredContact: "secure-message",
+        patientConfirmed: true,
       },
     });
   });
 
-  it("routes ending the session to concise summary persistence", () => {
+  it("categorizes confusion and asks confirmation before creating a case", () => {
+    expect(
+      routeTextFallbackIntent(
+        "Todavía no entiendo la diferencia entre el deducible de julio y el actual",
+        { language: "es", clarityAsked: true },
+      ),
+    ).toMatchObject({
+      kind: "prepare-followup",
+      language: "es",
+      issue: { issueType: "deductible" },
+    });
+  });
+
+  it("asks whether anything is unclear before ending", () => {
     expect(
       routeTextFallbackIntent("That's all, save it", { language: "en" }),
+    ).toEqual({ kind: "ask-clarity", language: "en" });
+
+    expect(
+      routeTextFallbackIntent("Eso es todo", {
+        language: "es",
+        clarityAsked: true,
+      }),
     ).toMatchObject({ tool: "save_conversation_summary" });
   });
 
@@ -72,4 +126,3 @@ describe("disconnected text fallback routing", () => {
     expect(summaryLanguage(false, true)).toBe("es");
   });
 });
-

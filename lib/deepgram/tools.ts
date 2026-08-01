@@ -55,27 +55,34 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "request_human_followup",
     description:
-      "Create a Medplum billing follow-up only after the patient clearly confirms the summarized action.",
+      "Create a Medplum billing-review case only after the patient clearly confirms a concise issue summary. Never send a transcript.",
     parameters: {
       type: "object",
       properties: {
-        resourceId: {
+        issueType: {
           type: "string",
           enum: [
-            "bayview-payment-plan",
-            "acme-bill-help",
-            "aetna-test-member-services",
-            "northstar-financial-assistance",
-            "billing-review",
+            "bill-explanation",
+            "deductible",
+            "coinsurance",
+            "service-not-recognized",
+            "amount-dispute",
+            "financial-hardship",
+            "other",
           ],
         },
+        patientIssueSummary: { type: "string", minLength: 1, maxLength: 500 },
         preferredContact: {
           type: "string",
           enum: ["phone", "secure-message"],
         },
-        notes: { type: "string", maxLength: 500 },
+        patientConfirmed: {
+          type: "boolean",
+          enum: [true],
+          description: "Must be true only after the patient explicitly confirms the repeated issue summary.",
+        },
       },
-      required: ["resourceId", "preferredContact"],
+      required: ["issueType", "patientIssueSummary", "preferredContact", "patientConfirmed"],
       additionalProperties: false,
     },
   },
@@ -125,15 +132,18 @@ const toolArguments = {
     language: z.enum(["en", "es"]),
   }).strict(),
   request_human_followup: z.object({
-    resourceId: z.enum([
-      "bayview-payment-plan",
-      "acme-bill-help",
-      "aetna-test-member-services",
-      "northstar-financial-assistance",
-      "billing-review",
+    issueType: z.enum([
+      "bill-explanation",
+      "deductible",
+      "coinsurance",
+      "service-not-recognized",
+      "amount-dispute",
+      "financial-hardship",
+      "other",
     ]),
+    patientIssueSummary: z.string().min(1).max(500),
     preferredContact: z.enum(["phone", "secure-message"]),
-    notes: z.string().max(500).optional(),
+    patientConfirmed: z.literal(true),
   }).strict(),
   save_conversation_summary: z.object({
     language: z.enum(["en", "es", "mixed"]),
@@ -157,7 +167,7 @@ export const TOOL_LABELS: Record<ToolName, string> = {
   get_bill_context: "Reading historical bill",
   refresh_current_benefits: "Checking current benefits",
   search_support_resources: "Finding support resources",
-  request_human_followup: "Requesting human follow-up",
+  request_human_followup: "Creating billing-review case",
   save_conversation_summary: "Saving concise summary",
 };
 

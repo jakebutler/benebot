@@ -2,6 +2,7 @@ import "server-only";
 
 import type {
   Coverage,
+  Encounter,
   ExplanationOfBenefit,
   Identifier,
   Invoice,
@@ -23,13 +24,12 @@ export interface BillSessionScope {
   invoiceId: string;
   eobId: string;
   coverageId: string;
+  encounterId: string;
   providerOrganizationId: string;
   payerOrganizationId: string;
 }
 
-export interface DemoSeedIds extends BillSessionScope {
-  encounterId: string;
-}
+export type DemoSeedIds = BillSessionScope;
 
 function referenceMatches(reference: string | undefined, resourceType: ResourceType, id: string): boolean {
   return reference === `${resourceType}/${id}`;
@@ -65,15 +65,17 @@ export function buildNormalizedBillContext(input: {
   provider: Organization;
   payer: Organization;
   coverage: Coverage;
+  encounter: Encounter;
   eob: ExplanationOfBenefit;
   invoice: Invoice;
   controlledDemoFixture: boolean;
 }): NormalizedBillContext {
-  const { patient, provider, payer, coverage, eob, invoice } = input;
+  const { patient, provider, payer, coverage, encounter, eob, invoice } = input;
   const patientId = requiredId(patient);
   const providerId = requiredId(provider);
   const payerId = requiredId(payer);
   const coverageId = requiredId(coverage);
+  const encounterId = requiredId(encounter);
   const eobId = requiredId(eob);
   const invoiceId = requiredId(invoice);
 
@@ -102,6 +104,21 @@ export function buildNormalizedBillContext(input: {
   if (!referenceMatches(coverage.beneficiary.reference, "Patient", patientId)) {
     throw new Error("Coverage is not scoped to the session patient.");
   }
+  if (!referenceMatches(encounter.subject?.reference, "Patient", patientId)) {
+    throw new Error("Encounter is not scoped to the session patient.");
+  }
+  if (!referenceMatches(encounter.serviceProvider?.reference, "Organization", providerId)) {
+    throw new Error("Encounter is not scoped to the session provider.");
+  }
+  if (
+    !eob.item?.some((item) =>
+      item.encounter?.some((reference) =>
+        referenceMatches(reference.reference, "Encounter", encounterId),
+      ),
+    )
+  ) {
+    throw new Error("EOB is not scoped to the session encounter.");
+  }
 
   const normalized = normalizeEob(eob, {
     controlledDemoFixture: input.controlledDemoFixture,
@@ -116,6 +133,21 @@ export function buildNormalizedBillContext(input: {
   if (!name?.family || !name.given?.[0] || !patient.birthDate || !provider.name || !payer.name) {
     throw new Error("The bill context is missing required display information.");
   }
+  const encounterDate = encounter.period?.start?.slice(0, 10);
+  if (!encounterDate || encounterDate !== normalized.dateOfService) {
+    throw new Error("Encounter date does not match the historical billed service date.");
+  }
+  const preferredCommunication = patient.communication?.find(
+    (communication) => communication.preferred === true,
+  );
+  const preferredLanguageCode = preferredCommunication?.language.coding
+    ?.map((coding) => coding.code?.toLowerCase().split("-")[0])
+    .find((code): code is "en" | "es" => code === "en" || code === "es");
+  const preferredLanguageDisplay =
+    preferredCommunication?.language.text ??
+    preferredCommunication?.language.coding?.find(
+      (coding) => coding.code?.toLowerCase().split("-")[0] === preferredLanguageCode,
+    )?.display;
 
   return {
     patient: {
@@ -123,12 +155,26 @@ export function buildNormalizedBillContext(input: {
       firstName: name.given[0],
       lastName: name.family,
       birthDate: patient.birthDate,
+      ...(preferredLanguageCode
+        ? {
+            preferredLanguage: {
+              code: preferredLanguageCode,
+              display:
+                preferredLanguageDisplay ??
+                (preferredLanguageCode === "es" ? "Spanish" : "English"),
+            },
+          }
+        : {}),
     },
     provider: { id: providerId, name: provider.name },
     payer: { id: payerId, name: payer.name },
     service: {
+      encounterId,
       description: normalized.serviceDescription,
       dateOfService: normalized.dateOfService,
+      ...(encounter.location?.[0]?.location.display
+        ? { location: encounter.location[0].location.display }
+        : {}),
     },
     invoice: {
       id: invoiceId,
@@ -154,11 +200,12 @@ export async function getBillContextForSession(
   scope: BillSessionScope,
 ): Promise<NormalizedBillContext> {
   const client = await getMedplumClient();
-  const [patient, provider, payer, coverage, eob, invoice] = await Promise.all([
+  const [patient, provider, payer, coverage, encounter, eob, invoice] = await Promise.all([
     client.readResource("Patient", scope.patientId),
     client.readResource("Organization", scope.providerOrganizationId),
     client.readResource("Organization", scope.payerOrganizationId),
     client.readResource("Coverage", scope.coverageId),
+    client.readResource("Encounter", scope.encounterId),
     client.readResource("ExplanationOfBenefit", scope.eobId),
     client.readResource("Invoice", scope.invoiceId),
   ]);
@@ -169,6 +216,7 @@ export async function getBillContextForSession(
     provider,
     payer,
     coverage,
+    encounter,
     eob,
     invoice,
     controlledDemoFixture,
@@ -176,11 +224,11 @@ export async function getBillContextForSession(
 }
 
 function withFixtureIds<T extends Resource>(resource: T, id: string): T {
-  return { ...resource, id };
+  return { ...structuredClone(resource), id };
 }
 
-export function getFixtureBillContext(): NormalizedBillContext {
-  const patient = withFixtureIds(getFixtureResource("Patient"), "demo-patient-jane-doe");
+export function getFixtureBillContext(scope: BillSessionScope): NormalizedBillContext {
+  const patient = withFixtureIds(getFixtureResource("Patient"), scope.patientId);
   const organizations = getFixtureResources("Organization");
   const providerFixture = organizations.find((organization) =>
     organization.identifier?.some((identifier) => identifier.system === IDENTIFIER_SYSTEMS.provider),
@@ -191,17 +239,24 @@ export function getFixtureBillContext(): NormalizedBillContext {
   if (!providerFixture || !payerFixture) {
     throw new Error("Fixture provider or payer is missing.");
   }
-  const provider = withFixtureIds(providerFixture, "demo-provider-bayview");
-  const payer = withFixtureIds(payerFixture, "demo-payer-aetna");
-  const coverage = withFixtureIds(getFixtureResource("Coverage"), "demo-coverage-jane-aetna");
-  const eob = withFixtureIds(getFixtureResource("ExplanationOfBenefit"), "demo-eob-1001");
-  const invoice = withFixtureIds(getFixtureResource("Invoice"), "demo-invoice-1001");
+  const provider = withFixtureIds(providerFixture, scope.providerOrganizationId);
+  const payer = withFixtureIds(payerFixture, scope.payerOrganizationId);
+  const coverage = withFixtureIds(getFixtureResource("Coverage"), scope.coverageId);
+  const encounter = withFixtureIds(getFixtureResource("Encounter"), scope.encounterId);
+  const eob = withFixtureIds(getFixtureResource("ExplanationOfBenefit"), scope.eobId);
+  const invoice = withFixtureIds(getFixtureResource("Invoice"), scope.invoiceId);
 
   coverage.beneficiary = { reference: `Patient/${patient.id}` };
   eob.patient = { reference: `Patient/${patient.id}` };
   eob.provider = { reference: `Organization/${provider.id}` };
   eob.insurer = { reference: `Organization/${payer.id}` };
   eob.insurance = [{ focal: true, coverage: { reference: `Coverage/${coverage.id}` } }];
+  if (!eob.item?.[0]) {
+    throw new Error("Fixture EOB has no billable item.");
+  }
+  eob.item[0].encounter = [{ reference: `Encounter/${encounter.id}` }];
+  encounter.subject = { reference: `Patient/${patient.id}` };
+  encounter.serviceProvider = { reference: `Organization/${provider.id}` };
   invoice.subject = { reference: `Patient/${patient.id}` };
   invoice.issuer = { reference: `Organization/${provider.id}` };
 
@@ -210,6 +265,7 @@ export function getFixtureBillContext(): NormalizedBillContext {
     provider,
     payer,
     coverage,
+    encounter,
     eob,
     invoice,
     controlledDemoFixture: true,

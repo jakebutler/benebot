@@ -5,10 +5,16 @@
   "payerName": "Aetna Test Payer",
   "planName": "BeneBot Demo PPO",
   "benefits": {
-    "annualDeductible": 1500,
-    "remainingDeductible": 0,
-    "annualOutOfPocketMaximum": 6000,
-    "remainingOutOfPocketMaximum": 4120,
+    "annualDeductible": 500,
+    "remainingDeductible": 500,
+    "deductibleMetToDate": 0,
+    "deductibleScope": {
+      "benefitLevel": "individual",
+      "network": "in",
+      "serviceTypeCodes": ["30"]
+    },
+    "annualOutOfPocketMaximum": 7000,
+    "remainingOutOfPocketMaximum": 7000,
     "copays": [
       {
         "serviceLabel": "Specialist visit",

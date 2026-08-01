@@ -58,6 +58,11 @@ const externalBenefitSchema = z
     serviceTypes: z.array(z.string()).optional(),
     planCoverage: z.string().optional(),
     networkIndicatorCode: z.string().optional(),
+    inPlanNetworkIndicatorCode: z.string().optional(),
+    coverageLevelCode: z.string().optional(),
+    coverageLevel: z.string().optional(),
+    timeQualifierCode: z.string().optional(),
+    timeQualifier: z.string().optional(),
   })
   .passthrough();
 
@@ -79,9 +84,106 @@ function decimal(value: string | number | undefined): number | undefined {
 function networkFromIndicator(value: string | undefined): "in" | "out" | "unknown" {
   if (!value) return "unknown";
   const normalized = value.toLowerCase();
-  if (["in", "i", "yes"].includes(normalized)) return "in";
-  if (["out", "o", "no"].includes(normalized)) return "out";
+  if (["in", "i", "y", "yes"].includes(normalized)) return "in";
+  if (["out", "o", "n", "no"].includes(normalized)) return "out";
   return "unknown";
+}
+
+type DeductibleScope = NonNullable<
+  RefreshBenefitsResult["benefits"]["deductibleScope"]
+>;
+
+interface ScopedBenefitAmount {
+  amount: number;
+  scope: DeductibleScope;
+}
+
+function sameScope(left: DeductibleScope, right: DeductibleScope): boolean {
+  return (
+    left.benefitLevel === right.benefitLevel &&
+    left.network === right.network &&
+    [...left.serviceTypeCodes].sort().join("|") ===
+      [...right.serviceTypeCodes].sort().join("|")
+  );
+}
+
+/**
+ * The only permitted deductible calculation. The model receives the derived
+ * amount and never subtracts payer values itself.
+ */
+export function deriveDeductibleSummary(
+  annual: ScopedBenefitAmount | undefined,
+  remaining: ScopedBenefitAmount | undefined,
+): Pick<
+  RefreshBenefitsResult["benefits"],
+  | "annualDeductible"
+  | "remainingDeductible"
+  | "deductibleMetToDate"
+  | "deductibleScope"
+> {
+  const annualValid = annual !== undefined && annual.amount >= 0;
+  const remainingValid = remaining !== undefined && remaining.amount >= 0;
+  const knownValues = {
+    ...(annualValid ? { annualDeductible: annual.amount } : {}),
+    ...(remainingValid ? { remainingDeductible: remaining.amount } : {}),
+  };
+  if (
+    !annualValid ||
+    !remainingValid ||
+    !sameScope(annual.scope, remaining.scope) ||
+    remaining.amount > annual.amount
+  ) {
+    return knownValues;
+  }
+  return {
+    ...knownValues,
+    deductibleMetToDate: annual.amount - remaining.amount,
+    deductibleScope: annual.scope,
+  };
+}
+
+function scopedAmount(
+  benefit: z.infer<typeof externalBenefitSchema>,
+): ScopedBenefitAmount | undefined {
+  const amount = decimal(benefit.benefitAmount);
+  if (amount === undefined || benefit.coverageLevelCode !== "IND") return undefined;
+  const serviceTypeCodes = [...new Set(benefit.serviceTypeCodes ?? [])].sort();
+  if (serviceTypeCodes.length === 0) return undefined;
+  return {
+    amount,
+    scope: {
+      benefitLevel: "individual",
+      network: networkFromIndicator(
+        benefit.inPlanNetworkIndicatorCode ?? benefit.networkIndicatorCode,
+      ),
+      serviceTypeCodes,
+    },
+  };
+}
+
+function exactScopedAmount(
+  benefits: Array<z.infer<typeof externalBenefitSchema>>,
+  code: "C" | "G",
+  qualifier: "annual" | "remaining",
+): ScopedBenefitAmount | undefined {
+  const candidates = benefits.filter(
+    (benefit) =>
+      benefit.code === code &&
+      benefit.coverageLevelCode === "IND" &&
+      networkFromIndicator(
+        benefit.inPlanNetworkIndicatorCode ?? benefit.networkIndicatorCode,
+      ) === "in" &&
+      benefit.serviceTypeCodes?.length === 1 &&
+      benefit.serviceTypeCodes[0] === "30",
+  );
+  const matches = candidates.filter((benefit) =>
+    qualifier === "annual"
+      ? benefit.timeQualifierCode === "25" ||
+        benefit.timeQualifier?.toLowerCase() === "contract"
+      : benefit.timeQualifierCode === "29" ||
+        benefit.timeQualifier?.toLowerCase() === "remaining",
+  );
+  return matches.length === 1 ? scopedAmount(matches[0]) : undefined;
 }
 
 function serviceLabel(benefit: z.infer<typeof externalBenefitSchema>): string {
@@ -135,7 +237,13 @@ export function normalizeStediResponse(raw: unknown, checkedAt = new Date().toIS
     if (benefit.code !== "B") return [];
     const amount = decimal(benefit.benefitAmount);
     if (amount === undefined) return [];
-    return [{ serviceLabel: serviceLabel(benefit), amount, network: networkFromIndicator(benefit.networkIndicatorCode) }];
+    return [{
+      serviceLabel: serviceLabel(benefit),
+      amount,
+      network: networkFromIndicator(
+        benefit.inPlanNetworkIndicatorCode ?? benefit.networkIndicatorCode,
+      ),
+    }];
   });
   const coinsurance = benefits.flatMap((benefit) => {
     if (benefit.code !== "A") return [];
@@ -144,14 +252,36 @@ export function normalizeStediResponse(raw: unknown, checkedAt = new Date().toIS
     return [{
       serviceLabel: serviceLabel(benefit),
       percentage: rawPercentage <= 1 ? rawPercentage * 100 : rawPercentage,
-      network: networkFromIndicator(benefit.networkIndicatorCode),
+      network: networkFromIndicator(
+        benefit.inPlanNetworkIndicatorCode ?? benefit.networkIndicatorCode,
+      ),
     }];
   });
 
-  const deductibleCount = benefits.filter((benefit) => benefit.code === "C").length;
-  const outOfPocketCount = benefits.filter((benefit) => benefit.code === "G").length;
-  if (deductibleCount) warnings.push("The payer returned deductible information with an ambiguous scope, so no annual or remaining total is shown.");
-  if (outOfPocketCount) warnings.push("The payer returned out-of-pocket information with an ambiguous scope, so no annual or remaining total is shown.");
+  const annualDeductible = exactScopedAmount(benefits, "C", "annual");
+  const remainingDeductible = exactScopedAmount(benefits, "C", "remaining");
+  const deductible = deriveDeductibleSummary(
+    annualDeductible,
+    remainingDeductible,
+  );
+  if (
+    benefits.some((benefit) => benefit.code === "C") &&
+    deductible.annualDeductible === undefined
+  ) {
+    warnings.push("The payer returned deductible information with an ambiguous scope, so no annual or remaining total is shown.");
+  }
+  const annualOutOfPocket = exactScopedAmount(benefits, "G", "annual");
+  const remainingOutOfPocket = exactScopedAmount(benefits, "G", "remaining");
+  const annualOutOfPocketMaximum = annualOutOfPocket?.amount;
+  const remainingOutOfPocketMaximum = remainingOutOfPocket?.amount;
+  if (
+    benefits.some((benefit) => benefit.code === "G") &&
+    (!annualOutOfPocket ||
+      !remainingOutOfPocket ||
+      !sameScope(annualOutOfPocket.scope, remainingOutOfPocket.scope))
+  ) {
+    warnings.push("The payer returned out-of-pocket information with an ambiguous scope, so no annual or remaining total is shown.");
+  }
   if (benefits.some((benefit) => !benefit.serviceTypeCodes?.includes("30"))) {
     warnings.push("The payer may return benefits for service types other than the requested general plan-coverage code.");
   }
@@ -162,7 +292,13 @@ export function normalizeStediResponse(raw: unknown, checkedAt = new Date().toIS
     coverageActive,
     payerName: payerNameFromResponse(parsed.data),
     planName: parsed.data.planName ?? benefits.find((benefit) => benefit.planCoverage)?.planCoverage,
-    benefits: { copays, coinsurance },
+    benefits: {
+      ...deductible,
+      ...(annualOutOfPocketMaximum === undefined ? {} : { annualOutOfPocketMaximum }),
+      ...(remainingOutOfPocketMaximum === undefined ? {} : { remainingOutOfPocketMaximum }),
+      copays,
+      coinsurance,
+    },
     medplum: {},
     warnings,
   };

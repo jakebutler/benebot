@@ -55,4 +55,36 @@ describe("Deepgram tool bridge", () => {
     expect(JSON.parse(result)).toHaveProperty("error");
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it("accepts only the confirmed concise billing-case payload", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      Response.json({ created: true, status: "requested", taskId: "task-1" }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await dispatchBeneBotTool({
+      name: "request_human_followup",
+      argumentsJson: JSON.stringify({
+        issueType: "deductible",
+        patientIssueSummary:
+          "La paciente sigue confundida sobre el deducible histórico y actual.",
+        preferredContact: "secure-message",
+        patientConfirmed: true,
+      }),
+      sessionToken: "signed-session",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/tools/request-followup",
+      expect.objectContaining({
+        body: JSON.stringify({
+          issueType: "deductible",
+          patientIssueSummary:
+            "La paciente sigue confundida sobre el deducible histórico y actual.",
+          preferredContact: "secure-message",
+          patientConfirmed: true,
+        }),
+      }),
+    );
+  });
 });

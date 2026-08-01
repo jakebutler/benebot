@@ -4,6 +4,7 @@ import {
   DirectStediTestProvider,
   STEDI_TEST_REQUEST,
   assertStediTestIdentity,
+  deriveDeductibleSummary,
   normalizeStediResponse,
   loadFixtureFallback,
 } from "@/lib/stedi/eligibility";
@@ -54,6 +55,78 @@ describe("Stedi eligibility", () => {
     expect(result.benefits.remainingDeductible).toBeUndefined();
     expect(result.benefits.copays).toEqual([]);
     expect(result.warnings.join(" ")).toContain("ambiguous scope");
+  });
+
+  it("derives deductible met-to-date only from the same individual network and service scope", () => {
+    const result = normalizeStediResponse({
+      benefitsInformation: [
+        {
+          code: "C",
+          name: "Deductible",
+          benefitAmount: "500",
+          coverageLevelCode: "IND",
+          timeQualifierCode: "25",
+          inPlanNetworkIndicatorCode: "Y",
+          serviceTypeCodes: ["30"],
+        },
+        {
+          code: "C",
+          name: "Deductible",
+          benefitAmount: "500",
+          coverageLevelCode: "IND",
+          timeQualifierCode: "29",
+          inPlanNetworkIndicatorCode: "Y",
+          serviceTypeCodes: ["30"],
+        },
+      ],
+    }, "2026-08-01T18:01:00Z");
+    expect(result.benefits).toMatchObject({
+      annualDeductible: 500,
+      remainingDeductible: 500,
+      deductibleMetToDate: 0,
+      deductibleScope: {
+        benefitLevel: "individual",
+        network: "in",
+        serviceTypeCodes: ["30"],
+      },
+    });
+  });
+
+  it("does not derive a deductible amount when scopes differ", () => {
+    const inNetwork = {
+      amount: 500,
+      scope: {
+        benefitLevel: "individual" as const,
+        network: "in" as const,
+        serviceTypeCodes: ["30"],
+      },
+    };
+    const outOfNetwork = {
+      amount: 200,
+      scope: {
+        benefitLevel: "individual" as const,
+        network: "out" as const,
+        serviceTypeCodes: ["30"],
+      },
+    };
+    expect(deriveDeductibleSummary(inNetwork, outOfNetwork)).toEqual({
+      annualDeductible: 500,
+      remainingDeductible: 200,
+    });
+  });
+
+  it("preserves a known scoped deductible value while leaving its missing pair unknown", () => {
+    const annual = {
+      amount: 500,
+      scope: {
+        benefitLevel: "individual" as const,
+        network: "in" as const,
+        serviceTypeCodes: ["30"],
+      },
+    };
+    expect(deriveDeductibleSummary(annual, undefined)).toEqual({
+      annualDeductible: 500,
+    });
   });
 
   it("rejects a mismatched organization name", () => {

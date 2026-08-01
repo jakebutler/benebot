@@ -20,10 +20,12 @@ import { getMedplumClient } from "./server";
 
 async function validateSessionReferences(claims: BeneBotSessionClaims): Promise<void> {
   const client = await getMedplumClient();
-  const [patient, invoice, coverage, provider, payer] = await Promise.all([
+  const [patient, invoice, coverage, encounter, eob, provider, payer] = await Promise.all([
     client.readResource("Patient", claims.patientId),
     client.readResource("Invoice", claims.invoiceId),
     client.readResource("Coverage", claims.coverageId),
+    client.readResource("Encounter", claims.encounterId),
+    client.readResource("ExplanationOfBenefit", claims.eobId),
     client.readResource("Organization", claims.providerOrganizationId),
     client.readResource("Organization", claims.payerOrganizationId),
   ]);
@@ -31,7 +33,20 @@ async function validateSessionReferences(claims: BeneBotSessionClaims): Promise<
     invoice.subject?.reference !== `Patient/${patient.id}` ||
     invoice.issuer?.reference !== `Organization/${provider.id}` ||
     coverage.beneficiary.reference !== `Patient/${patient.id}` ||
-    !coverage.payor.some((payor) => payor.reference === `Organization/${payer.id}`)
+    !coverage.payor.some((payor) => payor.reference === `Organization/${payer.id}`) ||
+    encounter.subject?.reference !== `Patient/${patient.id}` ||
+    encounter.serviceProvider?.reference !== `Organization/${provider.id}` ||
+    eob.patient.reference !== `Patient/${patient.id}` ||
+    eob.provider.reference !== `Organization/${provider.id}` ||
+    eob.insurer.reference !== `Organization/${payer.id}` ||
+    !eob.insurance.some(
+      (insurance) => insurance.coverage.reference === `Coverage/${coverage.id}`,
+    ) ||
+    !eob.item?.some((item) =>
+      item.encounter?.some(
+        (reference) => reference.reference === `Encounter/${encounter.id}`,
+      ),
+    )
   ) {
     throw new Error("Medplum resources are not bound to the signed BeneBot session.");
   }
@@ -47,25 +62,28 @@ export async function createFollowupTask(
 ): Promise<Task & { id: string }> {
   await validateSessionReferences(claims);
   const client = await getMedplumClient();
-  const stableValue = `${claims.jti}:followup:${input.resourceId}`;
+  const stableValue = `${claims.jti}:billing-review`;
+  const patientIssueSummary = concise(input.patientIssueSummary, 300);
   const task: Task = {
     resourceType: "Task",
     identifier: [{ system: IDENTIFIER_SYSTEMS.session, value: stableValue }],
     status: "requested",
     intent: "order",
-    code: { text: "Patient billing follow-up" },
-    description: `Contact the patient regarding ${input.resourceId} for BeneBot demo invoice BENEBOT-INV-1001.`,
+    code: { text: "Patient billing review case" },
+    description: `Unresolved ${input.issueType} concern: ${patientIssueSummary}`,
     for: { reference: `Patient/${claims.patientId}` },
     focus: { reference: `Invoice/${claims.invoiceId}` },
     authoredOn: new Date().toISOString(),
     requester: { reference: `Patient/${claims.patientId}` },
     owner: { reference: `Organization/${claims.providerOrganizationId}` },
     input: [
-      { type: { text: "Requested support resource" }, valueString: input.resourceId },
+      { type: { text: "Billing issue type" }, valueString: input.issueType },
+      { type: { text: "Patient issue summary" }, valueString: patientIssueSummary },
       { type: { text: "Preferred contact" }, valueString: input.preferredContact },
-      ...(input.notes
-        ? [{ type: { text: "Patient note" }, valueString: concise(input.notes, 300) }]
-        : []),
+      {
+        type: { text: "Billing encounter" },
+        valueReference: { reference: `Encounter/${claims.encounterId}` },
+      },
     ],
   };
   const created = await client.createResourceIfNoneExist(
@@ -112,7 +130,11 @@ export async function createConversationCommunication(
     const task = await client.readResource("Task", input.followupTaskId);
     if (
       task.for?.reference !== `Patient/${claims.patientId}` ||
-      task.focus?.reference !== `Invoice/${claims.invoiceId}`
+      task.focus?.reference !== `Invoice/${claims.invoiceId}` ||
+      task.owner?.reference !== `Organization/${claims.providerOrganizationId}` ||
+      !task.input?.some(
+        (entry) => entry.valueReference?.reference === `Encounter/${claims.encounterId}`,
+      )
     ) {
       throw new Error("Follow-up Task is not scoped to this BeneBot session.");
     }
@@ -127,6 +149,7 @@ export async function createConversationCommunication(
     about: [
       { reference: `Invoice/${claims.invoiceId}` },
       { reference: `ExplanationOfBenefit/${claims.eobId}` },
+      { reference: `Encounter/${claims.encounterId}` },
       ...(input.followupTaskId ? [{ reference: `Task/${input.followupTaskId}` }] : []),
     ],
     sender: { reference: `Organization/${claims.providerOrganizationId}` },
@@ -159,6 +182,7 @@ function eligibilityItems(result: RefreshBenefitsResult): CoverageEligibilityRes
   const addMoney = (name: string, amount: number | undefined): void => {
     if (amount !== undefined) {
       items.push({
+        category: { text: name },
         name,
         benefit: [{ type: { text: name }, allowedMoney: { value: amount, currency: "USD" } }],
       });
@@ -170,6 +194,7 @@ function eligibilityItems(result: RefreshBenefitsResult): CoverageEligibilityRes
   addMoney("Remaining out-of-pocket maximum", result.benefits.remainingOutOfPocketMaximum);
   for (const copay of result.benefits.copays) {
     items.push({
+      category: { text: concise(copay.serviceLabel, 120) },
       name: concise(copay.serviceLabel, 120),
       description: copay.network ? `Copay; network: ${copay.network}` : "Copay",
       benefit: [{ type: { text: "Copay" }, allowedMoney: { value: copay.amount, currency: "USD" } }],
@@ -177,6 +202,7 @@ function eligibilityItems(result: RefreshBenefitsResult): CoverageEligibilityRes
   }
   for (const coinsurance of result.benefits.coinsurance) {
     items.push({
+      category: { text: concise(coinsurance.serviceLabel, 120) },
       name: concise(coinsurance.serviceLabel, 120),
       description: coinsurance.network
         ? `Coinsurance; network: ${coinsurance.network}`

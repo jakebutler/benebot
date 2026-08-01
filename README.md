@@ -67,7 +67,7 @@ This app follows Medplum's [AI coding-assistant guidance](https://www.medplum.co
 1. Register at [app.medplum.com](https://app.medplum.com/register), sign in, and create or select a project.
 2. Open the project's Admin page and create a `ClientApplication` named `BeneBot local demo`.
 3. Copy its **ID** and **Secret** into `MEDPLUM_CLIENT_ID` and `MEDPLUM_CLIENT_SECRET`. The secret stays server-side.
-4. Ensure the client application's project membership/access policy can search, read, create, and update the demo resource types: `Patient`, `Organization`, `Coverage`, `Encounter`, `ExplanationOfBenefit`, `Invoice`, `CoverageEligibilityResponse`, `Task`, and `Communication`. Keep access limited to this synthetic demo project; review the policy by hand.
+4. Ensure the client application's project membership/access policy can search, read, create, and update the demo resource types: `Patient`, `Organization`, `Coverage`, `Encounter`, `ExplanationOfBenefit`, `Invoice`, `CoverageEligibilityRequest`, `CoverageEligibilityResponse`, `Task`, and `Communication`. Keep access limited to this synthetic demo project; review the policy by hand.
 5. Leave `MEDPLUM_BASE_URL=https://api.medplum.com/` for Medplum Cloud.
 
 The seed validates every resource against Medplum, searches by stable BeneBot identifiers, resolves real references, and fails on duplicates or incorrect bill math.
@@ -94,16 +94,16 @@ Start the localhost app:
 npm run dev
 ```
 
-Open the exact demo statement:
+Open the synthetic Spanish billing-email preview:
 
 ```bash
-open http://127.0.0.1:3000/bill/BENEBOT-INV-1001
+open http://localhost:3000
 ```
 
 Open the staff proof view in a second tab:
 
 ```bash
-open http://127.0.0.1:3000/staff
+open http://localhost:3000/staff
 ```
 
 Run each local gate separately:
@@ -124,27 +124,29 @@ npm run build
 npm run test:e2e
 ```
 
-The E2E test is deliberately deterministic: it uses the signed local session and text fallback, does not call Deepgram or Stedi, and does not claim a Medplum follow-up was created.
+The E2E rehearsal uses the signed local session and text fallback. It never sends browser-selected patient or bill IDs. Live service checks are reported separately; a fixture fallback is always labeled rather than presented as live.
 
 ## Service behavior and honest fallbacks
 
-- **Deepgram:** `DEEPGRAM_API_KEY` is used only by the server to mint a temporary browser token. Without it, do not start voice; the text path still explains the historical bill.
+- **Deepgram:** `DEEPGRAM_API_KEY` is used only by the server to mint a temporary browser token through `/v1/auth/grant`; the key needs at least Deepgram Member permission. Without a grant-capable key, do not start voice; the text path still explains the historical bill.
 - **Stedi:** use only the fixed Jane Doe test identity in the build spec. With no test key or a failed request and `STEDI_ALLOW_FIXTURE_FALLBACK=true`, any returned current-benefit data must be visibly labeled **fixture fallback—not live**. A current snapshot never explains or validates the July claim.
 - **Medplum:** demo mode can read the bundled historical EOB fixture when Medplum is unconfigured. It cannot honestly prove persistence: follow-up `Task`, summary `Communication`, and eligibility artifacts must remain unavailable or waiting until Medplum confirms their IDs.
 - **Resources:** the local resource directory is synthetic. Fictional resources and community-reported tips remain labeled; no patient data is sent to a search provider.
 
-## Recorded localhost demo script
+## Recorded localhost demo script (Spanish-first)
 
 Before recording, run the seed twice, test one Stedi refresh and one Deepgram voice connection if keys are configured, grant microphone permission, and keep `/staff` open in a second tab.
 
-1. Open Jane's July statement and point out the **$620 amount due** and **Synthetic demo data** label.
-2. Show the source note: the July EOB explains the historical claim; any current-benefit refresh is a separate timestamped snapshot.
-3. Select **I wanna talk about this**. Use text first: `Why do I owe $620?`
-4. Read back the deterministic explanation: $2,400 billed − $1,300 contractual discount = $1,100 allowed; $500 deductible + $120 coinsurance = $620 patient responsibility; insurer paid $480. Say this is how the claim was processed, not proof that it is correct.
-5. If Deepgram is preflighted, start voice and ask the same question, then switch with `Ahora explícamelo en español.` If voice fails, stay on the text path without apology or a success claim.
-6. Ask for current benefits. Show either the timestamped Stedi test response or the conspicuous **fixture fallback—not live** label. Repeat that it does not validate the historical bill.
-7. Search for billing support and show the fictional/unverified source labels.
-8. Confirm a follow-up only when ready. Show the server-confirmed Medplum `Task` and concise `Communication` IDs in the staff view. If Medplum is unavailable, show the honest waiting/error state instead—never narrate success.
+1. Open `/` and show the **Vista previa de correo sintético**. Select **Quiero hablar sobre esta factura**. No real email is sent.
+2. In the portal, show **Sesión segura — Jane Doe**, **Idioma preferido: Español**, the synthetic-demo label, and **Secure billing context verified**. Explain that demo portal authentication has already scoped BeneBot to this bill; it will not ask for SSN, DOB, member ID, or patient ID.
+3. Point out the **$620** current Invoice balance and the historical EOB breakdown: $2,400 billed − $1,300 discount = $1,100 allowed; **$500 deductible applied to the July claim** + $120 coinsurance = $620 responsibility; insurer paid $480.
+4. Select **Hablar sobre esta factura**. Use text or voice: `Me cobraron $2,400 por la resonancia, pero el monto permitido fue $1,100 y todavia debo $620. Como llegaron a esa cantidad? Y significa que todavia me quedan $500 de deducible?`
+5. During the explanation, use the rehearsed interruption: `Espere — que significa monto permitido?` BeneBot should stop, explain it, and ask whether to continue. Browser/platform echo cancellation is used; the P0 demo does not add custom VAD.
+6. Ask for current benefits in a separate step. Show the timestamp and source for the Stedi test response, or the conspicuous **fixture fallback—not live** label. The current annual/remaining deductible is a current snapshot; it does not explain or validate the July claim. If scope is missing or ambiguous, it remains unknown.
+7. Say Jane is still confused about the $620 and deductible. BeneBot should restate a narrow issue in Spanish and request confirmation. Confirm it only when ready. Show the **server-confirmed billing-review case ID**; if Medplum does not confirm it, show the error and do not narrate success.
+8. Switch to `/staff` and show the EOB, Invoice, current eligibility result, unresolved concern, confirmed `Task`, and concise `Communication` together. English remains supported as a smoke test, but the recorded journey is Spanish-first.
+
+The local billing-resource directory remains available, but the payment-plan search is intentionally not part of the P0 recording. A hardware translator is future vision only, not a current feature.
 
 ## Emergency text-only recording
 

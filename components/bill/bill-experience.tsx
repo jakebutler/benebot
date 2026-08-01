@@ -20,11 +20,11 @@ export function BillExperience({ invoiceIdentifier }: { invoiceIdentifier: strin
       });
       const body: unknown = await response.json();
       if (!response.ok || !isSessionResponse(body)) {
-        throw new Error("BeneBot could not start the secure demo session.");
+        throw new Error("BeneBot no pudo iniciar la sesión segura de demostración.");
       }
       setSessionToken(body.sessionToken);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "BeneBot could not start the secure demo session.");
+      setError(caught instanceof Error ? caught.message : "BeneBot no pudo iniciar la sesión segura de demostración.");
     } finally {
       setIsStarting(false);
     }
@@ -35,16 +35,16 @@ export function BillExperience({ invoiceIdentifier }: { invoiceIdentifier: strin
   return (
     <section className="conversation-launch" aria-labelledby="conversation-title">
       <div>
-        <p className="eyebrow">Need a hand?</p>
-        <h2 id="conversation-title">Talk through this statement with BeneBot.</h2>
-        <p>Ask why you owe $620, refresh the plan information returned today, or find billing support.</p>
+        <p className="eyebrow">¿Necesita ayuda?</p>
+        <h2 id="conversation-title">Hable de esta factura con BeneBot.</h2>
+        <p>Pregunte por qué debe $620, pida una consulta separada de sus beneficios actuales o solicite una revisión de facturación. Puede escribir o hablar en español; English is also supported.</p>
       </div>
       <div className="conversation-actions">
         <button className="button button-primary" type="button" onClick={startConversation} disabled={isStarting}>
-          {isStarting ? "Starting secure session…" : "I wanna talk about this"}
+          {isStarting ? "Iniciando sesión segura…" : "Hablar sobre esta factura"}
         </button>
-        <p className="translation-line" lang="es">También puede escribir o hablar en español.</p>
-        {error ? <p className="form-error" role="alert">{error} Try the text-only conversation when it opens.</p> : null}
+        <p className="translation-line">No necesita proporcionar datos de identificación otra vez.</p>
+        {error ? <p className="form-error" role="alert">{error} Puede intentar la conversación por texto cuando se abra.</p> : null}
       </div>
     </section>
   );

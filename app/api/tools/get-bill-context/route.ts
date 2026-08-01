@@ -22,7 +22,7 @@ export async function POST(request: Request): Promise<Response> {
       context = await getBillContextForSession(claims);
     } catch (error) {
       if (isMissingMedplum(error) && getEnv().NEXT_PUBLIC_DEMO_MODE === "true") {
-        context = getFixtureBillContext();
+        context = getFixtureBillContext(claims);
       } else if (isMissingMedplum(error)) {
         throw new BeneBotError(
           "MEDPLUM_NOT_CONFIGURED",
@@ -45,9 +45,25 @@ export async function POST(request: Request): Promise<Response> {
     const adjudication = context.adjudication;
     return Response.json({
       patientFirstName: context.patient.firstName,
+      ...(context.patient.preferredLanguage
+        ? {
+            preferredLanguage: {
+              ...context.patient.preferredLanguage,
+              preferred: true as const,
+            },
+          }
+        : {}),
       providerName: context.provider.name,
       serviceDescription: context.service.description,
       dateOfService: context.service.dateOfService,
+      encounter: {
+        id: context.service.encounterId,
+        providerName: context.provider.name,
+        facilityName: context.provider.name,
+        serviceDescription: context.service.description,
+        dateOfService: context.service.dateOfService,
+        ...(context.service.location ? { location: context.service.location } : {}),
+      },
       invoiceIssuedDate: context.invoice.issuedDate,
       currentBalance: context.invoice.currentBalance,
       historicalAdjudication: {
@@ -75,4 +91,3 @@ export async function POST(request: Request): Promise<Response> {
     return safeErrorResponse(error);
   }
 }
-

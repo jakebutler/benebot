@@ -138,6 +138,7 @@ export interface RequestFollowupInput {
     | "other";
   patientIssueSummary: string;
   preferredContact: "phone" | "secure-message";
+  patientConfirmed: true;
 }
 
 export interface RequestFollowupResult {

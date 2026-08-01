@@ -21,6 +21,7 @@ describe("BeneBot signed sessions", () => {
     expect(claims.patientId).toBe("jane-doe");
     expect(claims.invoiceId).toBe("BENEBOT-INV-1001");
     expect(claims.eobId).toBe("BENEBOT-CLM-1001");
+    expect(claims.encounterId).toBe("bayview-mri-2026-07-08");
     expect(claims.demo).toBe(true);
   });
 
@@ -72,6 +73,7 @@ describe("BeneBot signed sessions", () => {
       patientId: DEMO_SESSION_SCOPE.patientId,
       eobId: DEMO_SESSION_SCOPE.eobId,
       coverageId: DEMO_SESSION_SCOPE.coverageId,
+      encounterId: DEMO_SESSION_SCOPE.encounterId,
       providerOrganizationId: DEMO_SESSION_SCOPE.providerOrganizationId,
       payerOrganizationId: DEMO_SESSION_SCOPE.payerOrganizationId,
     };

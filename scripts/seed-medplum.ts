@@ -98,8 +98,10 @@ function assertCanonicalDemo(resources: Resource[]): void {
   const eob = resources.find((resource) => resource.resourceType === "ExplanationOfBenefit");
   const invoice = resources.find((resource) => resource.resourceType === "Invoice");
   const coverage = resources.find((resource) => resource.resourceType === "Coverage");
-  if (!eob || !invoice || !coverage) {
-    throw new Error("FHIR seed fixture is missing the EOB, Invoice, or Coverage.");
+  const patient = resources.find((resource) => resource.resourceType === "Patient");
+  const encounter = resources.find((resource) => resource.resourceType === "Encounter");
+  if (!eob || !invoice || !coverage || !patient || !encounter) {
+    throw new Error("FHIR seed fixture is missing a required billing resource.");
   }
   const normalized = normalizeEob(eob, { controlledDemoFixture: true });
   if (!normalized.mathReconciles || normalized.amounts.patientResponsibility !== 620) {
@@ -110,6 +112,18 @@ function assertCanonicalDemo(resources: Resource[]): void {
   }
   if (coverage.subscriberId !== "AETNA12345") {
     throw new Error("FHIR seed Coverage does not match the fixed Stedi test member.");
+  }
+  const preferredLanguage = patient.communication?.find(
+    (communication) => communication.preferred === true,
+  )?.language.coding?.[0]?.code;
+  if (preferredLanguage !== "es") {
+    throw new Error("FHIR seed Patient must prefer Spanish.");
+  }
+  if (!eob.item?.some((item) => item.encounter?.some((reference) => reference.reference))) {
+    throw new Error("FHIR seed EOB must reference its Encounter.");
+  }
+  if (!encounter.subject?.reference || !encounter.serviceProvider?.reference) {
+    throw new Error("FHIR seed Encounter must reference the patient and provider.");
   }
 }
 
@@ -148,6 +162,7 @@ async function main(): Promise<void> {
       {
         patientId: ids.get(DEMO_IDENTIFIERS.patient),
         coverageId: ids.get(DEMO_IDENTIFIERS.coverage),
+        encounterId: ids.get(DEMO_IDENTIFIERS.encounter),
         eobId: ids.get(DEMO_IDENTIFIERS.claim),
         invoiceId: ids.get(DEMO_IDENTIFIERS.invoice),
         providerOrganizationId: ids.get(DEMO_IDENTIFIERS.provider),

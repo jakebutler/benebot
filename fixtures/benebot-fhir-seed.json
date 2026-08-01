@@ -39,6 +39,21 @@
         ],
         "gender": "female",
         "birthDate": "2004-04-04",
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "es",
+                  "display": "Spanish"
+                }
+              ],
+              "text": "Spanish"
+            },
+            "preferred": true
+          }
+        ],
         "address": [
           {
             "use": "home",
@@ -220,7 +235,15 @@
         },
         "serviceProvider": {
           "reference": "urn:uuid:6e73c18e-9c68-4c8d-b5da-513165604002"
-        }
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Bayview Imaging — Mission Campus"
+            },
+            "status": "completed"
+          }
+        ]
       },
       "request": {
         "method": "POST",
