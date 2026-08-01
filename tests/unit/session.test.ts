@@ -14,7 +14,6 @@ describe("BeneBot signed sessions", () => {
   it("accepts a valid scoped token", async () => {
     const { token } = await createBeneBotSession(DEMO_SESSION_SCOPE, {
       secret,
-      now: new Date("2026-08-01T20:00:00.000Z"),
     });
 
     const claims = await verifyBeneBotSession(token, { secret });

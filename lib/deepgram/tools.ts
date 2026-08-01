@@ -12,7 +12,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "refresh_current_benefits",
     description:
-      "Refresh the synthetic patient's current test eligibility. This never explains or validates the historical claim.",
+      "Refresh the synthetic patient's current test eligibility. In the answer, explicitly report checkedAt, source, annual deductible, remaining deductible, and deductibleMetToDate when returned. This never explains or validates the historical claim.",
     parameters: {
       type: "object",
       properties: {

@@ -894,25 +894,38 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
             patientIssueSummary?: string;
           };
           if (followup.created && followup.taskId) {
-            await dispatchBeneBotTool({
+            const summaryArguments = JSON.stringify({
+              language: "es",
+              summary:
+                "Se explicó la factura y la paciente confirmó un caso de revisión de facturación.",
+              questionsAnswered: [
+                "Historical bill explanation",
+                "Current benefits refresh",
+              ],
+              resourcesOffered: [],
+              followupTaskId: followup.taskId,
+              unresolvedIssues: request.patientIssueSummary
+                ? [request.patientIssueSummary]
+                : [],
+            });
+            // Medplum can briefly lag between confirming the Task write and
+            // making that Task readable to the Communication validator.
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            let summaryResult = await dispatchBeneBotTool({
               name: "save_conversation_summary",
-              argumentsJson: JSON.stringify({
-                language: "es",
-                summary:
-                  "Se explicó la factura y la paciente confirmó un caso de revisión de facturación.",
-                questionsAnswered: [
-                  "Historical bill explanation",
-                  "Current benefits refresh",
-                ],
-                resourcesOffered: [],
-                followupTaskId: followup.taskId,
-                unresolvedIssues: request.patientIssueSummary
-                  ? [request.patientIssueSummary]
-                  : [],
-              }),
+              argumentsJson: summaryArguments,
               sessionToken,
               onActivity: appendActivity,
             });
+            if (!saveSummaryFallbackSchema.safeParse(JSON.parse(summaryResult)).success) {
+              await new Promise((resolve) => setTimeout(resolve, 750));
+              summaryResult = await dispatchBeneBotTool({
+                name: "save_conversation_summary",
+                argumentsJson: summaryArguments,
+                sessionToken,
+                onActivity: appendActivity,
+              });
+            }
           }
         } catch {
           // The confirmed Task remains valid; the tool result must not claim
