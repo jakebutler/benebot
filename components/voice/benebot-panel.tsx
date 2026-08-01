@@ -271,7 +271,7 @@ function CurrentBenefitsCard({
   };
 
   return (
-    <section className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4" aria-label={language === "es" ? "Instantánea de beneficios actuales" : "Current benefits snapshot"}>
+    <section className="voice-result voice-result-current" aria-label={language === "es" ? "Instantánea de beneficios actuales" : "Current benefits snapshot"}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-semibold text-slate-950">
           {language === "es" ? "Beneficios actuales · revisión separada" : "Current benefits · separate check"}
@@ -354,7 +354,7 @@ function ResourceOptions({
         {language === "es" ? "Opciones de apoyo" : "Support options"}
       </h3>
       {resources.map((resource) => (
-        <article key={resource.id} className="rounded-2xl border border-slate-200 p-4">
+        <article key={resource.id} className="voice-resource">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h4 className="font-semibold text-slate-950">{resource.name}</h4>
@@ -387,10 +387,10 @@ function FollowupStatus({
   return (
     <div
       role="status"
-      className={`mt-4 rounded-2xl border p-4 text-sm ${
+      className={`voice-followup ${
         confirmed
-          ? "border-emerald-200 bg-emerald-50 text-emerald-950"
-          : "border-rose-200 bg-rose-50 text-rose-950"
+          ? "voice-followup-confirmed"
+          : "voice-followup-failed"
       }`}
     >
       <strong>
@@ -838,10 +838,10 @@ function VoicePanelContent({
   return (
     <section
       aria-label={isSpanishSession ? "Hablar con BeneBot" : "Talk with BeneBot"}
-      className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-5 shadow-xl"
+      className="voice-panel"
       data-dg-agent
     >
-      <header className="flex items-start justify-between gap-4">
+      <header className="voice-panel-header">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">
             {isSpanishSession ? "Demostración sintética" : "Synthetic demo"}
@@ -857,7 +857,7 @@ function VoicePanelContent({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-3 py-1 text-sm text-slate-600 hover:bg-slate-100"
+            className="voice-close"
             aria-label={isSpanishSession ? "Cerrar BeneBot" : "Close BeneBot"}
           >
             {isSpanishSession ? "Cerrar" : "Close"}
@@ -866,7 +866,7 @@ function VoicePanelContent({
       </header>
 
       <fieldset
-        className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-3"
+        className="voice-language"
         disabled={isActive}
       >
         <legend className="px-1 text-sm font-semibold text-slate-900">
@@ -881,10 +881,10 @@ function VoicePanelContent({
                 type="button"
                 aria-pressed={selected}
                 onClick={() => onSessionLanguageChange(language)}
-                className={`rounded-xl px-3 py-2 text-sm font-semibold ${
+                className={`voice-language-option ${
                   selected
-                    ? "bg-sky-700 text-white"
-                    : "border border-slate-300 bg-white text-slate-800"
+                    ? "voice-language-option-selected"
+                    : ""
                 }`}
               >
                 {language === "es" ? "Español" : "English"}
@@ -899,30 +899,30 @@ function VoicePanelContent({
         </p>
       </fieldset>
 
-      <div role="status" className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
+      <div role="status" className="voice-security">
         <p className="font-semibold">Secure billing context verified</p>
         <p className="mt-1">
           {isSpanishSession
-            ? "Sesión segura — Jane Doe. Ya tengo esta factura desde el portal; no pediré Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente."
-            : "Secure session — Jane Doe. I already have this bill from the portal; I will not ask for a Social Security number, date of birth, member ID, or patient ID."}
+            ? "Sesión segura: Jane Doe. Ya tengo esta factura desde el portal; no pediré Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente."
+            : "Secure session: Jane Doe. I already have this bill from the portal; I will not ask for a Social Security number, date of birth, member ID, or patient ID."}
         </p>
       </div>
 
       {bargeInDetected ? (
-        <div role="status" className="mt-3 rounded-xl bg-violet-50 px-4 py-3 text-sm font-medium text-violet-950">
+        <div role="status" className="voice-interrupt">
           {isSpanishSession
             ? "Interrupción detectada por Flux · audio de BeneBot detenido"
             : "Flux interruption detected · BeneBot audio stopped"}
         </div>
       ) : null}
 
-      <div className="my-5 flex items-center gap-4 rounded-2xl bg-slate-950 p-4 text-white">
+      <div className="voice-orb-stage">
         <Orb
           size={72}
           state={mode === "speaking" ? "talking" : mode === "listening" ? "listening" : "idle"}
           getInputVolume={microphone.getInputVolume}
           getOutputVolume={player.getOutputVolume}
-          colors={["#38bdf8", "#a78bfa"]}
+          colors={["#00c4a7", "#ff3d8b"]}
         />
         <div>
           <AgentStatus
@@ -934,8 +934,8 @@ function VoicePanelContent({
                 : isSpanishSession ? "BeneBot está escuchando" : "BeneBot is listening",
               reconnecting: isSpanishSession ? "Reconectando…" : "Reconnecting…",
               disconnected: isSpanishSession
-                ? "Voz desconectada — el texto sigue disponible"
-                : "Voice disconnected — text is still available",
+                ? "Voz desconectada. El texto sigue disponible"
+                : "Voice disconnected. Text is still available",
             }}
           />
           <p className="mt-1 text-xs text-slate-300">
@@ -963,10 +963,10 @@ function VoicePanelContent({
       {summaryResult ? (
         <div
           role="status"
-          className={`mt-4 rounded-xl px-4 py-3 text-sm ${
+          className={`voice-summary-status ${
             summaryResult.saved
-              ? "bg-emerald-50 text-emerald-950"
-              : "bg-rose-50 text-rose-950"
+              ? "voice-summary-saved"
+              : "voice-summary-failed"
           }`}
         >
           {summaryResult.saved
@@ -979,7 +979,7 @@ function VoicePanelContent({
         </div>
       ) : null}
 
-      <form onSubmit={submitText} className="mt-4 flex gap-2">
+      <form onSubmit={submitText} className="voice-text-form">
         <label htmlFor="benebot-text" className="sr-only">
           {isSpanishSession ? "Enviar mensaje a BeneBot" : "Message BeneBot"}
         </label>
@@ -990,12 +990,12 @@ function VoicePanelContent({
           placeholder={state === "connected"
             ? isSpanishSession ? "Escribe en vez de hablar…" : "Type instead of speaking…"
             : isSpanishSession ? "El texto funciona aunque la voz no…" : "Text works even when voice does not…"}
-          className="min-w-0 flex-1 rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-950 outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-200"
+          className="voice-text-input"
         />
         <button
           type="submit"
           disabled={!text.trim() || fallbackBusy}
-          className="rounded-xl bg-sky-700 px-4 py-3 text-sm font-semibold text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-50"
+          className="voice-send"
         >
           {fallbackBusy
             ? isSpanishSession ? "Consultando…" : "Checking…"
@@ -1003,28 +1003,28 @@ function VoicePanelContent({
         </button>
       </form>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2">
+      <div className="voice-controls">
         <AgentStartButton
           startLabel={isSpanishSession ? "Iniciar voz" : "Start voice"}
           connectingLabel={isSpanishSession ? "Conectando…" : "Connecting…"}
           stopLabel={isSpanishSession ? "Terminar voz" : "End voice"}
           reconnectingLabel={isSpanishSession ? "Reconectando…" : "Reconnecting…"}
-          className="rounded-xl bg-violet-700 px-4 py-2 text-sm font-semibold text-white"
+          className="voice-start"
         />
         <AgentMicrophoneButton
           activeLabel={isSpanishSession ? "Silenciar micrófono" : "Mute microphone"}
           mutedLabel={isSpanishSession ? "Activar micrófono" : "Unmute microphone"}
           disabledLabel={isSpanishSession ? "Micrófono no disponible" : "Microphone unavailable"}
-          className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          className="voice-control"
         />
         <AgentSpeakerButton
           activeLabel={isSpanishSession ? "Silenciar audio" : "Mute audio"}
           mutedLabel={isSpanishSession ? "Activar audio" : "Unmute audio"}
-          className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          className="voice-control"
         />
       </div>
 
-      <div className="mt-5 border-t border-slate-200 pt-4">
+      <div className="voice-activity-shell">
         <ToolActivity events={events} language={sessionLanguage} />
       </div>
     </section>

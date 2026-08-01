@@ -33,7 +33,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "search_support_resources",
     description:
-      `${TOOL_PREREQUISITES.search_support_resources.useWhen} Return up to three resources and preserve practice-provided, fictional-demo, and unverified-community labels.`,
+      `${TOOL_PREREQUISITES.search_support_resources.useWhen} Return up to three resources and preserve practice-provided, government-published, fictional-demo, and unverified-community labels. Use medicare-billing-problem when a Medicare or dual-eligible patient reports a bill they may not owe.`,
     parameters: {
       type: "object",
       properties: {
@@ -45,6 +45,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
             "payer-contact",
             "billing-advocate",
             "dispute-or-review",
+            "medicare-billing-problem",
           ],
         },
         language: { type: "string", enum: ["en", "es"] },
@@ -129,6 +130,7 @@ const toolArguments = {
       "payer-contact",
       "billing-advocate",
       "dispute-or-review",
+      "medicare-billing-problem",
     ]),
     language: z.enum(["en", "es"]),
   }).strict(),

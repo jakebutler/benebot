@@ -3,15 +3,35 @@
     "id": "bayview-payment-plan",
     "name": "Bayview Imaging Flexible Payment Plan",
     "organization": "Bayview Imaging",
-    "needs": ["payment-plan", "financial-assistance"],
-    "languages": ["en", "es"],
+    "needs": [
+      "payment-plan",
+      "financial-assistance"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
     "type": "provider-payment-plan",
     "sourceType": "practice-policy",
     "verification": "practice-provided",
     "demo": true,
     "phone": "(555) 010-2020",
-    "summary": {"en": "A fictional Bayview policy offering up to 12 monthly payments with no interest for this demo.", "es": "Una política ficticia de Bayview que ofrece hasta 12 pagos mensuales sin intereses para esta demostración."},
-    "instructions": {"en": ["Call the billing team and select option 3.", "Ask for the flexible payment-plan desk.", "Have the statement number available."], "es": ["Llame al equipo de facturación y seleccione la opción 3.", "Pida hablar con el equipo de planes de pago.", "Tenga disponible el número del estado de cuenta."]},
+    "summary": {
+      "en": "A fictional Bayview policy offering up to 12 monthly payments with no interest for this demo.",
+      "es": "Una política ficticia de Bayview que ofrece hasta 12 pagos mensuales sin intereses para esta demostración."
+    },
+    "instructions": {
+      "en": [
+        "Call the billing team and select option 3.",
+        "Ask for the flexible payment-plan desk.",
+        "Have the statement number available."
+      ],
+      "es": [
+        "Llame al equipo de facturación y seleccione la opción 3.",
+        "Pida hablar con el equipo de planes de pago.",
+        "Tenga disponible el número del estado de cuenta."
+      ]
+    },
     "disclosure": "Fictional practice policy created only for the BeneBot hackathon demo.",
     "priority": 100
   },
@@ -19,15 +39,35 @@
     "id": "acme-bill-help",
     "name": "Acme Health Bill Help Inc.",
     "organization": "Acme Health Bill Help Inc.",
-    "needs": ["billing-advocate", "dispute-or-review"],
-    "languages": ["en", "es"],
+    "needs": [
+      "billing-advocate",
+      "dispute-or-review"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
     "type": "independent-billing-advocate",
     "sourceType": "fictional-demo-provider",
     "verification": "fictional-demo-data",
     "demo": true,
     "phone": "(555) 010-4411",
-    "summary": {"en": "A fictional billing advocate that can review an EOB and bill with a patient.", "es": "Un defensor ficticio de facturación que puede revisar una EOB y una factura con el paciente."},
-    "instructions": {"en": ["Ask for a medical-bill review.", "Share only the minimum information needed.", "Confirm any fee before agreeing to service."], "es": ["Solicite una revisión de la factura médica.", "Comparta solo la información mínima necesaria.", "Confirme cualquier tarifa antes de aceptar el servicio."]},
+    "summary": {
+      "en": "A fictional billing advocate that can review an EOB and bill with a patient.",
+      "es": "Un defensor ficticio de facturación que puede revisar una EOB y una factura con el paciente."
+    },
+    "instructions": {
+      "en": [
+        "Ask for a medical-bill review.",
+        "Share only the minimum information needed.",
+        "Confirm any fee before agreeing to service."
+      ],
+      "es": [
+        "Solicite una revisión de la factura médica.",
+        "Comparta solo la información mínima necesaria.",
+        "Confirme cualquier tarifa antes de aceptar el servicio."
+      ]
+    },
     "disclosure": "Acme Health Bill Help Inc. is fictional demo data and is not a real referral.",
     "priority": 60
   },
@@ -35,15 +75,35 @@
     "id": "aetna-test-member-services",
     "name": "Aetna Test Member Services",
     "organization": "Aetna Test Payer",
-    "needs": ["payer-contact", "dispute-or-review"],
-    "languages": ["en", "es"],
+    "needs": [
+      "payer-contact",
+      "dispute-or-review"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
     "type": "payer-member-services",
     "sourceType": "community-reported",
     "verification": "unverified",
     "demo": true,
     "phone": "(555) 010-8800",
-    "summary": {"en": "A fictional member-services contact for asking how the test claim was processed.", "es": "Un contacto ficticio de servicios para miembros para preguntar cómo se procesó la reclamación de prueba."},
-    "instructions": {"en": ["Say ‘claims’ at the first prompt.", "A community-reported tip suggests saying ‘representative’ twice, then pressing 0.", "This shortcut is unverified and may not work."], "es": ["Diga ‘reclamaciones’ en el primer menú.", "Un consejo comunitario sugiere decir ‘representante’ dos veces y luego marcar 0.", "Este atajo no está verificado y puede no funcionar."]},
+    "summary": {
+      "en": "A fictional member-services contact for asking how the test claim was processed.",
+      "es": "Un contacto ficticio de servicios para miembros para preguntar cómo se procesó la reclamación de prueba."
+    },
+    "instructions": {
+      "en": [
+        "Say ‘claims’ at the first prompt.",
+        "A community-reported tip suggests saying ‘representative’ twice, then pressing 0.",
+        "This shortcut is unverified and may not work."
+      ],
+      "es": [
+        "Diga ‘reclamaciones’ en el primer menú.",
+        "Un consejo comunitario sugiere decir ‘representante’ dos veces y luego marcar 0.",
+        "Este atajo no está verificado y puede no funcionar."
+      ]
+    },
     "disclosure": "Fictional phone number and unverified community-reported phone-tree tip for demonstration only.",
     "priority": 40
   },
@@ -51,15 +111,32 @@
     "id": "northstar-financial-assistance",
     "name": "Northstar Community Financial Assistance",
     "organization": "Northstar Community Financial Assistance",
-    "needs": ["financial-assistance"],
-    "languages": ["en", "es"],
+    "needs": [
+      "financial-assistance"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
     "type": "financial-assistance-screening",
     "sourceType": "fictional-demo-provider",
     "verification": "fictional-demo-data",
     "demo": true,
     "phone": "(555) 010-1188",
-    "summary": {"en": "A fictional community resource that screens patients for possible financial-assistance programs.", "es": "Un recurso comunitario ficticio que evalúa posibles programas de asistencia financiera."},
-    "instructions": {"en": ["Ask for a no-cost initial screening.", "Do not send financial documents until the organization is verified."], "es": ["Solicite una evaluación inicial sin costo.", "No envíe documentos financieros hasta verificar la organización."]},
+    "summary": {
+      "en": "A fictional community resource that screens patients for possible financial-assistance programs.",
+      "es": "Un recurso comunitario ficticio que evalúa posibles programas de asistencia financiera."
+    },
+    "instructions": {
+      "en": [
+        "Ask for a no-cost initial screening.",
+        "Do not send financial documents until the organization is verified."
+      ],
+      "es": [
+        "Solicite una evaluación inicial sin costo.",
+        "No envíe documentos financieros hasta verificar la organización."
+      ]
+    },
     "disclosure": "Fictional organization created only for the BeneBot hackathon demo.",
     "priority": 50
   },
@@ -67,16 +144,148 @@
     "id": "billing-review",
     "name": "Bayview Billing Review",
     "organization": "Bayview Imaging",
-    "needs": ["dispute-or-review", "billing-advocate"],
-    "languages": ["en", "es"],
+    "needs": [
+      "dispute-or-review",
+      "billing-advocate"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
     "type": "provider-billing-review",
     "sourceType": "practice-policy",
     "verification": "practice-provided",
     "demo": true,
     "phone": "(555) 010-2020",
-    "summary": {"en": "A fictional internal review for missing services, identity errors, or claim amounts that do not reconcile.", "es": "Una revisión interna ficticia para servicios no recibidos, errores de identidad o importes que no coinciden."},
-    "instructions": {"en": ["Request a claim and statement review.", "Describe the specific charge or service in question."], "es": ["Solicite una revisión de la reclamación y del estado de cuenta.", "Describa el cargo o servicio específico en cuestión."]},
+    "summary": {
+      "en": "A fictional internal review for missing services, identity errors, or claim amounts that do not reconcile.",
+      "es": "Una revisión interna ficticia para servicios no recibidos, errores de identidad o importes que no coinciden."
+    },
+    "instructions": {
+      "en": [
+        "Request a claim and statement review.",
+        "Describe the specific charge or service in question."
+      ],
+      "es": [
+        "Solicite una revisión de la reclamación y del estado de cuenta.",
+        "Describa el cargo o servicio específico en cuestión."
+      ]
+    },
     "disclosure": "Fictional Bayview workflow created only for the BeneBot hackathon demo.",
+    "priority": 90
+  },
+  {
+    "id": "medicare-1800",
+    "name": "1-800-MEDICARE",
+    "organization": "Centers for Medicare & Medicaid Services",
+    "needs": [
+      "medicare-billing-problem"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "government-helpline",
+    "sourceType": "government-program",
+    "verification": "government-published",
+    "demo": false,
+    "phone": "1-800-633-4227",
+    "url": "https://www.medicare.gov/talk-to-someone",
+    "summary": {
+      "en": "The official Medicare helpline, open 24 hours a day, 7 days a week. Free Spanish-language help is available, and TTY users can call 1-877-486-2048. This is where a Medicare patient reports a bill they believe they should not have received.",
+      "es": "La línea oficial de Medicare, disponible las 24 horas del día, los 7 días de la semana. Hay ayuda gratuita en español, y los usuarios de TTY pueden llamar al 1-877-486-2048. Aquí es donde un paciente de Medicare reporta una factura que cree que no debería haber recibido."
+    },
+    "instructions": {
+      "en": [
+        "Say \"agent\" at the prompt to reach a person.",
+        "Ask for Spanish if you prefer it; interpretation is free.",
+        "Have your Medicare number, the date of service, and the bill in front of you.",
+        "Say clearly that you are reporting a billing problem, not making a payment."
+      ],
+      "es": [
+        "Diga “agente” en el menú para hablar con una persona.",
+        "Pida español si lo prefiere; la interpretación es gratuita.",
+        "Tenga a la mano su número de Medicare, la fecha del servicio y la factura.",
+        "Diga claramente que reporta un problema de facturación, no que va a pagar."
+      ]
+    },
+    "disclosure": "Real public contact information published by Medicare. BeneBot does not contact Medicare for you and does not share your information with them.",
+    "priority": 100
+  },
+  {
+    "id": "ship-medicare-counseling",
+    "name": "State Health Insurance Assistance Program (SHIP)",
+    "organization": "SHIP National Technical Assistance Center",
+    "needs": [
+      "medicare-billing-problem"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "government-counseling",
+    "sourceType": "government-program",
+    "verification": "government-published",
+    "demo": false,
+    "phone": "1-877-839-2675",
+    "url": "https://www.shiphelp.org/",
+    "summary": {
+      "en": "Free, unbiased, one-on-one Medicare counseling from a trained local counselor in your own state. SHIP counselors are not selling anything and can sit with you through a confusing bill or a denial.",
+      "es": "Asesoría gratuita e imparcial sobre Medicare, en persona y uno a uno, con un consejero capacitado de su propio estado. Los consejeros de SHIP no venden nada y pueden acompañarle con una factura confusa o una denegación."
+    },
+    "instructions": {
+      "en": [
+        "Call the national number or use shiphelp.org to find your state's program.",
+        "Ask for a counselor who speaks your preferred language.",
+        "Bring the bill, the Medicare Summary Notice, and your Medicare card.",
+        "Ask the counselor whether you actually owe this amount before you pay it."
+      ],
+      "es": [
+        "Llame al número nacional o use shiphelp.org para encontrar el programa de su estado.",
+        "Pida un consejero que hable su idioma preferido.",
+        "Lleve la factura, el Aviso Resumido de Medicare y su tarjeta de Medicare.",
+        "Pregúntele al consejero si realmente debe esta cantidad antes de pagarla."
+      ]
+    },
+    "disclosure": "Real public program funded by the Administration for Community Living. BeneBot does not refer you automatically or share your information.",
+    "priority": 95
+  },
+  {
+    "id": "qmb-improper-billing",
+    "name": "QMB improper-billing protection",
+    "organization": "Centers for Medicare & Medicaid Services",
+    "needs": [
+      "medicare-billing-problem"
+    ],
+    "languages": [
+      "en",
+      "es"
+    ],
+    "type": "government-protection",
+    "sourceType": "government-program",
+    "verification": "government-published",
+    "demo": false,
+    "phone": "1-800-633-4227",
+    "url": "https://www.cms.gov/files/document/mln7936176-prohibition-billing-qualified-medicare-beneficiaries.pdf",
+    "summary": {
+      "en": "If you are enrolled in the Qualified Medicare Beneficiary program, federal law prohibits providers from billing you for Medicare Part A and Part B deductibles, coinsurance, or copays at all. Receiving such a bill does not mean you owe it.",
+      "es": "Si está inscrito en el programa Qualified Medicare Beneficiary, la ley federal prohíbe que los proveedores le cobren deducibles, coseguro o copagos de las Partes A y B de Medicare. Recibir esa factura no significa que usted la deba."
+    },
+    "instructions": {
+      "en": [
+        "Confirm your QMB status by calling 1-800-MEDICARE.",
+        "Tell the provider's billing office in writing that you are a QMB enrollee.",
+        "Report the bill to 1-800-MEDICARE if it is not withdrawn.",
+        "Do not pay a disputed QMB bill just because a collector contacts you."
+      ],
+      "es": [
+        "Confirme su estatus QMB llamando al 1-800-MEDICARE.",
+        "Informe por escrito a la oficina de facturación que usted está inscrito en QMB.",
+        "Reporte la factura al 1-800-MEDICARE si no la retiran.",
+        "No pague una factura QMB en disputa solo porque le contacte un cobrador."
+      ]
+    },
+    "disclosure": "Real federal protection documented by CMS. BeneBot cannot confirm your QMB enrollment and does not determine whether this protection applies to you.",
     "priority": 90
   }
 ]

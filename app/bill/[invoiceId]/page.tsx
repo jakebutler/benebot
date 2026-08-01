@@ -13,7 +13,7 @@ export default async function BillPage({ params }: { params: Promise<{ invoiceId
       <nav className="topline" aria-label="Navegación del portal de BeneBot">
         <Link className="wordmark" href="/">Bene<span>Bot</span></Link>
         <div className="portal-badges" aria-label="Authenticated demo context">
-          <span className="secure-badge">Sesión segura — Jane Doe</span>
+          <span className="secure-badge">Sesión segura: Jane Doe</span>
           <span className="language-badge">Idioma preferido: Español</span>
           <span className="demo-badge">Portal de demostración sintético</span>
         </div>

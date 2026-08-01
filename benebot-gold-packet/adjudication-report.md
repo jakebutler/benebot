@@ -10,7 +10,7 @@
 
 The following decisions and repairs were made to resolve all blocking issues for P0 deployment.
 
-**P0 Concept Standardization.** The six P0 concepts established in the source-of-truth boundaries packet (`allowed-amount`, `explanation-of-benefits`, `deductible`, `coinsurance`, `copayment`, `out-of-pocket-maximum`) are accepted as the canonical set. 
+**P0 Concept Standardization.** The six P0 concepts established in the source-of-truth boundaries packet (`allowed-amount`, `explanation-of-benefits`, `deductible`, `coinsurance`, `copayment`, `out-of-pocket-maximum`) are accepted as the canonical set.
 
 **Analogy Override — `allowed-amount`.** The English concept library proposed an unsafe "club discount" analogy. The gold packet adopts the adjudicated "approved-budget" analogy: *"The allowed amount is like an approved project budget. It is the maximum total the insurance agrees to pay, and any costs above that limit are handled separately."*
 

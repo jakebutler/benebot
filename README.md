@@ -1,6 +1,12 @@
 # BeneBot
 
-BeneBot is a synthetic-data hackathon demo that explains one medical bill, keeps historical claim adjudication separate from current benefits, supports English/Spanish voice plus text, and can persist a billing follow-up in Medplum.
+**Nobody should need their kid to translate a medical bill.**
+
+BeneBot is a voice-first medical-bill explainer: it explains the bill you received, refreshes the benefits you have now, and opens a real follow-up case with your provider — in English or Spanish. It serves two audiences at once. Patients, especially elderly patients with limited English proficiency, get independence instead of a family translator. Providers get their highest-volume billing call handled and returned as a structured FHIR `Task` rather than a voicemail.
+
+See [PITCH.md](PITCH.md) for the full pitch, the market case, and what is real versus demo-scoped.
+
+This repository is a synthetic-data hackathon demo. It keeps historical claim adjudication separate from current benefits, supports English/Spanish voice plus text, and persists billing follow-up artifacts in Medplum.
 
 The localhost demo uses only Jane Doe and statement `BENEBOT-INV-1001`. Never use real patient data.
 
@@ -131,13 +137,13 @@ The E2E rehearsal uses the signed local session and text fallback. It never send
 - **Deepgram:** `DEEPGRAM_API_KEY` is used only by the server to mint a temporary browser token through `/v1/auth/grant`; the key needs at least Deepgram Member permission. Without a grant-capable key, do not start voice; the text path still explains the historical bill.
 - **Stedi:** use only the fixed Jane Doe test identity in the build spec. With no test key or a failed request and `STEDI_ALLOW_FIXTURE_FALLBACK=true`, any returned current-benefit data must be visibly labeled **fixture fallback—not live**. A current snapshot never explains or validates the July claim.
 - **Medplum:** demo mode can read the bundled historical EOB fixture when Medplum is unconfigured. It cannot honestly prove persistence: follow-up `Task`, summary `Communication`, and eligibility artifacts must remain unavailable or waiting until Medplum confirms their IDs.
-- **Resources:** the local resource directory is synthetic. Fictional resources and community-reported tips remain labeled; no patient data is sent to a search provider.
+- **Resources:** the local resource directory is synthetic except for one tier. Fictional resources and community-reported tips remain labeled; no patient data is sent to a search provider. The `medicare-billing-problem` need returns **real** government programs — 1-800-MEDICARE, the SHIP counseling network, and the federal QMB improper-billing protection — carrying their actual published phone numbers and marked `government-program` / `government-published`. BeneBot never contacts an agency on a patient's behalf and never tells a patient whether a federal protection applies to them; it names who can confirm it.
 
 ## Recorded localhost demo script (Spanish-first)
 
 Before recording, run the seed twice, test one Stedi refresh and one Deepgram voice connection if keys are configured, grant microphone permission, and keep `/staff` open in a second tab.
 
-1. Open `/` and show the **Vista previa de correo sintético**. Select **Quiero hablar sobre esta factura**. No real email is sent.
+1. Open `/`. The landing page opens with the pitch: the two audiences, the three-source accuracy principle, and the reconciled bill math. Select **Start the patient demo** to jump to **Try it**, show the **Vista previa de correo sintético**, then select **Quiero hablar sobre esta factura**. No real email is sent.
 2. In the portal, show **Sesión segura — Jane Doe**, **Idioma preferido: Español**, the synthetic-demo label, and **Secure billing context verified**. Explain that demo portal authentication has already scoped BeneBot to this bill; it will not ask for SSN, DOB, member ID, or patient ID.
 3. Point out the **$620** current Invoice balance and the historical EOB breakdown: $2,400 billed − $1,300 discount = $1,100 allowed; **$500 deductible applied to the July claim** + $120 coinsurance = $620 responsibility; insurer paid $480.
 4. Select **Hablar sobre esta factura**. Use text or voice: `Me cobraron $2,400 por la resonancia, pero el monto permitido fue $1,100 y todavia debo $620. Como llegaron a esa cantidad? Y significa que todavia me quedan $500 de deducible?`

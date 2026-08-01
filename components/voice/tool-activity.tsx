@@ -29,28 +29,28 @@ export function ToolActivity({
   }
 
   return (
-    <section aria-labelledby="benebot-tool-activity">
-      <h3 id="benebot-tool-activity" className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+    <section className="voice-activity" aria-labelledby="benebot-tool-activity">
+      <h3 id="benebot-tool-activity">
         {language === "es" ? "Qué está haciendo BeneBot" : "What BeneBot is doing"}
       </h3>
-      <ol className="mt-2 space-y-2" aria-live="polite">
+      <ol aria-live="polite">
         {events.slice(-5).map((event, index) => (
           <li
             key={`${event.tool}-${event.at}-${index}`}
-            className="flex items-center gap-2 text-sm text-slate-700"
+            className="voice-activity-event"
           >
             <span
               aria-hidden="true"
-              className={`h-2 w-2 rounded-full ${
+              className={`voice-activity-dot ${
                 event.status === "succeeded"
-                  ? "bg-emerald-500"
+                  ? "voice-activity-success"
                   : event.status === "failed"
-                    ? "bg-rose-500"
-                    : "animate-pulse bg-amber-500"
+                    ? "voice-activity-failed"
+                    : "voice-activity-running"
               }`}
             />
             <span>{localizedLabels[language][event.tool]}</span>
-            <span className="text-xs text-slate-500">
+            <span className="voice-activity-status">
               {event.status === "running"
                 ? language === "es" ? "En curso" : "Running"
                 : event.status === "succeeded"

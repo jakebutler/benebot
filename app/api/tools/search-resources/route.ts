@@ -13,6 +13,7 @@ const searchSchema = z.object({
     "payer-contact",
     "billing-advocate",
     "dispute-or-review",
+    "medicare-billing-problem",
   ]),
   language: z.enum(["en", "es"]),
 });
