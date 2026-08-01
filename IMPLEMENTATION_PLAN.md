@@ -33,7 +33,7 @@ Anything that does not improve this exact sequence is deferred.
 - Greenfield Next.js App Router, strict TypeScript, Tailwind.
 - Use `@medplum/core`, `@medplum/fhirtypes`, `@deepgram/ui`, `zod`, and `jose`.
 - Use current Deepgram `AgentProvider` with an inline agent configuration; do not require a separately configured agent ID unless current SDK types force it.
-- Use `flux-general-multi` with `language_hints: ["es", "en"]`, the existing Spanish-capable Aura code-switching voice, and supported keyterm prompting for the billing vocabulary. Do not add Nova routing, an external VAD, or a translation pipeline.
+- Use `flux-general-multi` with one language hint selected before voice starts. Spanish sessions use `aura-2-selena-es`; English sessions use the native American-English `aura-2-helena-en`. Keep one language and matching voice for the entire session; end voice before switching. Do not add Nova routing, an external VAD, or a translation pipeline.
 - Start with browser/platform echo cancellation and use Flux `StartOfTurn` for the single rehearsed barge-in.
 - Use a server-minted Deepgram temporary token. The long-lived API key never reaches the browser.
 - Use **direct Stedi test API** for P0. Do not wait for Medplum's separately enabled Insurance Eligibility Bot.

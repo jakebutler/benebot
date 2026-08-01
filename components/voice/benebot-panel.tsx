@@ -15,10 +15,11 @@ import {
   useAgentState,
   type AgentProviderProps,
 } from "@deepgram/ui";
-import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 
 import type {
+  Language,
   RequestFollowupResult,
   SaveSummaryResult,
   SupportResource,
@@ -107,6 +108,13 @@ const benefitsFallbackSchema = z.object({
   warnings: z.array(z.string()),
 });
 
+const voiceBenefitsResultSchema = benefitsFallbackSchema.extend({
+  requiredSpokenSummary: z.object({
+    en: z.string().min(1),
+    es: z.string().min(1),
+  }),
+});
+
 const resourceIdSchema = z.enum([
   "bayview-payment-plan",
   "acme-bill-help",
@@ -154,6 +162,12 @@ const saveSummaryFallbackSchema = z.object({
   saved: z.boolean(),
   communicationId: z.string().optional(),
 });
+
+interface VoiceToolFacts {
+  historicalBillRead: boolean;
+  currentBenefitsRefreshed: boolean;
+  resourceIds: string[];
+}
 
 type CurrentBenefits = z.infer<typeof benefitsFallbackSchema>;
 
@@ -357,10 +371,14 @@ export interface BeneBotPanelProps {
 
 function VoicePanelContent({
   sessionToken,
+  sessionLanguage,
+  onSessionLanguageChange,
   events,
   setEvents,
   onClose,
 }: BeneBotPanelProps & {
+  sessionLanguage: Language;
+  onSessionLanguageChange: (language: Language) => void;
   events: ToolActivityEvent[];
   setEvents: React.Dispatch<React.SetStateAction<ToolActivityEvent[]>>;
 }): React.ReactNode {
@@ -385,6 +403,7 @@ function VoicePanelContent({
   const [followupResult, setFollowupResult] = useState<RequestFollowupResult>();
   const [summaryResult, setSummaryResult] = useState<SaveSummaryResult>();
   const [bargeInDetected, setBargeInDetected] = useState(false);
+  const isSpanishSession = sessionLanguage === "es";
 
   useEffect(() => {
     const handleUserStartedSpeaking = (): void => {
@@ -725,18 +744,20 @@ function VoicePanelContent({
 
   return (
     <section
-      aria-label="Hablar con BeneBot"
+      aria-label={isSpanishSession ? "Hablar con BeneBot" : "Talk with BeneBot"}
       className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-5 shadow-xl"
       data-dg-agent
     >
       <header className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">
-            Demostración sintética
+            {isSpanishSession ? "Demostración sintética" : "Synthetic demo"}
           </p>
-          <h2 className="mt-1 text-xl font-semibold text-slate-950">Habla sobre esta factura</h2>
+          <h2 className="mt-1 text-xl font-semibold text-slate-950">
+            {isSpanishSession ? "Habla sobre esta factura" : "Talk about this bill"}
+          </h2>
           <p className="mt-1 text-sm text-slate-600">
-            Español preferido · English supported
+            {isSpanishSession ? "Voz en español seleccionada" : "English voice selected"}
           </p>
         </div>
         {onClose ? (
@@ -744,23 +765,61 @@ function VoicePanelContent({
             type="button"
             onClick={onClose}
             className="rounded-full px-3 py-1 text-sm text-slate-600 hover:bg-slate-100"
-            aria-label="Cerrar BeneBot"
+            aria-label={isSpanishSession ? "Cerrar BeneBot" : "Close BeneBot"}
           >
-            Cerrar
+            {isSpanishSession ? "Cerrar" : "Close"}
           </button>
         ) : null}
       </header>
 
+      <fieldset
+        className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-3"
+        disabled={isConnected || state === "connecting"}
+      >
+        <legend className="px-1 text-sm font-semibold text-slate-900">
+          {isSpanishSession ? "Idioma de esta sesión de voz" : "Voice-session language"}
+        </legend>
+        <div className="mt-2 flex gap-2">
+          {(["es", "en"] as const).map((language) => {
+            const selected = sessionLanguage === language;
+            return (
+              <button
+                key={language}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => onSessionLanguageChange(language)}
+                className={`rounded-xl px-3 py-2 text-sm font-semibold ${
+                  selected
+                    ? "bg-sky-700 text-white"
+                    : "border border-slate-300 bg-white text-slate-800"
+                }`}
+              >
+                {language === "es" ? "Español" : "English"}
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-2 text-xs text-slate-600">
+          {isSpanishSession
+            ? "Elige antes de iniciar. Cada idioma usa una voz nativa; termina la voz para cambiar."
+            : "Choose before starting. Each language uses a native voice; end voice to switch."}
+        </p>
+      </fieldset>
+
       <div role="status" className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
         <p className="font-semibold">Secure billing context verified</p>
         <p className="mt-1">
-          Sesión segura — Jane Doe. Ya tengo esta factura desde el portal; no pediré Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente.
+          {isSpanishSession
+            ? "Sesión segura — Jane Doe. Ya tengo esta factura desde el portal; no pediré Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente."
+            : "Secure session — Jane Doe. I already have this bill from the portal; I will not ask for a Social Security number, date of birth, member ID, or patient ID."}
         </p>
       </div>
 
       {bargeInDetected ? (
         <div role="status" className="mt-3 rounded-xl bg-violet-50 px-4 py-3 text-sm font-medium text-violet-950">
-          Interrupción detectada por Flux · audio de BeneBot detenido
+          {isSpanishSession
+            ? "Interrupción detectada por Flux · audio de BeneBot detenido"
+            : "Flux interruption detected · BeneBot audio stopped"}
         </div>
       ) : null}
 
@@ -775,14 +834,20 @@ function VoicePanelContent({
         <div>
           <AgentStatus
             labels={{
-              idle: "Lista para voz o texto",
-              connecting: "Solicitando micrófono…",
-              connected: mode === "speaking" ? "BeneBot está hablando" : "BeneBot está escuchando",
-              reconnecting: "Reconectando…",
-              disconnected: "Voz desconectada — el texto sigue disponible",
+              idle: isSpanishSession ? "Lista para voz o texto" : "Ready for voice or text",
+              connecting: isSpanishSession ? "Solicitando micrófono…" : "Requesting microphone…",
+              connected: mode === "speaking"
+                ? isSpanishSession ? "BeneBot está hablando" : "BeneBot is speaking"
+                : isSpanishSession ? "BeneBot está escuchando" : "BeneBot is listening",
+              reconnecting: isSpanishSession ? "Reconectando…" : "Reconnecting…",
+              disconnected: isSpanishSession
+                ? "Voz desconectada — el texto sigue disponible"
+                : "Voice disconnected — text is still available",
             }}
           />
-          <p className="mt-1 text-xs text-slate-300">No se guarda audio sin procesar.</p>
+          <p className="mt-1 text-xs text-slate-300">
+            {isSpanishSession ? "No se guarda audio sin procesar." : "Raw audio is not stored."}
+          </p>
         </div>
       </div>
 
@@ -814,7 +879,9 @@ function VoicePanelContent({
           id="benebot-text"
           value={text}
           onChange={(event) => setText(event.target.value)}
-          placeholder={state === "connected" ? "Escribe en vez de hablar…" : "El texto funciona aunque la voz no…"}
+          placeholder={state === "connected"
+            ? isSpanishSession ? "Escribe en vez de hablar…" : "Type instead of speaking…"
+            : isSpanishSession ? "El texto funciona aunque la voz no…" : "Text works even when voice does not…"}
           className="min-w-0 flex-1 rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-950 outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-200"
         />
         <button
@@ -822,27 +889,29 @@ function VoicePanelContent({
           disabled={!text.trim() || fallbackBusy}
           className="rounded-xl bg-sky-700 px-4 py-3 text-sm font-semibold text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {fallbackBusy ? "Consultando…" : "Enviar"}
+          {fallbackBusy
+            ? isSpanishSession ? "Consultando…" : "Checking…"
+            : isSpanishSession ? "Enviar" : "Send"}
         </button>
       </form>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <AgentStartButton
-          startLabel="Iniciar voz"
-          connectingLabel="Conectando…"
-          stopLabel="Terminar voz"
-          reconnectingLabel="Reconectando…"
+          startLabel={isSpanishSession ? "Iniciar voz" : "Start voice"}
+          connectingLabel={isSpanishSession ? "Conectando…" : "Connecting…"}
+          stopLabel={isSpanishSession ? "Terminar voz" : "End voice"}
+          reconnectingLabel={isSpanishSession ? "Reconectando…" : "Reconnecting…"}
           className="rounded-xl bg-violet-700 px-4 py-2 text-sm font-semibold text-white"
         />
         <AgentMicrophoneButton
-          activeLabel="Silenciar micrófono"
-          mutedLabel="Activar micrófono"
-          disabledLabel="Micrófono no disponible"
+          activeLabel={isSpanishSession ? "Silenciar micrófono" : "Mute microphone"}
+          mutedLabel={isSpanishSession ? "Activar micrófono" : "Unmute microphone"}
+          disabledLabel={isSpanishSession ? "Micrófono no disponible" : "Microphone unavailable"}
           className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
         />
         <AgentSpeakerButton
-          activeLabel="Silenciar audio"
-          mutedLabel="Activar audio"
+          activeLabel={isSpanishSession ? "Silenciar audio" : "Mute audio"}
+          mutedLabel={isSpanishSession ? "Activar audio" : "Unmute audio"}
           className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
         />
       </div>
@@ -856,10 +925,25 @@ function VoicePanelContent({
 
 export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): React.ReactNode {
   const [events, setEvents] = useState<ToolActivityEvent[]>([]);
+  const [sessionLanguage, setSessionLanguage] = useState<Language>("es");
+  const voiceToolFacts = useRef<VoiceToolFacts>({
+    historicalBillRead: false,
+    currentBenefitsRefreshed: false,
+    resourceIds: [],
+  });
   const appendActivity = useCallback(
     (event: ToolActivityEvent) => setEvents((current) => [...current, event]),
     [],
   );
+  const selectSessionLanguage = useCallback((language: Language): void => {
+    voiceToolFacts.current = {
+      historicalBillRead: false,
+      currentBenefitsRefreshed: false,
+      resourceIds: [],
+    };
+    setEvents([]);
+    setSessionLanguage(language);
+  }, []);
 
   const tokenFactory = useCallback(async (): Promise<string> => {
     const response = await fetch("/api/deepgram-token", {
@@ -873,8 +957,8 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
   }, [sessionToken]);
 
   const config = useMemo(
-    () => createDeepgramAgentConfig(tokenFactory),
-    [tokenFactory],
+    () => createDeepgramAgentConfig(tokenFactory, sessionLanguage),
+    [sessionLanguage, tokenFactory],
   );
 
   const handleFunctionCall: NonNullable<AgentProviderProps["onFunctionCall"]> = useCallback(
@@ -885,6 +969,36 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
         sessionToken,
         onActivity: appendActivity,
       });
+      let resultForAgent = result;
+      try {
+        const parsedResult: unknown = JSON.parse(result);
+        if (
+          fn.name === "get_bill_context" &&
+          billFallbackSchema.safeParse(parsedResult).success
+        ) {
+          voiceToolFacts.current.historicalBillRead = true;
+        } else if (
+          fn.name === "refresh_current_benefits" &&
+          voiceBenefitsResultSchema.safeParse(parsedResult).success
+        ) {
+          voiceToolFacts.current.currentBenefitsRefreshed = true;
+          const benefits = voiceBenefitsResultSchema.parse(parsedResult);
+          resultForAgent = JSON.stringify({
+            instruction:
+              "Speak requiredResponse verbatim. Do not paraphrase, omit details, or add an interpretation.",
+            requiredResponse: benefits.requiredSpokenSummary[sessionLanguage],
+          });
+        } else if (fn.name === "search_support_resources") {
+          const resources = resourcesFallbackSchema.safeParse(parsedResult);
+          if (resources.success) {
+            voiceToolFacts.current.resourceIds = resources.data.resources.map(
+              (resource) => resource.id,
+            );
+          }
+        }
+      } catch {
+        // The tool activity already records the sanitized failure.
+      }
       if (fn.name === "request_human_followup") {
         try {
           const followup = followupFallbackSchema.parse(
@@ -895,14 +1009,18 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
           };
           if (followup.created && followup.taskId) {
             const summaryArguments = JSON.stringify({
-              language: "es",
+              language: sessionLanguage,
               summary:
-                "Se explicó la factura y la paciente confirmó un caso de revisión de facturación.",
+                "BeneBot discussed the scoped bill and the patient confirmed a billing-review case.",
               questionsAnswered: [
-                "Historical bill explanation",
-                "Current benefits refresh",
+                ...(voiceToolFacts.current.historicalBillRead
+                  ? ["Historical bill explanation"]
+                  : []),
+                ...(voiceToolFacts.current.currentBenefitsRefreshed
+                  ? ["Current benefits refresh"]
+                  : []),
               ],
-              resourcesOffered: [],
+              resourcesOffered: voiceToolFacts.current.resourceIds,
               followupTaskId: followup.taskId,
               unresolvedIssues: request.patientIssueSummary
                 ? [request.patientIssueSummary]
@@ -911,19 +1029,35 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
             // Medplum can briefly lag between confirming the Task write and
             // making that Task readable to the Communication validator.
             await new Promise((resolve) => setTimeout(resolve, 500));
-            let summaryResult = await dispatchBeneBotTool({
-              name: "save_conversation_summary",
-              argumentsJson: summaryArguments,
-              sessionToken,
-              onActivity: appendActivity,
-            });
-            if (!saveSummaryFallbackSchema.safeParse(JSON.parse(summaryResult)).success) {
+            let parsedSummary = saveSummaryFallbackSchema.safeParse(
+              JSON.parse(
+                await dispatchBeneBotTool({
+                  name: "save_conversation_summary",
+                  argumentsJson: summaryArguments,
+                  sessionToken,
+                  onActivity: appendActivity,
+                }),
+              ) as unknown,
+            );
+            if (!parsedSummary.success || !parsedSummary.data.saved) {
               await new Promise((resolve) => setTimeout(resolve, 750));
-              summaryResult = await dispatchBeneBotTool({
-                name: "save_conversation_summary",
-                argumentsJson: summaryArguments,
-                sessionToken,
-                onActivity: appendActivity,
+              parsedSummary = saveSummaryFallbackSchema.safeParse(
+                JSON.parse(
+                  await dispatchBeneBotTool({
+                    name: "save_conversation_summary",
+                    argumentsJson: summaryArguments,
+                    sessionToken,
+                    onActivity: appendActivity,
+                  }),
+                ) as unknown,
+              );
+            }
+            if (!parsedSummary.success || !parsedSummary.data.saved) {
+              appendActivity({
+                tool: "save_conversation_summary",
+                label: "Saving concise summary",
+                status: "failed",
+                at: new Date().toISOString(),
               });
             }
           }
@@ -932,13 +1066,14 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
           // that the separate Communication write succeeded.
         }
       }
-      return result;
+      return resultForAgent;
     },
-    [appendActivity, sessionToken],
+    [appendActivity, sessionLanguage, sessionToken],
   );
 
   return (
     <AgentProvider
+      key={sessionLanguage}
       config={config}
       microphone
       microphoneOptions={{
@@ -954,6 +1089,8 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
     >
       <VoicePanelContent
         sessionToken={sessionToken}
+        sessionLanguage={sessionLanguage}
+        onSessionLanguageChange={selectSessionLanguage}
         onClose={onClose}
         events={events}
         setEvents={setEvents}

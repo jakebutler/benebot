@@ -40,6 +40,72 @@ export interface EligibilityProvider {
   checkCurrentBenefits(request: StediTestRequest): Promise<RefreshBenefitsResult>;
 }
 
+export interface CurrentBenefitsSpokenSummary {
+  en: string;
+  es: string;
+}
+
+function spokenSource(
+  source: RefreshBenefitsResult["source"],
+  language: "en" | "es",
+): string {
+  if (source === "stedi-live-test") {
+    return language === "es"
+      ? "la respuesta de prueba en vivo de Stedi"
+      : "the live Stedi test response";
+  }
+  if (source === "medplum-stedi-bot") {
+    return language === "es"
+      ? "la respuesta de prueba del bot de elegibilidad de Medplum"
+      : "the Medplum eligibility-bot test response";
+  }
+  return language === "es"
+    ? "los datos de respaldo de demostración, que no son una respuesta en vivo"
+    : "demo fallback data, which is not a live response";
+}
+
+function spokenCheckedAt(checkedAt: string, language: "en" | "es"): string {
+  const date = new Date(checkedAt);
+  if (Number.isNaN(date.getTime())) return checkedAt;
+  return new Intl.DateTimeFormat(language === "es" ? "es-US" : "en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "UTC",
+    timeZoneName: "short",
+  }).format(date);
+}
+
+function spokenMoney(value: number | undefined, language: "en" | "es"): string {
+  if (value === undefined) {
+    return language === "es" ? "no fue devuelto" : "was not returned";
+  }
+  const amount = new Intl.NumberFormat(language === "es" ? "es-US" : "en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2,
+  }).format(value);
+  return language === "es" ? `es ${amount}` : `is ${amount}`;
+}
+
+export function buildCurrentBenefitsSpokenSummary(
+  result: RefreshBenefitsResult,
+): CurrentBenefitsSpokenSummary {
+  const annualEn = spokenMoney(result.benefits.annualDeductible, "en");
+  const remainingEn = spokenMoney(result.benefits.remainingDeductible, "en");
+  const metEn = spokenMoney(result.benefits.deductibleMetToDate, "en");
+  const annualEs = spokenMoney(result.benefits.annualDeductible, "es");
+  const remainingEs = spokenMoney(result.benefits.remainingDeductible, "es");
+  const metEs = spokenMoney(result.benefits.deductibleMetToDate, "es");
+
+  return {
+    en: `As of ${spokenCheckedAt(result.checkedAt, "en")}, ${spokenSource(result.source, "en")} returned this current snapshot. The annual deductible ${annualEn}; the remaining deductible ${remainingEn}; and the application-derived deductible met to date ${metEn}. This current eligibility snapshot is separate from the historical July claim and does not explain, validate, or replace it. If these current values appear inconsistent with the historical EOB, I do not have enough information to explain why they differ.`,
+    es: `Al ${spokenCheckedAt(result.checkedAt, "es")}, ${spokenSource(result.source, "es")} devolvió esta instantánea actual. El deducible anual ${annualEs}; el deducible restante ${remainingEs}; y el deducible cumplido hasta la fecha, derivado por la aplicación, ${metEs}. Esta instantánea de elegibilidad actual es independiente del reclamo histórico de julio y no lo explica, valida ni reemplaza. Si estos valores actuales parecen inconsistentes con la EOB histórica, no tengo suficiente información para explicar por qué difieren.`,
+  };
+}
+
 export interface DirectStediProviderOptions {
   apiKey: string;
   endpoint: string;
