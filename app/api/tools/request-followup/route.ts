@@ -58,7 +58,7 @@ export async function POST(request: Request): Promise<Response> {
       created: true,
       taskId: task.id,
       status: "requested",
-      message: `Caso de revisión de facturación confirmado: ${task.id}`,
+      message: "Billing-review case confirmed by the server.",
     });
   } catch (error) {
     return safeErrorResponse(error);

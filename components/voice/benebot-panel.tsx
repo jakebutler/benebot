@@ -73,6 +73,17 @@ const billFallbackSchema = z.object({
   mathReconciles: z.boolean(),
 });
 
+const voiceBillResultSchema = billFallbackSchema.extend({
+  requiredSpokenSummary: z.object({
+    en: z.string().min(1),
+    es: z.string().min(1),
+  }),
+  requiredAllowedAmountClarification: z.object({
+    en: z.string().min(1),
+    es: z.string().min(1),
+  }),
+});
+
 const benefitsFallbackSchema = z.object({
   source: z.enum(["stedi-live-test", "medplum-stedi-bot", "fixture-fallback"]),
   checkedAt: z.string().min(1),
@@ -151,17 +162,37 @@ const resourcesFallbackSchema = z.object({
   resources: z.array(supportResourceSchema).max(3),
 });
 
-const followupFallbackSchema = z.object({
-  created: z.boolean(),
-  taskId: z.string().optional(),
-  status: z.enum(["requested", "failed"]),
-  message: z.string(),
-});
+const followupFallbackSchema = z
+  .object({
+    created: z.boolean(),
+    taskId: z.string().trim().min(1).optional(),
+    status: z.enum(["requested", "failed"]),
+    message: z.string(),
+  })
+  .superRefine((result, context) => {
+    const confirmed = result.created && result.status === "requested" && Boolean(result.taskId);
+    const failed = !result.created && result.status === "failed" && !result.taskId;
+    if (!confirmed && !failed) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "A created follow-up requires a Task ID; a failed follow-up must not include one.",
+      });
+    }
+  });
 
-const saveSummaryFallbackSchema = z.object({
-  saved: z.boolean(),
-  communicationId: z.string().optional(),
-});
+const saveSummaryFallbackSchema = z
+  .object({
+    saved: z.boolean(),
+    communicationId: z.string().trim().min(1).optional(),
+  })
+  .superRefine((result, context) => {
+    if (result.saved !== Boolean(result.communicationId)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "A saved summary requires a confirmed Communication ID.",
+      });
+    }
+  });
 
 interface VoiceToolFacts {
   historicalBillRead: boolean;
@@ -170,11 +201,14 @@ interface VoiceToolFacts {
 }
 
 type CurrentBenefits = z.infer<typeof benefitsFallbackSchema>;
+type VoiceBillContext = z.infer<typeof voiceBillResultSchema>;
+type VoiceBenefitsResult = z.infer<typeof voiceBenefitsResultSchema>;
 
 interface FallbackContext {
   language: "en" | "es";
   usedEnglish: boolean;
   usedSpanish: boolean;
+  historicalBill?: VoiceBillContext;
   historicalSourceDate?: string;
   benefitsRefreshed: boolean;
   resourcesOffered: SupportResource[];
@@ -195,130 +229,132 @@ const moneyFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
-type BillContext = z.infer<typeof billFallbackSchema>;
-
-function historicalBillReply(context: BillContext, language: "en" | "es"): string {
-  if (!context.mathReconciles) {
-    return language === "es"
-      ? "Puedo ver la factura, pero los importes no coinciden con suficiente confianza. Puedo pedir una revisión del equipo de facturación."
-      : "I can see the bill, but the amounts do not reconcile confidently enough to explain. I can request a billing-team review.";
-  }
-
-  const values = context.historicalAdjudication;
-  return language === "es"
-    ? `La EOB histórica del ${context.source.createdDate} muestra que ${context.providerName} facturó ${moneyFormatter.format(values.billedAmount)}. El descuento contractual fue ${moneyFormatter.format(values.contractualAdjustment)}, dejando un monto permitido de ${moneyFormatter.format(values.allowedAmount)}. De ese reclamo histórico, ${moneyFormatter.format(values.deductibleApplied)} se aplicaron al deducible y ${moneyFormatter.format(values.coinsuranceAmount)} al coaseguro. El seguro pagó ${moneyFormatter.format(values.insurerPaid)} y la responsabilidad histórica fue ${moneyFormatter.format(values.patientResponsibility)}. La factura actual muestra un saldo de ${moneyFormatter.format(context.currentBalance)}. Así procesó la aseguradora el reclamo; no prueba que sea correcto.`
-    : `The historical EOB dated ${context.source.createdDate} shows ${context.providerName} billed ${moneyFormatter.format(values.billedAmount)}. The contractual discount was ${moneyFormatter.format(values.contractualAdjustment)}, leaving an allowed amount of ${moneyFormatter.format(values.allowedAmount)}. On that historical claim, ${moneyFormatter.format(values.deductibleApplied)} applied to deductible and ${moneyFormatter.format(values.coinsuranceAmount)} to coinsurance. The insurer paid ${moneyFormatter.format(values.insurerPaid)}, and historical patient responsibility was ${moneyFormatter.format(values.patientResponsibility)}. The current Invoice balance is ${moneyFormatter.format(context.currentBalance)}. This is how the insurer processed the claim; it does not prove the claim is correct.`;
-}
-
-function currentBenefitsReply(
-  benefits: CurrentBenefits,
-  language: "en" | "es",
-): string {
-  const source = benefits.source === "fixture-fallback"
-    ? language === "es"
-      ? "datos de respaldo de demostración, no una respuesta en vivo"
-      : "demo fallback data, not a live payer response"
-    : benefits.source === "stedi-live-test"
-      ? language === "es"
-        ? "la respuesta de prueba en vivo de Stedi"
-        : "the live Stedi test response"
-      : language === "es"
-        ? "la respuesta de prueba de Medplum Stedi"
-        : "the Medplum Stedi test response";
-  const annual = benefits.benefits.annualDeductible;
-  const remaining = benefits.benefits.remainingDeductible;
-  const met = benefits.benefits.deductibleMetToDate;
-
-  if (language === "es") {
-    return `La revisión actual separada consultó ${source} a las ${benefits.checkedAt}. El deducible anual ${annual === undefined ? "no fue devuelto" : `fue ${moneyFormatter.format(annual)}`}; el deducible restante ${remaining === undefined ? "no fue devuelto" : `fue ${moneyFormatter.format(remaining)}`}${met === undefined ? "" : `; la aplicación calculó ${moneyFormatter.format(met)} cumplidos para el mismo alcance`}. Esta respuesta actual no explica ni valida la EOB histórica.`;
-  }
-  return `The separate current check queried ${source} at ${benefits.checkedAt}. Annual deductible was ${annual === undefined ? "not returned" : moneyFormatter.format(annual)}; remaining deductible was ${remaining === undefined ? "not returned" : moneyFormatter.format(remaining)}${met === undefined ? "" : `; the application derived ${moneyFormatter.format(met)} met for the same scope`}. This current response does not explain or validate the historical EOB.`;
-}
-
-function BenefitValue({ label, value }: { label: string; value?: number }): React.ReactNode {
+function BenefitValue({
+  label,
+  value,
+  language,
+}: {
+  label: string;
+  value?: number;
+  language: Language;
+}): React.ReactNode {
   return (
     <div>
       <dt className="text-xs text-slate-500">{label}</dt>
       <dd className="font-semibold text-slate-900">
-        {value === undefined ? "No devuelto" : moneyFormatter.format(value)}
+        {value === undefined
+          ? language === "es" ? "No devuelto" : "Not returned"
+          : moneyFormatter.format(value)}
       </dd>
     </div>
   );
 }
 
-function CurrentBenefitsCard({ result }: { result: CurrentBenefits }): React.ReactNode {
+function CurrentBenefitsCard({
+  result,
+  language,
+}: {
+  result: CurrentBenefits;
+  language: Language;
+}): React.ReactNode {
   const sourceLabel =
     result.source === "stedi-live-test"
-      ? "Stedi live test"
+      ? language === "es" ? "Prueba en vivo de Stedi" : "Stedi live test"
       : result.source === "medplum-stedi-bot"
-        ? "Medplum Stedi test"
-        : "Fixture fallback · not live";
+        ? language === "es" ? "Prueba de Medplum Stedi" : "Medplum Stedi test"
+        : language === "es" ? "Respaldo de demostración · no en vivo" : "Demo fallback · not live";
+  const missing = language === "es" ? "No devuelto" : "Not returned";
+  const networkLabel = (network: "in" | "out" | "unknown" | undefined): string => {
+    if (!network || network === "unknown") return language === "es" ? "red no indicada" : "network not returned";
+    if (network === "in") return language === "es" ? "dentro de la red" : "in network";
+    return language === "es" ? "fuera de la red" : "out of network";
+  };
 
   return (
-    <section className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4" aria-label="Current benefits snapshot">
+    <section className="voice-result voice-result-current" aria-label={language === "es" ? "Instantánea de beneficios actuales" : "Current benefits snapshot"}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h3 className="font-semibold text-slate-950">Beneficios actuales · revisión separada</h3>
+        <h3 className="font-semibold text-slate-950">
+          {language === "es" ? "Beneficios actuales · revisión separada" : "Current benefits · separate check"}
+        </h3>
         <span className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-amber-800">
           {sourceLabel}
         </span>
       </div>
-      <p className="mt-1 text-xs text-slate-600">Consultado {result.checkedAt}</p>
+      <p className="mt-1 text-xs text-slate-600">
+        {language === "es" ? "Consultado" : "Checked"} {result.checkedAt}
+      </p>
       <p className="mt-2 text-sm font-medium text-amber-950">
-        Esta respuesta actual no reemplaza, explica ni valida el reclamo histórico.
+        {language === "es"
+          ? "Esta respuesta actual no reemplaza, explica ni valida el reclamo histórico."
+          : "This current response does not replace, explain, or validate the historical claim."}
       </p>
       <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
         <div>
-          <dt className="text-xs text-slate-500">Cobertura</dt>
+          <dt className="text-xs text-slate-500">{language === "es" ? "Cobertura" : "Coverage"}</dt>
           <dd className="font-semibold text-slate-900">
             {result.coverageActive === undefined
-              ? "No devuelto"
+              ? missing
               : result.coverageActive
-                ? "Activa"
-                : "Inactiva"}
+                ? language === "es" ? "Activa" : "Active"
+                : language === "es" ? "Inactiva" : "Inactive"}
           </dd>
         </div>
         <div>
           <dt className="text-xs text-slate-500">Plan</dt>
-          <dd className="font-semibold text-slate-900">{result.planName ?? "No devuelto"}</dd>
+          <dd className="font-semibold text-slate-900">{result.planName ?? missing}</dd>
         </div>
-        <BenefitValue label="Deducible anual actual" value={result.benefits.annualDeductible} />
-        <BenefitValue label="Deducible restante actual" value={result.benefits.remainingDeductible} />
-        <BenefitValue label="Deducible cumplido actual" value={result.benefits.deductibleMetToDate} />
-        <BenefitValue label="Out-of-pocket maximum" value={result.benefits.annualOutOfPocketMaximum} />
-        <BenefitValue label="Remaining out-of-pocket" value={result.benefits.remainingOutOfPocketMaximum} />
+        <BenefitValue language={language} label={language === "es" ? "Deducible anual actual" : "Current annual deductible"} value={result.benefits.annualDeductible} />
+        <BenefitValue language={language} label={language === "es" ? "Deducible restante actual" : "Current remaining deductible"} value={result.benefits.remainingDeductible} />
+        <BenefitValue language={language} label={language === "es" ? "Deducible cumplido actual" : "Current deductible met"} value={result.benefits.deductibleMetToDate} />
+        <BenefitValue language={language} label={language === "es" ? "Máximo anual de gastos de bolsillo" : "Annual out-of-pocket maximum"} value={result.benefits.annualOutOfPocketMaximum} />
+        <BenefitValue language={language} label={language === "es" ? "Máximo restante de gastos de bolsillo" : "Remaining out-of-pocket maximum"} value={result.benefits.remainingOutOfPocketMaximum} />
       </dl>
       {result.benefits.copays.length > 0 || result.benefits.coinsurance.length > 0 ? (
         <div className="mt-3 border-t border-amber-200 pt-3 text-xs text-slate-700">
           {result.benefits.copays.map((copay) => (
             <p key={`copay-${copay.serviceLabel}-${copay.network ?? "unknown"}`}>
-              {copay.serviceLabel}: {moneyFormatter.format(copay.amount)} copay
-              {copay.network ? ` · ${copay.network} network` : ""}
+              {copay.serviceLabel}: {moneyFormatter.format(copay.amount)} {language === "es" ? "de copago" : "copay"}
+              {` · ${networkLabel(copay.network)}`}
             </p>
           ))}
           {result.benefits.coinsurance.map((coinsurance) => (
             <p key={`coinsurance-${coinsurance.serviceLabel}-${coinsurance.network ?? "unknown"}`}>
-              {coinsurance.serviceLabel}: {coinsurance.percentage}% coinsurance
-              {coinsurance.network ? ` · ${coinsurance.network} network` : ""}
+              {coinsurance.serviceLabel}: {coinsurance.percentage}% {language === "es" ? "de coseguro" : "coinsurance"}
+              {` · ${networkLabel(coinsurance.network)}`}
             </p>
           ))}
         </div>
       ) : null}
       {result.warnings.length > 0 ? (
         <ul className="mt-3 space-y-1 text-xs text-amber-900">
-          {result.warnings.map((warning) => <li key={warning}>• {warning}</li>)}
+          {result.warnings.map((warning) => (
+            <li key={warning}>
+              • {language === "es"
+                ? "La respuesta omitió o devolvió información ambigua; los valores no mostrados permanecen desconocidos."
+                : warning}
+            </li>
+          ))}
         </ul>
       ) : null}
     </section>
   );
 }
 
-function ResourceOptions({ resources }: { resources: SupportResource[] }): React.ReactNode {
+function ResourceOptions({
+  resources,
+  language,
+}: {
+  resources: SupportResource[];
+  language: Language;
+}): React.ReactNode {
   if (resources.length === 0) return null;
   return (
-    <section className="mt-4 space-y-3" aria-label="Billing support resources">
-      <h3 className="text-sm font-semibold text-slate-950">Support options</h3>
+    <section className="mt-4 space-y-3" aria-label={language === "es" ? "Recursos de apoyo de facturación" : "Billing support resources"}>
+      <h3 className="text-sm font-semibold text-slate-950">
+        {language === "es" ? "Opciones de apoyo" : "Support options"}
+      </h3>
       {resources.map((resource) => (
-        <article key={resource.id} className="rounded-2xl border border-slate-200 p-4">
+        <article key={resource.id} className="voice-resource">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h4 className="font-semibold text-slate-950">{resource.name}</h4>
@@ -326,10 +362,10 @@ function ResourceOptions({ resources }: { resources: SupportResource[] }): React
             </div>
             <span className="rounded-full bg-slate-100 px-2 py-1 text-[11px] font-semibold text-slate-700">
               {resource.verification === "practice-provided"
-                ? "Practice provided"
+                ? language === "es" ? "Proporcionado por la práctica" : "Practice provided"
                 : resource.verification === "fictional-demo-data"
-                  ? "Fictional demo"
-                  : "Unverified"}
+                  ? language === "es" ? "Demostración ficticia" : "Fictional demo"
+                  : language === "es" ? "No verificado" : "Unverified"}
             </span>
           </div>
           <p className="mt-2 text-sm text-slate-700">{resource.summary}</p>
@@ -340,25 +376,30 @@ function ResourceOptions({ resources }: { resources: SupportResource[] }): React
   );
 }
 
-function FollowupStatus({ result }: { result: RequestFollowupResult }): React.ReactNode {
+function FollowupStatus({
+  result,
+  language,
+}: {
+  result: RequestFollowupResult;
+  language: Language;
+}): React.ReactNode {
   const confirmed = result.created && result.status === "requested";
   return (
     <div
       role="status"
-      className={`mt-4 rounded-2xl border p-4 text-sm ${
+      className={`voice-followup ${
         confirmed
-          ? "border-emerald-200 bg-emerald-50 text-emerald-950"
-          : "border-rose-200 bg-rose-50 text-rose-950"
+          ? "voice-followup-confirmed"
+          : "voice-followup-failed"
       }`}
     >
       <strong>
         {confirmed
-          ? "Caso de revisión confirmado por el servidor"
-          : "El caso de revisión no se completó"}
+          ? language === "es" ? "Caso de revisión confirmado por el servidor" : "Review case confirmed by the server"
+          : language === "es" ? "El caso de revisión no se completó" : "The review case was not completed"}
       </strong>
-      <p className="mt-1">{result.message}</p>
       {confirmed && result.taskId ? (
-        <p className="mt-1 text-xs">ID del caso: {result.taskId}</p>
+        <p className="mt-1 text-xs">{language === "es" ? "ID del caso" : "Case ID"}: {result.taskId}</p>
       ) : null}
     </div>
   );
@@ -373,16 +414,18 @@ function VoicePanelContent({
   sessionToken,
   sessionLanguage,
   onSessionLanguageChange,
+  onVoiceSessionStarted,
   events,
   setEvents,
   onClose,
 }: BeneBotPanelProps & {
   sessionLanguage: Language;
   onSessionLanguageChange: (language: Language) => void;
+  onVoiceSessionStarted: () => void;
   events: ToolActivityEvent[];
   setEvents: React.Dispatch<React.SetStateAction<ToolActivityEvent[]>>;
 }): React.ReactNode {
-  const { state, isConnected } = useAgentState();
+  const { state, isConnected, isActive } = useAgentState();
   const { conversation, sendUserMessage } = useAgentConversation();
   const { mode } = useAgentMode();
   const agentSession = useAgentSession();
@@ -392,9 +435,9 @@ function VoicePanelContent({
   const [fallbackMessages, setFallbackMessages] = useState<FallbackMessage[]>([]);
   const [fallbackBusy, setFallbackBusy] = useState(false);
   const [fallbackContext, setFallbackContext] = useState<FallbackContext>({
-    language: "es",
-    usedEnglish: false,
-    usedSpanish: true,
+    language: sessionLanguage,
+    usedEnglish: sessionLanguage === "en",
+    usedSpanish: sessionLanguage === "es",
     benefitsRefreshed: false,
     resourcesOffered: [],
     clarityAsked: false,
@@ -404,6 +447,18 @@ function VoicePanelContent({
   const [summaryResult, setSummaryResult] = useState<SaveSummaryResult>();
   const [bargeInDetected, setBargeInDetected] = useState(false);
   const isSpanishSession = sessionLanguage === "es";
+  const previousAgentState = useRef(state);
+
+  useEffect(() => {
+    const previous = previousAgentState.current;
+    if (
+      state === "connecting" &&
+      (previous === "idle" || previous === "disconnected")
+    ) {
+      onVoiceSessionStarted();
+    }
+    previousAgentState.current = state;
+  }, [onVoiceSessionStarted, state]);
 
   useEffect(() => {
     const handleUserStartedSpeaking = (): void => {
@@ -464,7 +519,7 @@ function VoicePanelContent({
       appendFallbackMessage(
         "assistant",
         intent.language === "es"
-          ? "Claro. Continuaré en español. Puedes pedirme que explique la factura, revise los beneficios actuales o busque ayuda para pagar."
+          ? "Claro. Continuaré en español. Puede pedirme que explique la factura, revise los beneficios actuales o busque ayuda para pagar."
           : "Of course. I'll continue in English. You can ask me to explain the bill, check current benefits, or find payment help.",
       );
       setFallbackBusy(false);
@@ -473,12 +528,34 @@ function VoicePanelContent({
 
     if (intent.kind === "allowed-amount-interruption") {
       setBargeInDetected(true);
-      appendFallbackMessage(
-        "assistant",
-        intent.language === "es"
-          ? "El monto permitido es la cantidad negociada que el plan usa para procesar este reclamo. Aquí fue $1,100; no es lo mismo que los $2,400 facturados. ¿Quieres que continúe con el desglose?"
-          : "The allowed amount is the negotiated amount the plan uses to process this claim. Here it was $1,100, not the same as the $2,400 billed. Would you like me to continue the breakdown?",
-      );
+      try {
+        let bill = fallbackContext.historicalBill;
+        if (!bill) {
+          const billResult = await dispatchBeneBotTool({
+            name: "get_bill_context",
+            argumentsJson: "{}",
+            sessionToken,
+            onActivity: appendActivity,
+          });
+          bill = voiceBillResultSchema.parse(JSON.parse(billResult) as unknown);
+          setFallbackContext((current) => ({
+            ...current,
+            historicalBill: bill,
+            historicalSourceDate: bill?.source.createdDate,
+          }));
+        }
+        appendFallbackMessage(
+          "assistant",
+          bill.requiredAllowedAmountClarification[intent.language],
+        );
+      } catch {
+        appendFallbackMessage(
+          "assistant",
+          intent.language === "es"
+            ? "El monto permitido es el precio negociado que el plan usa para procesar un servicio cubierto y dividir la responsabilidad. No pude verificar las cantidades de esta factura, así que no las voy a repetir."
+            : "The allowed amount is the negotiated price the plan uses to process a covered service and divide responsibility. I could not verify this bill's amounts, so I will not repeat them.",
+        );
+      }
       setFallbackBusy(false);
       return;
     }
@@ -492,7 +569,7 @@ function VoicePanelContent({
       appendFallbackMessage(
         "assistant",
         intent.language === "es"
-          ? `Entiendo. Para confirmar: ${intent.issue.patientIssueSummary} ¿Quieres que cree un caso de revisión de facturación por mensaje seguro? Todavía no se ha creado nada.`
+          ? `Entiendo. Para confirmar: ${intent.issue.patientIssueSummary} ¿Quiere que cree un caso de revisión de facturación por mensaje seguro? Todavía no se ha creado nada.`
           : `Understood. To confirm: ${intent.issue.patientIssueSummary} Would you like me to create a billing-review case by secure message? Nothing has been created yet.`,
       );
       setFallbackBusy(false);
@@ -519,9 +596,10 @@ function VoicePanelContent({
           sessionToken,
           onActivity: appendActivity,
         });
-        const bill = billFallbackSchema.parse(JSON.parse(billResult) as unknown);
+        const bill = voiceBillResultSchema.parse(JSON.parse(billResult) as unknown);
         setFallbackContext((current) => ({
           ...current,
+          historicalBill: bill,
           historicalSourceDate: bill.source.createdDate,
         }));
 
@@ -531,7 +609,7 @@ function VoicePanelContent({
           sessionToken,
           onActivity: appendActivity,
         });
-        const benefits = benefitsFallbackSchema.parse(
+        const benefits: VoiceBenefitsResult = voiceBenefitsResultSchema.parse(
           JSON.parse(benefitsResult) as unknown,
         );
         setCurrentBenefits(benefits);
@@ -542,7 +620,7 @@ function VoicePanelContent({
         }));
         appendFallbackMessage(
           "assistant",
-          `${historicalBillReply(bill, intent.language)} ${currentBenefitsReply(benefits, intent.language)} ${
+          `${bill.requiredSpokenSummary[intent.language]} ${benefits.requiredSpokenSummary[intent.language]} ${
             intent.language === "es"
               ? "¿Hay algo que todavía no esté claro?"
               : "Is anything still unclear?"
@@ -604,13 +682,14 @@ function VoicePanelContent({
       const result: unknown = JSON.parse(toolResult);
       switch (intent.tool) {
         case "get_bill_context": {
-          const context = billFallbackSchema.parse(result);
+          const context = voiceBillResultSchema.parse(result);
           setFallbackContext((current) => ({
             ...current,
+            historicalBill: context,
             historicalSourceDate: context.source.createdDate,
             clarityAsked: true,
           }));
-          reply = `${historicalBillReply(context, intent.language)} ${
+          reply = `${context.requiredSpokenSummary[intent.language]} ${
             intent.language === "es"
               ? "¿Hay algo que todavía no esté claro?"
               : "Is anything still unclear?"
@@ -618,14 +697,14 @@ function VoicePanelContent({
           break;
         }
         case "refresh_current_benefits": {
-          const benefits = benefitsFallbackSchema.parse(result);
+          const benefits = voiceBenefitsResultSchema.parse(result);
           setCurrentBenefits(benefits);
           setFallbackContext((current) => ({
             ...current,
             benefitsRefreshed: true,
             clarityAsked: true,
           }));
-          reply = `${currentBenefitsReply(benefits, intent.language)} ${
+          reply = `${benefits.requiredSpokenSummary[intent.language]} ${
             intent.language === "es"
               ? "¿Hay algo que todavía no esté claro?"
               : "Is anything still unclear?"
@@ -661,12 +740,26 @@ function VoicePanelContent({
             }));
             let summarySaved = false;
             try {
+              const confirmedFacts = [
+                ...(fallbackContext.historicalSourceDate
+                  ? [intent.language === "es"
+                      ? "Se explicó la adjudicación histórica."
+                      : "The historical adjudication was explained."]
+                  : []),
+                ...(fallbackContext.benefitsRefreshed
+                  ? [intent.language === "es"
+                      ? "Se consultaron por separado los beneficios actuales."
+                      : "Current benefits were checked separately."]
+                  : []),
+                intent.language === "es"
+                  ? "La paciente confirmó un caso de revisión de facturación."
+                  : "The patient confirmed a billing-review case.",
+              ];
               const summaryRaw = await dispatchBeneBotTool({
                 name: "save_conversation_summary",
                 argumentsJson: JSON.stringify({
                   language: summaryLanguage(usedEnglish, usedSpanish),
-                  summary:
-                    "Se explicó la factura usando la EOB histórica, se revisaron por separado los beneficios actuales y la paciente confirmó un caso de revisión de facturación.",
+                  summary: confirmedFacts.join(" "),
                   questionsAnswered: [
                     ...(fallbackContext.historicalSourceDate
                       ? ["Historical bill explanation"]
@@ -695,12 +788,12 @@ function VoicePanelContent({
               setSummaryResult({ saved: false });
             }
             reply = intent.language === "es"
-              ? `El servidor confirmó el caso de revisión de facturación. ID del caso: ${followup.taskId}. ${followup.message} ${summarySaved ? "También confirmó el resumen breve para el personal." : "El resumen para el personal no se guardó."}`
-              : `The server confirmed the billing-review case. Case ID: ${followup.taskId}. ${followup.message} ${summarySaved ? "It also confirmed the concise staff summary." : "The staff summary was not saved."}`;
+              ? `El servidor confirmó el caso de revisión de facturación. ID del caso: ${followup.taskId}. ${summarySaved ? "También confirmó el resumen breve para el personal." : "El resumen para el personal no se guardó."}`
+              : `The server confirmed the billing-review case. Case ID: ${followup.taskId}. ${summarySaved ? "It also confirmed the concise staff summary." : "The staff summary was not saved."}`;
           } else {
             reply = intent.language === "es"
-              ? `El seguimiento no se completó. ${followup.message}`
-              : `The follow-up was not completed. ${followup.message}`;
+              ? "El seguimiento no se completó."
+              : "The follow-up was not completed.";
           }
           break;
         }
@@ -745,10 +838,10 @@ function VoicePanelContent({
   return (
     <section
       aria-label={isSpanishSession ? "Hablar con BeneBot" : "Talk with BeneBot"}
-      className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-5 shadow-xl"
+      className="voice-panel"
       data-dg-agent
     >
-      <header className="flex items-start justify-between gap-4">
+      <header className="voice-panel-header">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">
             {isSpanishSession ? "Demostración sintética" : "Synthetic demo"}
@@ -764,7 +857,7 @@ function VoicePanelContent({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-3 py-1 text-sm text-slate-600 hover:bg-slate-100"
+            className="voice-close"
             aria-label={isSpanishSession ? "Cerrar BeneBot" : "Close BeneBot"}
           >
             {isSpanishSession ? "Cerrar" : "Close"}
@@ -773,8 +866,8 @@ function VoicePanelContent({
       </header>
 
       <fieldset
-        className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-3"
-        disabled={isConnected || state === "connecting"}
+        className="voice-language"
+        disabled={isActive}
       >
         <legend className="px-1 text-sm font-semibold text-slate-900">
           {isSpanishSession ? "Idioma de esta sesión de voz" : "Voice-session language"}
@@ -788,10 +881,10 @@ function VoicePanelContent({
                 type="button"
                 aria-pressed={selected}
                 onClick={() => onSessionLanguageChange(language)}
-                className={`rounded-xl px-3 py-2 text-sm font-semibold ${
+                className={`voice-language-option ${
                   selected
-                    ? "bg-sky-700 text-white"
-                    : "border border-slate-300 bg-white text-slate-800"
+                    ? "voice-language-option-selected"
+                    : ""
                 }`}
               >
                 {language === "es" ? "Español" : "English"}
@@ -801,35 +894,35 @@ function VoicePanelContent({
         </div>
         <p className="mt-2 text-xs text-slate-600">
           {isSpanishSession
-            ? "Elige antes de iniciar. Cada idioma usa una voz nativa; termina la voz para cambiar."
+            ? "Elija antes de iniciar. Cada idioma usa una voz nativa; termine la voz para cambiar."
             : "Choose before starting. Each language uses a native voice; end voice to switch."}
         </p>
       </fieldset>
 
-      <div role="status" className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950">
+      <div role="status" className="voice-security">
         <p className="font-semibold">Secure billing context verified</p>
         <p className="mt-1">
           {isSpanishSession
-            ? "Sesión segura — Jane Doe. Ya tengo esta factura desde el portal; no pediré Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente."
-            : "Secure session — Jane Doe. I already have this bill from the portal; I will not ask for a Social Security number, date of birth, member ID, or patient ID."}
+            ? "Sesión segura: Jane Doe. Ya tengo esta factura desde el portal; no pediré Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente."
+            : "Secure session: Jane Doe. I already have this bill from the portal; I will not ask for a Social Security number, date of birth, member ID, or patient ID."}
         </p>
       </div>
 
       {bargeInDetected ? (
-        <div role="status" className="mt-3 rounded-xl bg-violet-50 px-4 py-3 text-sm font-medium text-violet-950">
+        <div role="status" className="voice-interrupt">
           {isSpanishSession
             ? "Interrupción detectada por Flux · audio de BeneBot detenido"
             : "Flux interruption detected · BeneBot audio stopped"}
         </div>
       ) : null}
 
-      <div className="my-5 flex items-center gap-4 rounded-2xl bg-slate-950 p-4 text-white">
+      <div className="voice-orb-stage">
         <Orb
           size={72}
           state={mode === "speaking" ? "talking" : mode === "listening" ? "listening" : "idle"}
           getInputVolume={microphone.getInputVolume}
           getOutputVolume={player.getOutputVolume}
-          colors={["#38bdf8", "#a78bfa"]}
+          colors={["#00c4a7", "#ff3d8b"]}
         />
         <div>
           <AgentStatus
@@ -841,8 +934,8 @@ function VoicePanelContent({
                 : isSpanishSession ? "BeneBot está escuchando" : "BeneBot is listening",
               reconnecting: isSpanishSession ? "Reconectando…" : "Reconnecting…",
               disconnected: isSpanishSession
-                ? "Voz desconectada — el texto sigue disponible"
-                : "Voice disconnected — text is still available",
+                ? "Voz desconectada. El texto sigue disponible"
+                : "Voice disconnected. Text is still available",
             }}
           />
           <p className="mt-1 text-xs text-slate-300">
@@ -851,29 +944,44 @@ function VoicePanelContent({
         </div>
       </div>
 
-      <Transcript conversation={conversation} fallbackMessages={fallbackMessages} />
+      <Transcript
+        conversation={conversation}
+        fallbackMessages={fallbackMessages}
+        language={sessionLanguage}
+      />
 
-      {currentBenefits ? <CurrentBenefitsCard result={currentBenefits} /> : null}
-      <ResourceOptions resources={fallbackContext.resourcesOffered} />
-      {followupResult ? <FollowupStatus result={followupResult} /> : null}
+      {currentBenefits ? (
+        <CurrentBenefitsCard result={currentBenefits} language={sessionLanguage} />
+      ) : null}
+      <ResourceOptions
+        resources={fallbackContext.resourcesOffered}
+        language={sessionLanguage}
+      />
+      {followupResult ? (
+        <FollowupStatus result={followupResult} language={sessionLanguage} />
+      ) : null}
       {summaryResult ? (
         <div
           role="status"
-          className={`mt-4 rounded-xl px-4 py-3 text-sm ${
+          className={`voice-summary-status ${
             summaryResult.saved
-              ? "bg-emerald-50 text-emerald-950"
-              : "bg-rose-50 text-rose-950"
+              ? "voice-summary-saved"
+              : "voice-summary-failed"
           }`}
         >
           {summaryResult.saved
-            ? "Server confirmed: concise summary saved."
-            : "Summary was not saved."}
+            ? isSpanishSession
+              ? "El servidor confirmó que se guardó el resumen breve."
+              : "Server confirmed: concise summary saved."
+            : isSpanishSession
+              ? "El resumen no se guardó."
+              : "Summary was not saved."}
         </div>
       ) : null}
 
-      <form onSubmit={submitText} className="mt-4 flex gap-2">
+      <form onSubmit={submitText} className="voice-text-form">
         <label htmlFor="benebot-text" className="sr-only">
-          Message BeneBot
+          {isSpanishSession ? "Enviar mensaje a BeneBot" : "Message BeneBot"}
         </label>
         <input
           id="benebot-text"
@@ -882,12 +990,12 @@ function VoicePanelContent({
           placeholder={state === "connected"
             ? isSpanishSession ? "Escribe en vez de hablar…" : "Type instead of speaking…"
             : isSpanishSession ? "El texto funciona aunque la voz no…" : "Text works even when voice does not…"}
-          className="min-w-0 flex-1 rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-950 outline-none focus:border-sky-600 focus:ring-2 focus:ring-sky-200"
+          className="voice-text-input"
         />
         <button
           type="submit"
           disabled={!text.trim() || fallbackBusy}
-          className="rounded-xl bg-sky-700 px-4 py-3 text-sm font-semibold text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-50"
+          className="voice-send"
         >
           {fallbackBusy
             ? isSpanishSession ? "Consultando…" : "Checking…"
@@ -895,29 +1003,29 @@ function VoicePanelContent({
         </button>
       </form>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2">
+      <div className="voice-controls">
         <AgentStartButton
           startLabel={isSpanishSession ? "Iniciar voz" : "Start voice"}
           connectingLabel={isSpanishSession ? "Conectando…" : "Connecting…"}
           stopLabel={isSpanishSession ? "Terminar voz" : "End voice"}
           reconnectingLabel={isSpanishSession ? "Reconectando…" : "Reconnecting…"}
-          className="rounded-xl bg-violet-700 px-4 py-2 text-sm font-semibold text-white"
+          className="voice-start"
         />
         <AgentMicrophoneButton
           activeLabel={isSpanishSession ? "Silenciar micrófono" : "Mute microphone"}
           mutedLabel={isSpanishSession ? "Activar micrófono" : "Unmute microphone"}
           disabledLabel={isSpanishSession ? "Micrófono no disponible" : "Microphone unavailable"}
-          className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          className="voice-control"
         />
         <AgentSpeakerButton
           activeLabel={isSpanishSession ? "Silenciar audio" : "Mute audio"}
           mutedLabel={isSpanishSession ? "Activar audio" : "Unmute audio"}
-          className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          className="voice-control"
         />
       </div>
 
-      <div className="mt-5 border-t border-slate-200 pt-4">
-        <ToolActivity events={events} />
+      <div className="voice-activity-shell">
+        <ToolActivity events={events} language={sessionLanguage} />
       </div>
     </section>
   );
@@ -935,15 +1043,18 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
     (event: ToolActivityEvent) => setEvents((current) => [...current, event]),
     [],
   );
-  const selectSessionLanguage = useCallback((language: Language): void => {
+  const resetVoiceSessionEvidence = useCallback((): void => {
     voiceToolFacts.current = {
       historicalBillRead: false,
       currentBenefitsRefreshed: false,
       resourceIds: [],
     };
     setEvents([]);
-    setSessionLanguage(language);
   }, []);
+  const selectSessionLanguage = useCallback((language: Language): void => {
+    resetVoiceSessionEvidence();
+    setSessionLanguage(language);
+  }, [resetVoiceSessionEvidence]);
 
   const tokenFactory = useCallback(async (): Promise<string> => {
     const response = await fetch("/api/deepgram-token", {
@@ -974,9 +1085,19 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
         const parsedResult: unknown = JSON.parse(result);
         if (
           fn.name === "get_bill_context" &&
-          billFallbackSchema.safeParse(parsedResult).success
+          voiceBillResultSchema.safeParse(parsedResult).success
         ) {
           voiceToolFacts.current.historicalBillRead = true;
+          const bill = voiceBillResultSchema.parse(parsedResult);
+          resultForAgent = JSON.stringify({
+            instruction:
+              "Speak requiredResponse verbatim. Do not paraphrase, omit details, or add a calculation.",
+            requiredResponse: bill.requiredSpokenSummary[sessionLanguage],
+            interruptionInstruction:
+              "If the patient interrupts to ask what allowed amount means, speak requiredAllowedAmountClarification verbatim.",
+            requiredAllowedAmountClarification:
+              bill.requiredAllowedAmountClarification[sessionLanguage],
+          });
         } else if (
           fn.name === "refresh_current_benefits" &&
           voiceBenefitsResultSchema.safeParse(parsedResult).success
@@ -995,6 +1116,27 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
               (resource) => resource.id,
             );
           }
+        } else if (fn.name === "request_human_followup") {
+          const followup = followupFallbackSchema.safeParse(parsedResult);
+          if (followup.success) {
+            const confirmed =
+              followup.data.created &&
+              followup.data.status === "requested" &&
+              followup.data.taskId;
+            resultForAgent = JSON.stringify({
+              created: followup.data.created,
+              status: followup.data.status,
+              ...(followup.data.taskId ? { taskId: followup.data.taskId } : {}),
+              instruction: "Speak requiredResponse verbatim.",
+              requiredResponse: confirmed
+                ? sessionLanguage === "es"
+                  ? `El servidor confirmó el caso de revisión de facturación. ID del caso: ${followup.data.taskId}.`
+                  : `The server confirmed the billing-review case. Case ID: ${followup.data.taskId}.`
+                : sessionLanguage === "es"
+                  ? "El caso de revisión no se completó."
+                  : "The billing-review case was not completed.",
+            });
+          }
         }
       } catch {
         // The tool activity already records the sanitized failure.
@@ -1008,10 +1150,24 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
             patientIssueSummary?: string;
           };
           if (followup.created && followup.taskId) {
+            const observedFacts = [
+              ...(voiceToolFacts.current.historicalBillRead
+                ? [sessionLanguage === "es"
+                    ? "Se explicó la adjudicación histórica."
+                    : "The historical adjudication was explained."]
+                : []),
+              ...(voiceToolFacts.current.currentBenefitsRefreshed
+                ? [sessionLanguage === "es"
+                    ? "Se consultaron por separado los beneficios actuales."
+                    : "Current benefits were checked separately."]
+                : []),
+              sessionLanguage === "es"
+                ? "La paciente confirmó un caso de revisión de facturación."
+                : "The patient confirmed a billing-review case.",
+            ];
             const summaryArguments = JSON.stringify({
               language: sessionLanguage,
-              summary:
-                "BeneBot discussed the scoped bill and the patient confirmed a billing-review case.",
+              summary: observedFacts.join(" "),
               questionsAnswered: [
                 ...(voiceToolFacts.current.historicalBillRead
                   ? ["Historical bill explanation"]
@@ -1035,7 +1191,6 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
                   name: "save_conversation_summary",
                   argumentsJson: summaryArguments,
                   sessionToken,
-                  onActivity: appendActivity,
                 }),
               ) as unknown,
             );
@@ -1047,7 +1202,6 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
                     name: "save_conversation_summary",
                     argumentsJson: summaryArguments,
                     sessionToken,
-                    onActivity: appendActivity,
                   }),
                 ) as unknown,
               );
@@ -1059,11 +1213,24 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
                 status: "failed",
                 at: new Date().toISOString(),
               });
+            } else {
+              appendActivity({
+                tool: "save_conversation_summary",
+                label: "Saving concise summary",
+                status: "succeeded",
+                at: new Date().toISOString(),
+              });
             }
           }
         } catch {
           // The confirmed Task remains valid; the tool result must not claim
           // that the separate Communication write succeeded.
+          appendActivity({
+            tool: "save_conversation_summary",
+            label: "Saving concise summary",
+            status: "failed",
+            at: new Date().toISOString(),
+          });
         }
       }
       return resultForAgent;
@@ -1091,6 +1258,7 @@ export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): Reac
         sessionToken={sessionToken}
         sessionLanguage={sessionLanguage}
         onSessionLanguageChange={selectSessionLanguage}
+        onVoiceSessionStarted={resetVoiceSessionEvidence}
         onClose={onClose}
         events={events}
         setEvents={setEvents}

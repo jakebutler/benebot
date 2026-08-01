@@ -1,18 +1,19 @@
 import { z } from "zod";
 
 import type { ToolActivityEvent, ToolName } from "../contracts";
+import { TOOL_PREREQUISITES } from "./prerequisites";
 
 export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "get_bill_context",
     description:
-      "Get reconciled historical EOB adjudication and the current invoice balance for this session's bill. Call before discussing exact amounts.",
+      `${TOOL_PREREQUISITES.get_bill_context.useWhen} ${TOOL_PREREQUISITES.get_bill_context.mustBeTrueBeforeOutput} Read requiredSpokenSummary for the selected language verbatim; do not add calculations.`,
     parameters: { type: "object", properties: {}, additionalProperties: false },
   },
   {
     name: "refresh_current_benefits",
     description:
-      "MANDATORY for any question about benefits today, deductible still left, remaining deductible, or whether a historical deductible affects current status. Refresh the synthetic patient's current test eligibility immediately without asking permission. Then read requiredSpokenSummary for the selected language verbatim and add no carryover interpretation. This never explains or validates the historical claim.",
+      `${TOOL_PREREQUISITES.refresh_current_benefits.useWhen} Refresh immediately without asking permission. ${TOOL_PREREQUISITES.refresh_current_benefits.mustBeTrueBeforeOutput} Read requiredSpokenSummary for the selected language verbatim and add no carryover interpretation.`,
     parameters: {
       type: "object",
       properties: {
@@ -32,7 +33,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "search_support_resources",
     description:
-      "Find up to three billing-help resources. Results identify practice-provided, government-published, fictional demo, and unverified community sources. Use medicare-billing-problem when a Medicare or dual-eligible patient reports a bill they may not owe.",
+      `${TOOL_PREREQUISITES.search_support_resources.useWhen} Return up to three resources and preserve practice-provided, government-published, fictional-demo, and unverified-community labels. Use medicare-billing-problem when a Medicare or dual-eligible patient reports a bill they may not owe.`,
     parameters: {
       type: "object",
       properties: {
@@ -56,7 +57,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "request_human_followup",
     description:
-      "Create a Medplum billing-review case only after the patient clearly confirms a concise issue summary. Never send a transcript.",
+      `${TOOL_PREREQUISITES.request_human_followup.useWhen} Never send a transcript. Claim success only when the server returns created=true and a Task ID.`,
     parameters: {
       type: "object",
       properties: {
@@ -90,7 +91,7 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
     name: "save_conversation_summary",
     description:
-      "Save a concise structured conversation summary. Never provide a full transcript or raw audio.",
+      `${TOOL_PREREQUISITES.save_conversation_summary.useWhen} Save only confirmed facts in a concise structured summary. Never provide a full transcript or raw audio, and claim success only when saved=true with a Communication ID.`,
     parameters: {
       type: "object",
       properties: {

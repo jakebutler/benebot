@@ -62,7 +62,7 @@ export function createDeepgramAgentConfig(
         },
       },
       greeting: language === "es"
-        ? "Hola, Jane. Soy BeneBot. Como abriste BeneBot desde tu portal seguro, ya tengo el contexto de esta factura. No te pediré tu número de Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente. Puedo explicar cómo se procesó esta factura y revisar por separado los beneficios que tu plan devuelve hoy."
+        ? "Hola, Jane. Soy BeneBot. Como abrió BeneBot desde su portal seguro, ya tengo el contexto de esta factura. No le pediré su número de Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente. Puedo explicar cómo se procesó esta factura y revisar por separado los beneficios que su plan devuelve hoy."
         : "Hi, Jane. I'm BeneBot. Because you opened BeneBot from your secure portal, I already have the context for this bill. I won't ask for your Social Security number, date of birth, member ID, or patient ID. I can explain how this bill was processed and separately check the benefits your plan returns today.",
     },
     audio: {

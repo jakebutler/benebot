@@ -1,0 +1,152 @@
+[
+  {
+    "conceptId": "allowed-amount",
+    "english": {
+      "firstExplanation": "Insurance companies negotiate prices with doctors and hospitals. The allowed amount is the highest price your insurance will accept for a service. Your share of the cost is based on this price.",
+      "confusionRepair": "Doctors might charge different prices for the same service, but your insurance sets a limit on what they will pay. This limit is the allowed amount, and it helps keep your costs predictable.",
+      "forbiddenPhrases": [
+        "usual, customary, and reasonable (UCR)",
+        "negotiated rate",
+        "We cover the full allowed amount."
+      ],
+      "optionalAnalogy": "The allowed amount is like an approved project budget. It is the maximum total the insurance agrees the service is worth, and it is then divided between what the plan pays and what you owe.",
+      "analogyBoundary": "This total is split between you and your insurance according to your plan's rules. It is not what you owe by yourself, and it is not what the insurer pays by itself."
+    },
+    "spanish": {
+      "firstExplanation": "El monto permitido es la cantidad negociada que su plan de salud usa para procesar este reclamo. Aqu\u00ed fue de $1,100. Es diferente y menor a los $2,400 que el proveedor factur\u00f3 originalmente, gracias al descuento de su red.",
+      "confusionRepair": "No significa que el reclamo est\u00e9 correcto ni que usted deba esa cantidad completa. Es simplemente el l\u00edmite m\u00e1ximo que su seguro reconoce para ese servicio antes de calcular lo que usted y ellos pagar\u00e1n.",
+      "forbiddenPhrases": [
+        "prueba que la factura es correcta",
+        "es lo que usted debe pagar",
+        "precio real"
+      ],
+      "optionalAnalogy": "El monto permitido es como un presupuesto de proyecto aprobado. Es el total m\u00e1ximo que el seguro acuerda que vale el servicio, y luego se divide entre lo que paga el plan y lo que usted debe.",
+      "analogyBoundary": "Este total se divide entre usted y su seguro seg\u00fan las reglas de su plan. No es lo que usted debe por s\u00ed solo, ni es lo que la aseguradora paga por s\u00ed sola."
+    }
+  },
+  {
+    "conceptId": "explanation-of-benefits",
+    "english": {
+      "firstExplanation": "An EOB is an informational statement, not a bill. It shows what the doctor charged, what the insurance allowed, what they paid, and what you might owe. You should wait for the actual bill from your doctor before making any payments.",
+      "confusionRepair": "Think of it as a status report. The insurance company sends it to tell you they received the claim and calculated the costs based on your plan. It helps you check for mistakes, but it is not an invoice.",
+      "forbiddenPhrases": [
+        "This proves the claim is correct.",
+        "You must pay this amount.",
+        "It's just an EOB."
+      ],
+      "optionalAnalogy": "It is like a detailed receipt showing the original price and the discounts applied.",
+      "analogyBoundary": "Unlike a store receipt that you get right after paying, an EOB arrives weeks later to show how the insurance calculated the costs, but it is not a bill you pay."
+    },
+    "spanish": {
+      "firstExplanation": "La Explicaci\u00f3n de Beneficios, o EOB, es un documento de su seguro que muestra c\u00f3mo procesaron su reclamo. La EOB hist\u00f3rica de julio muestra c\u00f3mo calcularon su factura, pero no es una factura en s\u00ed.",
+      "confusionRepair": "La EOB le informa c\u00f3mo el seguro dividi\u00f3 los costos con usted, pero no le exige un pago. Usted debe esperar la factura oficial del proveedor (como Bayview Imaging) para hacer el pago.",
+      "forbiddenPhrases": [
+        "es una factura",
+        "debe pagar esta EOB",
+        "prueba que el cobro es correcto"
+      ],
+      "optionalAnalogy": "Es como el recibo detallado que muestra el precio original y los descuentos aplicados.",
+      "analogyBoundary": "A diferencia de un recibo de tienda que recibe al instante, la EOB suele llegar semanas despu\u00e9s para mostrar c\u00f3mo se calcularon los costos, pero no es una factura para pagar."
+    }
+  },
+  {
+    "conceptId": "deductible",
+    "english": {
+      "firstExplanation": "Your deductible is the total amount you pay out of your own pocket for medical care each year before your insurance begins to help pay. Once you pay this amount, your insurance starts sharing the costs.",
+      "confusionRepair": "Before your insurance helps pay for most services, you have to pay a certain amount first. This starting amount is your deductible. After you reach it, the insurance starts paying.",
+      "forbiddenPhrases": [
+        "first-dollar coverage",
+        "It's simple, just meet your deductible.",
+        "You have to pay everything first."
+      ],
+      "optionalAnalogy": "It is like paying out-of-pocket for car repairs before your auto insurance starts covering the damage.",
+      "analogyBoundary": "Unlike auto insurance, health plans often cover preventive care fully even if you have not paid any of your deductible yet."
+    },
+    "spanish": {
+      "firstExplanation": "El deducible es la cantidad que usted paga cada a\u00f1o antes de que el seguro empiece a compartir los costos. De este reclamo hist\u00f3rico, $500 se aplicaron a su deducible.",
+      "confusionRepair": "Los $500 son la parte del deducible que se cobr\u00f3 en este reclamo de julio en espec\u00edfico. No indica cu\u00e1nto deducible le queda por pagar hoy, ya que eso depende de otros servicios que haya recibido desde entonces.",
+      "forbiddenPhrases": [
+        "es una multa",
+        "es lo que usted debe hoy",
+        "es su deducible total"
+      ],
+      "optionalAnalogy": "Es como pagar de su bolsillo por los arreglos de su auto antes de que el seguro de auto empiece a cubrir los da\u00f1os.",
+      "analogyBoundary": "A diferencia del seguro de auto, en salud algunos servicios preventivos se cubren por completo aunque no haya pagado nada de su deducible."
+    }
+  },
+  {
+    "conceptId": "coinsurance",
+    "english": {
+      "firstExplanation": "Coinsurance means you and your insurance company share the cost of your medical care. After you meet your deductible, you pay a percentage of the bill, and your insurance pays the rest.",
+      "confusionRepair": "Instead of a flat fee like a copay, coinsurance is a split of the cost. For example, you might pay a small part of the bill, and your insurance pays the larger part.",
+      "forbiddenPhrases": [
+        "cost-sharing ratio",
+        "It's a simple percentage.",
+        "We cover the rest."
+      ],
+      "optionalAnalogy": "Coinsurance is like sharing fuel costs with a co-driver on a long trip. After you cover the initial tolls yourself, you and the insurance each pay a set percentage of the remaining fuel costs.",
+      "analogyBoundary": "This percentage split applies only to the allowed amount after your deductible has been met. The specific percentage is set by your plan."
+    },
+    "spanish": {
+      "firstExplanation": "El coseguro es el porcentaje del costo que usted comparte con su seguro despu\u00e9s de pagar el deducible. En este caso, su porci\u00f3n fue de $120.",
+      "confusionRepair": "A diferencia de un copago, que es una cantidad fija, el coseguro es un porcentaje. Por ejemplo, si su coseguro es del 20%, usted paga el 20% del monto permitido y el seguro paga el 80%.",
+      "forbiddenPhrases": [
+        "es igual que el copago",
+        "es un cargo extra",
+        "es un impuesto"
+      ],
+      "optionalAnalogy": "El coaseguro es como compartir los costos de combustible con un comanejador en un viaje largo. Despu\u00e9s de que usted cubre los peajes iniciales por su cuenta, usted y el seguro pagan cada uno un porcentaje fijo de los costos de combustible restantes.",
+      "analogyBoundary": "Esta divisi\u00f3n porcentual se aplica solo al monto permitido despu\u00e9s de que se haya cumplido su deducible. El porcentaje espec\u00edfico lo establece su plan."
+    }
+  },
+  {
+    "conceptId": "copayment",
+    "english": {
+      "firstExplanation": "A copay is a set amount you pay when you visit a doctor or pick up a prescription. For example, you might pay a specific amount for a doctor visit, and your insurance pays the rest.",
+      "confusionRepair": "A copay is a flat fee. It is the exact amount you pay each time you get a certain medical service or medicine, no matter what the total bill is.",
+      "forbiddenPhrases": [
+        "fixed tariff",
+        "It's obviously a copay.",
+        "You just pay the copay."
+      ],
+      "optionalAnalogy": "It is like paying a flat entry fee to get into a park.",
+      "analogyBoundary": "Unlike a park entry fee, you might receive an additional bill later if there were extra services during your visit that the copay did not cover."
+    },
+    "spanish": {
+      "firstExplanation": "El copago es una cantidad fija que usted paga por ciertos servicios, como una visita al doctor o una medicina. Para este reclamo, no hubo un copago aplicado.",
+      "confusionRepair": "El copago es una tarifa plana, como $20 por consulta, sin importar el costo total del servicio. Esto es distinto al deducible o al coseguro, que dependen del costo total del tratamiento.",
+      "forbiddenPhrases": [
+        "cubre todo el costo",
+        "es el \u00fanico pago que har\u00e1",
+        "es lo mismo que el deducible"
+      ],
+      "optionalAnalogy": "Es como pagar una tarifa fija de entrada para entrar a un parque.",
+      "analogyBoundary": "A diferencia de la entrada al parque, en salud a veces puede recibir una factura adicional despu\u00e9s de la visita si hubo servicios extras que el copago no cubr\u00eda."
+    }
+  },
+  {
+    "conceptId": "out-of-pocket-maximum",
+    "english": {
+      "firstExplanation": "This is your safety net. It is the highest amount you will pay for covered health care in a year. Once you reach this amount, your insurance pays the full allowed amount for the rest of the year.",
+      "confusionRepair": "Think of it as a limit on your medical bills for the year. After you spend this maximum amount on deductibles, copays, and coinsurance, your insurance takes over and pays for all covered services.",
+      "forbiddenPhrases": [
+        "stop-loss limit",
+        "catastrophic cap",
+        "We cover 100% of the bill."
+      ],
+      "optionalAnalogy": "It is like a safety cap on your spending for the year.",
+      "analogyBoundary": "This cap only applies to covered services from doctors in your network, and it does not include your monthly premium."
+    },
+    "spanish": {
+      "firstExplanation": "Este es su l\u00edmite de seguridad financiera. Una vez que usted gasta esta cantidad en deducibles, copagos y coseguros durante el a\u00f1o, su seguro pagar\u00e1 el costo total de los servicios cubiertos dentro de su red por el resto del a\u00f1o.",
+      "confusionRepair": "Piense en esto como un tope. Todos los pagos que usted hace por atenci\u00f3n m\u00e9dica aprobada se van sumando. Al llegar a este tope, usted ya no paga de su bolsillo por esos servicios hasta que el a\u00f1o termine.",
+      "forbiddenPhrases": [
+        "cubre todo al 100% sin importar el doctor",
+        "incluye la prima mensual",
+        "una vez que lo alcanza, no paga nada nunca m\u00e1s"
+      ],
+      "optionalAnalogy": "Es como un tope de seguridad para sus gastos durante el a\u00f1o.",
+      "analogyBoundary": "Este tope solo se aplica a los servicios cubiertos por doctores dentro de su red, y no incluye su prima mensual."
+    }
+  }
+]

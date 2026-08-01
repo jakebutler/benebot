@@ -1,11 +1,11 @@
-# BeneBot Design Direction B — Vibrant Hero Landing
+# BeneBot Design Direction B: Vibrant Application System
 
 ## Overview
 
-Direction B is a warm, editorial landing page built around the core insight that elderly patients navigating medical bills should be positioned as heroes of their own story, not victims. The design combines:
+Direction B is a warm, editorial system built around the core insight that older patients navigating medical bills should be positioned as heroes of their own story, not victims. The same language now carries from the public landing page into Jane's bill, the web voice session, and the staff proof view. The design combines:
 
 - **Bilingual-first layout** with Spanish as primary text (full-size, heavy typography) and English as secondary (smaller, supporting)
-- **Vibrant, saturated palette** with poster-style energy — deep plum ink, vermilion, teal, gold, hot pink, bright sky blue
+- **Vibrant, saturated palette** with poster-style energy: deep plum ink, vermilion, teal, gold, hot pink, bright sky blue
 - **Inline SVG hero illustration** of an older Latina woman in a confident cape, holding the bill without fear, radiating empowerment
 - **Heavy Archivo Grotesque type** (900 weight) for display headlines, paired with system sans for body
 - **Poster-style dimensionality** via solid offset box shadows (4–6px), sharp borders, and full-bleed color sections
@@ -17,13 +17,13 @@ Direction B is a warm, editorial landing page built around the core insight that
 All colors are CSS custom properties at the `:root` level for tuning in round 2. Current values:
 
 ```css
---flame: #FF4A22       /* Vermilion primary */
---teal: #00C4A7       /* Teal accent */
---gold: #FFC62E       /* Bright gold */
---pink: #FF3D8B       /* Hot pink */
---sky: #3D7BFF        /* Bright sky blue */
---ink: #241533        /* Deep plum, text and shadows */
---paper: #FFF3E2      /* Bright warm cream, background */
+--ink: oklch(24% .065 312);
+--paper: oklch(96.5% .035 78);
+--flame: oklch(65% .22 38);
+--teal: oklch(75% .155 173);
+--gold: oklch(84% .17 86);
+--pink: oklch(68% .22 352);
+--sky: oklch(62% .22 262);
 ```
 
 Rationale: The palette is intentionally loud and energetic to match the confidence/empowerment tone. Dull or muted tones undermine the message.
@@ -57,15 +57,15 @@ This preserves the ability to upgrade to a richer illustration (painted, photogr
 
 ### Layout Structure
 
-1. **Header** — Logo (BeneBot in navy + orange), language toggle (ESPAÑOL · ENGLISH in gold pill)
-2. **Hero section** — SVG illustration on left (responsive width), bilingual headline on right
+1. **Header**: Logo (BeneBot in navy + orange), language toggle (ESPAÑOL · ENGLISH in gold pill)
+2. **Hero section**: SVG illustration on left (responsive width), bilingual headline on right
    - Spanish: "Nadie debería necesitar a su hijo para traducir una factura médica." (heavy Archivo 900, flame red)
    - English: "Nobody should need their kid to translate a medical bill." (smaller, secondary color)
-3. **Problem statement** — Dark plum background, full-bleed, three statistics cards with colored numbers (gold, teal, pink)
-4. **Two-audience section** — Four cards (pink, teal, gold, magenta backgrounds) with emoji icons and body copy
-5. **Accuracy section** — Explains three-source discipline with small illustrations
-6. **Provider value prop** — Full-bleed teal section highlighting the structured case workflow
-7. **Tech stack / Footer** — Medplum, Deepgram, Stedi logos
+3. **Problem statement**: Dark plum background, full-bleed, three statistics cards with colored numbers (gold, teal, pink)
+4. **Two-audience section**: Four cards (pink, teal, gold, magenta backgrounds) with emoji icons and body copy
+5. **Accuracy section**: Explains three-source discipline with small illustrations
+6. **Provider value prop**: Full-bleed teal section highlighting the structured case workflow
+7. **Tech stack / Footer**: Medplum, Deepgram, Stedi logos
 
 ### Spacing & Dimensionality
 
@@ -75,26 +75,20 @@ This preserves the ability to upgrade to a richer illustration (painted, photogr
 - **Separators:** 4px solid rule lines between sections
 - **Cards:** Pastel-tinted backgrounds (#FFE0D7, #CFF6EF, #FFEFC2, #FFD9E7) with rounded corners
 
-## Integration into `app/page.tsx`
+## Application integration
 
-The standalone landing-b.html can serve as:
+The standalone `landing-b.html` remains the visual source artifact. The Next.js application now uses it through:
 
-1. **Copy/typography reference** — The bilingual hierarchy, headline scales, and body copy structure are directly applicable to the Next.js landing page.
-2. **Palette source** — Lift the CSS custom properties and apply them throughout the main app layout.
-3. **Illustration inspiration** — Adapt the SVG hero or commission an equivalent for the app's hero section.
-4. **Component patterns** — The offset-shadow cards, full-bleed sections, and stat cards are modular and can be extracted as React components.
+1. **Bilingual hierarchy**: Spanish is primary in the hero and demo route, with concise English support.
+2. **Global tokens**: the OKLCH palette in `app/globals.css` drives marketing and product surfaces.
+3. **Reusable illustration**: `components/landing/hero-illustration.tsx` adapts the approved SVG hero.
+4. **Product patterns**: strong outlines, solid offset shadows, warm paper, source-color separation, and familiar accessible controls continue through the bill and voice panel.
 
-Key adaptation points:
+The voice experience stays a conventional product interface. Poster styling identifies the brand, while standard language selection, transcript, text input, microphone, speaker, activity, source, success, and failure affordances remain easy to recognize.
 
-- Move the `:root` color palette to a global CSS file or Tailwind config
-- Extract card and section components to `components/` for reuse
-- Adapt the SVG illustration to be a React component or imported asset
-- Update responsive breakpoints to match the app's breakpoint strategy
-- Wire the language toggle to the app's session-language state
+## Color-tuning checklist
 
-## Color-tuning checklist for round 2
-
-If the user requests palette changes, these are one-line edits:
+Palette changes remain one-line edits in `app/globals.css`. Preserve contrast and keep the source/status meaning intact when tuning.
 
 - Warmer gold? Change `--gold: #FFC62E` to a more orange-leaning value (e.g., `#FFD700`)
 - Less hot pink? Desaturate `--pink: #FF3D8B` (e.g., `#FF6BB8`)
@@ -109,12 +103,15 @@ If the user requests palette changes, these are one-line edits:
 - Language toggle is a proper button with clear state
 - Emoji icons on cards have fallback text via `title` attributes
 
-## File structure
+## Primary implementation files
 
 ```
-design/
-├── landing-b.html          # Standalone HTML with inline CSS and SVG
-└── DESIGN.md               # This file
+app/globals.css
+app/page.tsx
+components/landing/hero-illustration.tsx
+components/bill/
+components/voice/
+design/landing-b.html
 ```
 
 The HTML is self-contained (no external assets or CDN dependencies except system fonts) so it can be opened locally, shared for review, or deployed as a static page.

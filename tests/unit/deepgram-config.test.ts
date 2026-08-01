@@ -23,7 +23,8 @@ describe("Spanish-first Deepgram configuration", () => {
       model: "aura-2-selena-es",
     });
     expect(config.agent.greeting).toContain("Hola, Jane");
-    expect(config.agent.greeting?.toLowerCase()).toContain("no te pediré");
+    expect(config.agent.greeting?.toLowerCase()).toContain("no le pediré");
+    expect(config.agent.greeting).not.toContain("tu portal");
   });
 
   it("uses an English recognition hint, native English voice, and English-only prompt", () => {

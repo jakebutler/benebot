@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+import {
+  buildAllowedAmountClarification,
+  buildHistoricalRequiredSpokenSummary,
+} from "@/lib/billing/historical-narration";
+import type { GetBillContextResult } from "@/lib/contracts";
 import { BeneBotError, safeErrorResponse } from "@/lib/errors";
 import { getEnv } from "@/lib/env";
 import {
@@ -43,7 +48,7 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     const adjudication = context.adjudication;
-    return Response.json({
+    const result: GetBillContextResult = {
       patientFirstName: context.patient.firstName,
       ...(context.patient.preferredLanguage
         ? {
@@ -86,6 +91,12 @@ export async function POST(request: Request): Promise<Response> {
       },
       mathReconciles: true,
       warnings: context.confidence.warnings,
+    };
+
+    return Response.json({
+      ...result,
+      requiredSpokenSummary: buildHistoricalRequiredSpokenSummary(result),
+      requiredAllowedAmountClarification: buildAllowedAmountClarification(result),
     });
   } catch (error) {
     return safeErrorResponse(error);

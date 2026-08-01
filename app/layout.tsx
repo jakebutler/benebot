@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,18 +12,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+});
+
 const description =
-  "BeneBot explains the bill you received, refreshes the benefits you have now, and opens a real follow-up case with your provider — in English or Spanish.";
+  "BeneBot explains the bill you received, refreshes the benefits you have now, and opens a real follow-up case with your provider, in English or Spanish.";
 
 export const metadata: Metadata = {
   title: {
-    default: "BeneBot — the medical bill, explained out loud",
+    default: "BeneBot | Entienda su factura médica",
     template: "%s · BeneBot",
   },
   description,
   applicationName: "BeneBot",
   openGraph: {
-    title: "BeneBot — the medical bill, explained out loud",
+    title: "BeneBot: the medical bill, explained out loud",
     description,
     siteName: "BeneBot",
     type: "website",
@@ -41,8 +46,9 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="es"
+      data-scroll-behavior="smooth"
+      className={`${archivo.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

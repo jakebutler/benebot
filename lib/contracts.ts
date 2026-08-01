@@ -47,6 +47,11 @@ export interface GetBillContextResult {
   warnings: string[];
 }
 
+export interface GetBillContextToolResult extends GetBillContextResult {
+  requiredSpokenSummary: Record<Language, string>;
+  requiredAllowedAmountClarification: Record<Language, string>;
+}
+
 export interface RefreshBenefitsInput {
   reason:
     | "patient-request"
@@ -87,6 +92,10 @@ export interface RefreshBenefitsResult {
     documentReferenceId?: string;
   };
   warnings: string[];
+}
+
+export interface RefreshBenefitsToolResult extends RefreshBenefitsResult {
+  requiredSpokenSummary: Record<Language, string>;
 }
 
 export type SupportNeed =

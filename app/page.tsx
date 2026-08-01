@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { HeroIllustration } from "@/components/landing/hero-illustration";
+
 const invoiceId = "BENEBOT-INV-1001";
 
 const audiences = [
@@ -8,7 +10,7 @@ const audiences = [
     kicker: "For patients and families",
     title: "Independence, not a translator",
     lede:
-      "An 82-year-old on Medicare should not need her daughter to take a day off work to sit on hold with a billing office. BeneBot speaks first, listens, and lets her interrupt mid-sentence — in Spanish, at her pace, as many times as she needs to hear it again.",
+      "An 82-year-old on Medicare should not need her daughter to take a day off work to sit on hold with a billing office. BeneBot speaks first, listens, and lets her interrupt mid-sentence, in Spanish, at her pace, as many times as she needs to hear it again.",
     points: [
       {
         title: "It asks for nothing you should not give",
@@ -42,7 +44,7 @@ const audiences = [
       {
         title: "Conversations end as work, not chat logs",
         body:
-          "Every resolved conversation writes a FHIR Task and a concise Communication into Medplum — assigned, timestamped, and auditable next to the EOB and Invoice they came from.",
+          "Every resolved conversation writes a FHIR Task and a concise Communication into Medplum: assigned, timestamped, and auditable next to the EOB and Invoice they came from.",
       },
       {
         title: "Bilingual without an interpreter line",
@@ -70,7 +72,7 @@ const questions = [
       "Part B generally pays 80% after the deductible. The remaining 20% coinsurance has no annual cap under Traditional Medicare.",
   },
   {
-    ask: "“Which one am I paying — the deductible, the copay, or the coinsurance?”",
+    ask: "“Which one am I paying: the deductible, the copay, or the coinsurance?”",
     truth:
       "Three different mechanisms that patients use interchangeably. Which one applies depends on the service and on how much of the year’s deductible is already met.",
   },
@@ -109,7 +111,7 @@ const sources = [
     system: "Medplum · FHIR R4",
     tense: "Live balance",
     body:
-      "The outstanding balance on the statement, which is neither the billed charge nor the allowed amount — a distinction that accounts for a large share of billing calls.",
+      "The outstanding balance on the statement, which is neither the billed charge nor the allowed amount. That distinction accounts for a large share of billing calls.",
   },
 ];
 
@@ -146,7 +148,7 @@ const stack = [
     name: "Deepgram",
     role: "Real-time voice",
     body:
-      "The patient chooses English or Spanish before the session opens, and Deepgram runs it with a native voice for that language and model-level turn detection — so an interruption stops the explanation mid-sentence. The browser holds only a short-lived server-issued token, and every tool call routes back through BeneBot’s server.",
+      "The patient chooses English or Spanish before the session opens, and Deepgram runs it with a native voice for that language and model-level turn detection, so an interruption stops the explanation mid-sentence. The browser holds only a short-lived server-issued token, and every tool call routes back through BeneBot’s server.",
   },
   {
     name: "Stedi",
@@ -170,20 +172,32 @@ export default function Home() {
       </nav>
 
       <header className="pitch-hero">
-        <p className="eyebrow">Voice-first medical billing · Medplum × Deepgram × Stedi</p>
-        <h1 className="pitch-h1">Nobody should need their kid to translate a medical bill.</h1>
-        <p className="pitch-lede">
-          BeneBot answers “why do I owe this?” out loud, in English or Spanish, using the claim your insurer
-          actually adjudicated. Then it opens a real follow-up case inside your provider’s system — one the
-          billing team can see, own, and close.
-        </p>
-        <div className="pitch-cta">
-          <a className="button button-primary" href="#demo">Start the patient demo</a>
-          <Link className="button button-ghost" href="/staff">See the staff workflow</Link>
+        <div className="pitch-hero-copy">
+          <p className="eyebrow">Facturación médica por voz · Medplum × Deepgram × Stedi</p>
+          <h1 className="pitch-h1">
+            <span lang="es">Nadie debería necesitar a su hijo para <strong>traducir una factura médica.</strong></span>
+            <small lang="en">Nobody should need their kid to translate a medical bill.</small>
+          </h1>
+          <div className="pitch-hero-rule" aria-hidden="true" />
+          <p className="pitch-lede" lang="es">
+            BeneBot le explica su factura en voz alta, en español o inglés, usando el reclamo que su seguro
+            realmente procesó. Sin esperar. Sin pedirle su número de Seguro Social.
+          </p>
+          <p className="pitch-lede-secondary" lang="en">
+            A grounded web voice conversation, current-benefit checks kept separate, and a confirmed follow-up
+            your billing team can own.
+          </p>
+          <div className="pitch-cta">
+            <Link className="button button-primary" href={`/bill/${invoiceId}`}>Hablar sobre mi factura</Link>
+            <a className="button button-ghost" href="#sources">See how it stays accurate</a>
+          </div>
+        </div>
+        <div className="pitch-hero-art">
+          <HeroIllustration />
         </div>
       </header>
 
-      <section className="pitch-section" aria-labelledby="problem-heading">
+      <section className="pitch-section pitch-section-ink" aria-labelledby="problem-heading">
         <p className="eyebrow">The problem</p>
         <h2 id="problem-heading" className="pitch-h2">
           Medicare did not make billing simple. It made it fragmented.
@@ -231,7 +245,7 @@ export default function Home() {
         </ul>
       </section>
 
-      <section className="pitch-section" id="audiences" aria-labelledby="audiences-heading">
+      <section className="pitch-section pitch-section-teal" id="audiences" aria-labelledby="audiences-heading">
         <p className="eyebrow">Two audiences, one conversation</p>
         <h2 id="audiences-heading" className="pitch-h2">
           The same call costs the patient their dignity and the provider their margin.
@@ -282,7 +296,7 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="pitch-section" aria-labelledby="math-heading">
+      <section className="pitch-section pitch-section-gold" aria-labelledby="math-heading">
         <p className="eyebrow">Math handled by software, not AI</p>
         <h2 id="math-heading" className="pitch-h2">
           The model explains the arithmetic. It never performs it.
@@ -298,9 +312,9 @@ export default function Home() {
           </dl>
           <div className="math-note">
             <p>
-              Application code normalizes the raw EOB, then reconciles it against fixed invariants — allowed
+              Application code normalizes the raw EOB, then reconciles it against fixed invariants: allowed
               equals billed minus discount, responsibility equals deductible plus copay plus coinsurance plus
-              noncovered, insurer paid equals allowed minus responsibility — to a one-cent tolerance.
+              noncovered, insurer paid equals allowed minus responsibility, to a one-cent tolerance.
             </p>
             <p>
               If it does not balance, BeneBot refuses to produce a numeric explanation at all. The language
@@ -335,7 +349,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pitch-section demo-section" id="demo" aria-labelledby="email-subject">
+      <section className="pitch-section pitch-section-pink demo-section" id="demo" aria-labelledby="email-subject">
         <p className="eyebrow">Try it</p>
         <h2 className="pitch-h2">The demo starts where the real thing would: an unexpected bill.</h2>
         <p className="pitch-body">

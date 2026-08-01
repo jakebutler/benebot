@@ -44,6 +44,19 @@ Anything that does not improve this exact sequence is deferred.
 - Limit bill context to preferred language and the bound encounter's bill-relevant provider/facility/service/date/location. Exclude unrelated encounters, diagnoses, medications, notes, and general chart questions.
 - No broad component system, generalized domain layer, coverage target, or premature abstraction.
 
+## Bounded conversation-reliability delta
+
+This phase incorporates the approved `benebot-gold-packet` without widening the Jane P0:
+
+1. Historical and current patient values are emitted through separate deterministic English/Spanish `requiredSpokenSummary` fields. The model performs no arithmetic and a reconciliation failure yields no numerical narration.
+2. The system prompt contains no Jane-specific financial values. It receives a small code-owned, language-scoped compilation of the packet's six generic concepts, number-free analogies, boundaries, preferred terms, and forbidden claims.
+3. The runtime allowlist stays at exactly five tools. The application-owned prerequisite matrix covers historical facts, current benefits, support resources, confirmed follow-up, and concise persistence; unsupported packet tool names are never aliased.
+4. The executable evaluation run record uses the reliability plan's R1-R8 meanings, score `0 | 1 | 2`, applicability, hard failures, evidence turn/tool references, and separate Information and Procedural Compliance.
+5. The packet's twenty-four bilingual cases and conflicting rubric/tool files remain strict, inspectable research inputs. They are not live Jane fixtures until a later normalization pass resolves unsupported amounts, tools, and conclusions.
+6. Spanish and English remain separate native-voice sessions selected before connection. A voice-language change requires ending the current session first.
+
+The complete reconciliation record is `benebot-gold-packet/INTEGRATION_NOTES.md`.
+
 ## Credentials and setup
 
 Place secrets only in ignored `.env.local`; never paste them into chat.

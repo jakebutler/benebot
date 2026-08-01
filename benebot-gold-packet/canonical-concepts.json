@@ -1,0 +1,437 @@
+[
+  {
+    "conceptId": "allowed-amount",
+    "english": {
+      "preferredTerm": "allowed amount",
+      "oneSentenceDefinition": "The allowed amount is the maximum price your insurance plan agrees to pay for a specific medical service.",
+      "commonQuestions": [
+        "What if my doctor charges more than the allowed amount?",
+        "How do I find out the allowed amount for a service?",
+        "Does the allowed amount affect my deductible?"
+      ],
+      "utteranceVariants": [
+        "What is the negotiated rate?",
+        "How much will insurance approve?",
+        "What is the maximum price?"
+      ],
+      "comprehensionCheck": "Is the allowed amount the price the doctor asks for, or the price the insurance agrees to pay?"
+    },
+    "spanish": {
+      "preferredTerm": "monto permitido",
+      "recognizedAlternatives": [
+        "cantidad permitida",
+        "cargo permitido",
+        "tarifa negociada",
+        "costo permitido"
+      ],
+      "oneSentenceDefinition": "Es la cantidad m\u00e1xima que el seguro m\u00e9dico acepta pagar por un servicio de salud cubierto, tras aplicar el descuento negociado con el proveedor.",
+      "commonQuestions": [
+        "\u00bfPor qu\u00e9 el proveedor cobr\u00f3 m\u00e1s que el monto permitido?",
+        "\u00bfTengo que pagar la diferencia entre lo facturado y el monto permitido?",
+        "\u00bfEl monto permitido incluye mi deducible?"
+      ],
+      "utteranceVariants": [
+        "\u00bfQu\u00e9 significa monto permitido?",
+        "\u00bfPor qu\u00e9 dice cantidad permitida si me cobraron m\u00e1s?",
+        "No entiendo de d\u00f3nde sali\u00f3 ese monto permitido."
+      ],
+      "comprehensionCheck": "\u00bfTiene sentido c\u00f3mo el descuento de la aseguradora redujo la factura al monto permitido?",
+      "pronunciationNotes": []
+    },
+    "factBoundaries": {
+      "generalClaimsAllowed": [
+        "It represents the maximum amount the insurance plan uses to base its payment for covered services.",
+        "In-network providers have agreed to accept the allowed amount as payment in full.",
+        "Cost-sharing calculations (like coinsurance) are based on the allowed amount, not the provider's billed charge."
+      ],
+      "patientSpecificClaimsRequireTool": [
+        "The exact dollar figure of the allowed amount for a specific procedure or service.",
+        "Whether a specific provider is in-network and thus bound to accept the allowed amount without balance billing.",
+        "The difference between the billed charge and the allowed amount for a specific claim."
+      ],
+      "requiredQualifiers": [
+        "The allowed amount only applies to covered health care services.",
+        "Out-of-network providers may charge more than the allowed amount, potentially leading to balance billing, subject to state and federal protections (e.g., No Surprises Act)."
+      ],
+      "forbiddenClaims": [
+        {
+          "claim": "The allowed amount is what insurance will pay.",
+          "reason": "The insurance plan may pay less than the allowed amount if the patient owes a deductible, copayment, or coinsurance. The allowed amount is the basis for payment, not the final payment from the insurer."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Glossary of Health Coverage and Medical Terms",
+          "publisher": "Centers for Medicare & Medicaid Services (CMS)",
+          "url": "https://www.cms.gov/cciio/resources/forms-reports-and-other-resources/downloads/uniform-glossary-final.pdf"
+        },
+        {
+          "title": "Allowed amount - Glossary",
+          "publisher": "HealthCare.gov",
+          "url": "https://www.healthcare.gov/glossary/allowed-amount/"
+        }
+      ]
+    }
+  },
+  {
+    "conceptId": "explanation-of-benefits",
+    "english": {
+      "preferredTerm": "Explanation of Benefits",
+      "oneSentenceDefinition": "An Explanation of Benefits, or EOB, is a summary from your insurance showing how they processed your claim.",
+      "commonQuestions": [
+        "Do I need to pay this EOB?",
+        "Why does the EOB say I owe more than the doctor told me?",
+        "Is an EOB the same as a medical bill?"
+      ],
+      "utteranceVariants": [
+        "I got this paper that says this is not a bill.",
+        "What is this EOB thing?",
+        "My insurance sent me a statement, do I pay them?"
+      ],
+      "comprehensionCheck": "To make sure I was clear, when you receive an EOB in the mail, should you pay the amount shown right away?"
+    },
+    "spanish": {
+      "preferredTerm": "Explicaci\u00f3n de Beneficios",
+      "recognizedAlternatives": [
+        "EOB",
+        "resumen de beneficios",
+        "explicaci\u00f3n del reclamo"
+      ],
+      "oneSentenceDefinition": "Es un documento enviado por su seguro m\u00e9dico que detalla los costos de su atenci\u00f3n, cu\u00e1nto pag\u00f3 el seguro y cu\u00e1nto le corresponde pagar a usted.",
+      "commonQuestions": [
+        "\u00bfTengo que pagar la cantidad que dice la EOB?",
+        "\u00bfPor qu\u00e9 recib\u00ed una EOB si ya pagu\u00e9 en la cl\u00ednica?",
+        "\u00bfLa EOB significa que mi seguro aprob\u00f3 todo?"
+      ],
+      "utteranceVariants": [
+        "Me lleg\u00f3 una explicaci\u00f3n de beneficios y no s\u00e9 si pagarla.",
+        "\u00bfQu\u00e9 es la EOB hist\u00f3rica?",
+        "\u00bfPor qu\u00e9 dice EOB en lugar de factura?"
+      ],
+      "comprehensionCheck": "\u00bfTiene sentido que la Explicaci\u00f3n de Beneficios sea solo un resumen y no la factura final?",
+      "pronunciationNotes": [
+        "Las siglas EOB pueden leerse letra por letra ('E-O-B') o referirse a ella como 'la Explicaci\u00f3n de Beneficios'. Si se usa la sigla, pronunciar en espa\u00f1ol: 'E-O-Be'."
+      ]
+    },
+    "factBoundaries": {
+      "generalClaimsAllowed": [
+        "An EOB is not a bill.",
+        "It shows the provider's billed charges, the allowed amount, the amount paid by the insurer, and the patient's balance or responsibility.",
+        "It includes remark codes explaining why certain costs were covered, denied, or adjusted."
+      ],
+      "patientSpecificClaimsRequireTool": [
+        "The specific amounts billed, allowed, paid, and owed for a given encounter.",
+        "The specific remark codes and denial reasons applied to a claim.",
+        "Whether the patient has already paid a portion of the balance shown on the EOB (e.g., a copay collected at the point of service)."
+      ],
+      "requiredQualifiers": [
+        "The 'Patient Balance' or 'What You Owe' section reflects the patient's responsibility according to the plan's processing, but does not account for payments the patient may have already made to the provider."
+      ],
+      "forbiddenClaims": [
+        {
+          "claim": "An EOB proves the claim is correct.",
+          "reason": "An EOB merely reflects how the insurance company processed the claim based on the information submitted. It can contain errors (e.g., incorrect coding, misapplied benefits) and is often the primary tool patients use to catch billing mistakes or initiate appeals."
+        }
+      ],
+      "sources": [
+        {
+          "title": "How to read an explanation of benefits",
+          "publisher": "Centers for Medicare & Medicaid Services (CMS)",
+          "url": "https://www.cms.gov/medical-bill-rights/help/guides/explanation-of-benefits"
+        }
+      ]
+    }
+  },
+  {
+    "conceptId": "deductible",
+    "english": {
+      "preferredTerm": "deductible",
+      "oneSentenceDefinition": "A deductible is the amount you must pay for your health care before your insurance starts paying its share.",
+      "commonQuestions": [
+        "What happens after I meet my deductible?",
+        "Do copays count toward my deductible?",
+        "Why do I have to pay a deductible if I already pay a premium?"
+      ],
+      "utteranceVariants": [
+        "How much before insurance pays?",
+        "What is my starting amount?",
+        "Have I met my deductible yet?"
+      ],
+      "comprehensionCheck": "To make sure I explained that clearly, does your insurance start paying for most things before or after you meet your deductible?"
+    },
+    "spanish": {
+      "preferredTerm": "deducible",
+      "recognizedAlternatives": [
+        "deducible anual",
+        "franquicia"
+      ],
+      "oneSentenceDefinition": "Es la cantidad que usted debe pagar de su bolsillo por servicios m\u00e9dicos cada a\u00f1o antes de que su seguro comience a pagar su parte.",
+      "commonQuestions": [
+        "\u00bfTodav\u00eda me queda deducible por pagar este a\u00f1o?",
+        "\u00bfPor qu\u00e9 me cobran el deducible si tengo seguro?",
+        "\u00bfEse es mi deducible de todo el a\u00f1o o solo de esta visita?"
+      ],
+      "utteranceVariants": [
+        "\u00bfTodav\u00eda me quedan gastos del deducible?",
+        "Sigo confundida sobre el deducible aplicado.",
+        "\u00bfEse deducible es lo que tengo que pagar ahora?"
+      ],
+      "comprehensionCheck": "\u00bfQueda claro c\u00f3mo estos $500 fueron parte de su deducible para este reclamo?",
+      "pronunciationNotes": []
+    },
+    "factBoundaries": {
+      "generalClaimsAllowed": [
+        "The patient pays 100% of the allowed amount for covered services until the deductible is met, except for services where the deductible is waived (e.g., preventive care, or services with a pre-deductible copay).",
+        "Deductibles generally reset at the beginning of a new coverage period (usually a calendar or plan year).",
+        "Original Medicare Part A uses a benefit period deductible rather than an annual calendar year deductible."
+      ],
+      "patientSpecificClaimsRequireTool": [
+        "The specific dollar amount of the patient's deductible.",
+        "How much of the deductible has been met to date.",
+        "Whether the patient's specific plan waives the deductible for certain services (e.g., primary care visits, prescription drugs).",
+        "Whether a family plan uses an aggregate or embedded deductible structure."
+      ],
+      "requiredQualifiers": [
+        "Only payments for covered services at the allowed amount count toward the deductible. Premiums, balance-billed charges, and non-covered services do not count.",
+        "In-network and out-of-network services often have separate deductibles."
+      ],
+      "forbiddenClaims": [
+        {
+          "claim": "A deductible applied historically must reduce the current remaining deductible.",
+          "reason": "Deductibles reset at the end of the plan year or benefit period. Historical accumulation does not carry over to a new period."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Deductible - Glossary",
+          "publisher": "HealthCare.gov",
+          "url": "https://www.healthcare.gov/glossary/deductible/"
+        },
+        {
+          "title": "Health insurance terms you should know",
+          "publisher": "Centers for Medicare & Medicaid Services (CMS)",
+          "url": "https://www.cms.gov/medical-bill-rights/help/guides/health-insurance-terms"
+        }
+      ]
+    }
+  },
+  {
+    "conceptId": "coinsurance",
+    "english": {
+      "preferredTerm": "coinsurance",
+      "oneSentenceDefinition": "Coinsurance is the percentage of the medical bill you pay after you have met your deductible.",
+      "commonQuestions": [
+        "When does coinsurance start?",
+        "What is my coinsurance percentage?",
+        "How is coinsurance different from a copay?"
+      ],
+      "utteranceVariants": [
+        "What percentage do I pay?",
+        "How do we split the bill?",
+        "What is my share of the cost?"
+      ],
+      "comprehensionCheck": "With coinsurance, do you pay a flat fee or a percentage of the bill?"
+    },
+    "spanish": {
+      "preferredTerm": "coseguro",
+      "recognizedAlternatives": [
+        "coaseguro",
+        "porcentaje de costo compartido",
+        "porcentaje"
+      ],
+      "oneSentenceDefinition": "Es el porcentaje del costo de un servicio m\u00e9dico que usted paga despu\u00e9s de haber alcanzado su deducible anual.",
+      "commonQuestions": [
+        "\u00bfCu\u00e1l es la diferencia entre copago y coseguro?",
+        "\u00bfPor qu\u00e9 me cobran coseguro si ya pagu\u00e9 el deducible?",
+        "\u00bfDe qu\u00e9 porcentaje es mi coseguro?"
+      ],
+      "utteranceVariants": [
+        "Sigo confundido sobre el coaseguro de la factura.",
+        "No entiendo qu\u00e9 es el coseguro.",
+        "\u00bfPor qu\u00e9 tengo un coseguro tan alto?"
+      ],
+      "comprehensionCheck": "\u00bfTiene alguna pregunta sobre c\u00f3mo se calcul\u00f3 la porci\u00f3n de su coseguro?",
+      "pronunciationNotes": [
+        "Se pronuncia 'co-se-gu-ro'. Ambas formas, 'coseguro' y 'coaseguro', son ampliamente entendidas por pacientes hispanos en EE. UU."
+      ]
+    },
+    "factBoundaries": {
+      "generalClaimsAllowed": [
+        "It is a percentage-based cost-sharing mechanism.",
+        "It is calculated based on the plan's allowed amount (or negotiated rate), not the provider's total billed charge.",
+        "It usually takes effect only after the deductible has been satisfied."
+      ],
+      "patientSpecificClaimsRequireTool": [
+        "The specific coinsurance percentage for a given service or tier.",
+        "The exact dollar amount owed for coinsurance on a specific claim (which requires knowing the allowed amount).",
+        "Whether the deductible has been met, triggering the coinsurance phase."
+      ],
+      "requiredQualifiers": [
+        "Coinsurance percentages can vary depending on whether the provider is in-network or out-of-network."
+      ],
+      "forbiddenClaims": [
+        {
+          "claim": "Coinsurance is always a percentage of the provider's billed charge.",
+          "reason": "Coinsurance is explicitly calculated as a percentage of the allowed amount (the negotiated rate), not the provider's gross billed charge."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Coinsurance - Glossary",
+          "publisher": "HealthCare.gov",
+          "url": "https://www.healthcare.gov/glossary/co-insurance/"
+        },
+        {
+          "title": "Health insurance terms you should know",
+          "publisher": "Centers for Medicare & Medicaid Services (CMS)",
+          "url": "https://www.cms.gov/medical-bill-rights/help/guides/health-insurance-terms"
+        }
+      ]
+    }
+  },
+  {
+    "conceptId": "copayment",
+    "english": {
+      "preferredTerm": "copay",
+      "oneSentenceDefinition": "A copay is a fixed dollar amount you pay for a specific health care service or medicine.",
+      "commonQuestions": [
+        "Do I have a copay for my medicine?",
+        "Is my copay the same for every doctor?",
+        "Does my copay count toward my deductible?"
+      ],
+      "utteranceVariants": [
+        "How much is the visit fee?",
+        "What do I pay at the doctor's office?",
+        "Is there a flat fee?"
+      ],
+      "comprehensionCheck": "If you have a copay for a doctor visit, is it a fixed amount or a percentage of the bill?"
+    },
+    "spanish": {
+      "preferredTerm": "copago",
+      "recognizedAlternatives": [
+        "pago fijo",
+        "cuota"
+      ],
+      "oneSentenceDefinition": "Es una cantidad fija de dinero que usted paga por un servicio m\u00e9dico cubierto, usualmente al momento de la visita.",
+      "commonQuestions": [
+        "\u00bfPor qu\u00e9 me lleg\u00f3 una factura si ya pagu\u00e9 mi copago en la cl\u00ednica?",
+        "\u00bfTengo que pagar copago y deducible a la vez?",
+        "\u00bfDe cu\u00e1nto es mi copago para especialistas?"
+      ],
+      "utteranceVariants": [
+        "Pero si yo ya pagu\u00e9 mi copago cuando fui.",
+        "\u00bfEl copago no cubr\u00eda todo?",
+        "\u00bfCu\u00e1nto es el copago para esto?"
+      ],
+      "comprehensionCheck": "\u00bfQueda clara la diferencia entre un copago fijo y los otros costos?",
+      "pronunciationNotes": []
+    },
+    "factBoundaries": {
+      "generalClaimsAllowed": [
+        "It is a fixed dollar amount, unlike coinsurance which is a percentage.",
+        "Copays can apply before or after a deductible is met, depending entirely on the specific plan's design.",
+        "Copayments count toward the out-of-pocket maximum (for ACA-compliant plans) but typically do not count toward meeting the deductible."
+      ],
+      "patientSpecificClaimsRequireTool": [
+        "The specific copay amount for a particular service category (e.g., ER visit vs. primary care).",
+        "Whether the copay applies before or after the deductible for that specific service under that specific plan."
+      ],
+      "requiredQualifiers": [
+        "Preventive services mandated by the ACA are exempt from copayments when provided in-network."
+      ],
+      "forbiddenClaims": [
+        {
+          "claim": "You must always meet your deductible before paying a copay.",
+          "reason": "Many plans are designed to waive the deductible for certain services (like office visits or generic drugs) and apply a copay from day one. Conversely, HSA-qualified High Deductible Health Plans (HDHPs) require the deductible to be met before copays apply."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Copayment - Glossary",
+          "publisher": "HealthCare.gov",
+          "url": "https://www.healthcare.gov/glossary/co-payment/"
+        },
+        {
+          "title": "Health insurance terms you should know",
+          "publisher": "Centers for Medicare & Medicaid Services (CMS)",
+          "url": "https://www.cms.gov/medical-bill-rights/help/guides/health-insurance-terms"
+        }
+      ]
+    }
+  },
+  {
+    "conceptId": "out-of-pocket-maximum",
+    "english": {
+      "preferredTerm": "out-of-pocket maximum",
+      "oneSentenceDefinition": "The out-of-pocket maximum is the most you will have to pay for covered medical care in a year.",
+      "commonQuestions": [
+        "What counts toward my out-of-pocket maximum?",
+        "Does my premium count toward the maximum?",
+        "What happens when I hit the maximum?"
+      ],
+      "utteranceVariants": [
+        "What is the most I will pay?",
+        "When does insurance pay for everything?",
+        "What is my spending limit?"
+      ],
+      "comprehensionCheck": "Once you reach your out-of-pocket maximum, who pays for your covered medical care for the rest of the year?"
+    },
+    "spanish": {
+      "preferredTerm": "m\u00e1ximo de gastos de bolsillo",
+      "recognizedAlternatives": [
+        "l\u00edmite de gastos propios",
+        "l\u00edmite de bolsillo",
+        "tope de gastos"
+      ],
+      "oneSentenceDefinition": "Es la cantidad m\u00e1xima que usted pagar\u00e1 en un a\u00f1o por servicios m\u00e9dicos cubiertos antes de que su seguro pague el 100%.",
+      "commonQuestions": [
+        "\u00bfQu\u00e9 pasa cuando alcanzo este m\u00e1ximo?",
+        "\u00bfMis copagos cuentan para este l\u00edmite?",
+        "\u00bfEste l\u00edmite incluye lo que pago por doctores fuera de la red?"
+      ],
+      "utteranceVariants": [
+        "\u00bfCu\u00e1l es lo m\u00e1s que voy a pagar este a\u00f1o?",
+        "\u00bfCu\u00e1ndo empieza el seguro a pagar todo?",
+        "Ya pagu\u00e9 mucho, \u00bfhay un l\u00edmite?"
+      ],
+      "comprehensionCheck": "Para asegurarme de que fui claro, \u00bfsabe si este l\u00edmite incluye los pagos de su mensualidad del seguro?",
+      "pronunciationNotes": [
+        "Pronunciar 'm\u00e1ximo' con \u00e9nfasis en la primera s\u00edlaba."
+      ]
+    },
+    "factBoundaries": {
+      "generalClaimsAllowed": [
+        "It is a financial safety net that caps the patient's annual cost-sharing for essential health benefits.",
+        "It includes deductibles, coinsurance, and copayments paid toward in-network covered services.",
+        "It explicitly excludes monthly premiums, balance-billed charges from out-of-network providers, and costs for non-covered services."
+      ],
+      "patientSpecificClaimsRequireTool": [
+        "The specific dollar limit of the out-of-pocket maximum for the individual or family.",
+        "The current accumulated total toward the out-of-pocket maximum.",
+        "Whether a family plan has embedded individual maximums (required for ACA plans if the family max exceeds the statutory individual limit)."
+      ],
+      "requiredQualifiers": [
+        "Original Medicare (Parts A and B) does not have an out-of-pocket maximum.",
+        "Grandfathered plans, short-term health insurance, and certain non-ACA compliant plans may not have an out-of-pocket maximum or may exclude copays from accumulating toward it."
+      ],
+      "forbiddenClaims": [
+        {
+          "claim": "Once you hit your out-of-pocket maximum, you won't pay anything for any medical care.",
+          "reason": "The out-of-pocket maximum only applies to covered, in-network services. The patient is still responsible for premiums, out-of-network balance billing, and non-covered services."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Out-of-pocket maximum/limit - Glossary",
+          "publisher": "HealthCare.gov",
+          "url": "https://www.healthcare.gov/glossary/out-of-pocket-maximum-limit/"
+        },
+        {
+          "title": "Affordable Care Act Implementation FAQs - Set 18",
+          "publisher": "Centers for Medicare & Medicaid Services (CMS)",
+          "url": "https://www.cms.gov/cciio/resources/fact-sheets-and-faqs/aca_implementation_faqs18"
+        }
+      ]
+    }
+  }
+]
