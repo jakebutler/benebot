@@ -5,6 +5,7 @@ import { BeneBotError, safeErrorResponse } from "@/lib/errors";
 import { persistEligibilityResult } from "@/lib/medplum/write-artifacts";
 import {
   STEDI_TEST_REQUEST,
+  buildCurrentBenefitsSpokenSummary,
   createEligibilityProvider,
   loadFixtureFallback,
 } from "@/lib/stedi/eligibility";
@@ -29,11 +30,18 @@ export async function POST(request: Request): Promise<Response> {
         // The payer call did succeed. Be explicit that workflow persistence did not.
         result.warnings.push("Current eligibility was returned, but its Medplum workflow record was not saved.");
       }
-      return Response.json(result);
+      return Response.json({
+        ...result,
+        requiredSpokenSummary: buildCurrentBenefitsSpokenSummary(result),
+      });
     } catch (error) {
       // A test-identity error is a safety failure, never a reason to show fallback data.
       if (env.STEDI_ALLOW_FIXTURE_FALLBACK === "true" && !(error instanceof BeneBotError && error.code === "STEDI_TEST_IDENTITY_MISMATCH")) {
-        return Response.json(loadFixtureFallback());
+        const fallback = loadFixtureFallback();
+        return Response.json({
+          ...fallback,
+          requiredSpokenSummary: buildCurrentBenefitsSpokenSummary(fallback),
+        });
       }
       throw error;
     }

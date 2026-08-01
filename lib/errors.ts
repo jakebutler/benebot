@@ -20,10 +20,7 @@ export function safeErrorResponse(error: unknown): Response {
   const requestId = crypto.randomUUID();
   console.error("benebot_request_failed", {
     requestId,
-    error:
-      error instanceof Error
-        ? { name: error.name, message: error.message }
-        : { name: "UnknownError", message: "Unknown server error" },
+    errorName: error instanceof Error ? error.name : "UnknownError",
   });
   return Response.json(
     {

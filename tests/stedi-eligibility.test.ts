@@ -4,6 +4,7 @@ import {
   DirectStediTestProvider,
   STEDI_TEST_REQUEST,
   assertStediTestIdentity,
+  buildCurrentBenefitsSpokenSummary,
   deriveDeductibleSummary,
   normalizeStediResponse,
   loadFixtureFallback,
@@ -90,6 +91,38 @@ describe("Stedi eligibility", () => {
         serviceTypeCodes: ["30"],
       },
     });
+  });
+
+  it("builds a deterministic bilingual spoken summary without reconciling historical data", () => {
+    const result = normalizeStediResponse({
+      benefitsInformation: [
+        {
+          code: "C",
+          name: "Deductible",
+          benefitAmount: "500",
+          coverageLevelCode: "IND",
+          timeQualifierCode: "25",
+          inPlanNetworkIndicatorCode: "Y",
+          serviceTypeCodes: ["30"],
+        },
+        {
+          code: "C",
+          name: "Deductible",
+          benefitAmount: "500",
+          coverageLevelCode: "IND",
+          timeQualifierCode: "29",
+          inPlanNetworkIndicatorCode: "Y",
+          serviceTypeCodes: ["30"],
+        },
+      ],
+    }, "2026-08-01T18:01:00Z");
+
+    const summary = buildCurrentBenefitsSpokenSummary(result);
+    expect(summary.en).toContain("the live Stedi test response");
+    expect(summary.en).toContain("remaining deductible is $500");
+    expect(summary.en).toContain("do not have enough information to explain why they differ");
+    expect(summary.es).toContain("respuesta de prueba en vivo de Stedi");
+    expect(summary.es).toContain("no tengo suficiente información para explicar por qué difieren");
   });
 
   it("does not derive a deductible amount when scopes differ", () => {

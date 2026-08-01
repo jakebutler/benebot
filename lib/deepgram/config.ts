@@ -1,6 +1,8 @@
 import type { AgentProviderProps } from "@deepgram/ui";
 
-import { BENEBOT_AGENT_PROMPT } from "./prompt";
+import type { Language } from "@/lib/contracts";
+
+import { createBeneBotAgentPrompt } from "./prompt";
 import { DEEPGRAM_TOOL_DEFINITIONS } from "./tools";
 
 export const BENEBOT_FLUX_KEYTERMS = [
@@ -22,18 +24,19 @@ interface FluxMultilingualListenProvider {
   type: "deepgram";
   version: "v2";
   model: "flux-general-multi";
-  language_hints: ["es", "en"];
+  language_hints: [Language];
   keyterms: string[];
 }
 
 export function createDeepgramAgentConfig(
   tokenFactory: () => Promise<string>,
+  language: Language = "es",
 ): AgentProviderProps["config"] {
   const listenProvider: FluxMultilingualListenProvider = {
     type: "deepgram",
     version: "v2",
     model: "flux-general-multi",
-    language_hints: ["es", "en"],
+    language_hints: [language],
     keyterms: [...BENEBOT_FLUX_KEYTERMS],
   };
 
@@ -49,17 +52,18 @@ export function createDeepgramAgentConfig(
           model: "gpt-4o-mini",
           temperature: 0.2,
         },
-        prompt: BENEBOT_AGENT_PROMPT,
+        prompt: createBeneBotAgentPrompt(language),
         functions: DEEPGRAM_TOOL_DEFINITIONS,
       },
       speak: {
         provider: {
           type: "deepgram",
-          model: "aura-2-selena-es",
+          model: language === "es" ? "aura-2-selena-es" : "aura-2-helena-en",
         },
       },
-      greeting:
-        "Hola, Jane. Soy BeneBot. Como abriste BeneBot desde tu portal seguro, ya tengo el contexto de esta factura. No te pediré tu número de Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente. Puedo explicar esta factura en español; English is also available.",
+      greeting: language === "es"
+        ? "Hola, Jane. Soy BeneBot. Como abriste BeneBot desde tu portal seguro, ya tengo el contexto de esta factura. No te pediré tu número de Seguro Social, fecha de nacimiento, número de miembro ni identificación de paciente. Puedo explicar cómo se procesó esta factura y revisar por separado los beneficios que tu plan devuelve hoy."
+        : "Hi, Jane. I'm BeneBot. Because you opened BeneBot from your secure portal, I already have the context for this bill. I won't ask for your Social Security number, date of birth, member ID, or patient ID. I can explain how this bill was processed and separately check the benefits your plan returns today.",
     },
     audio: {
       input: { encoding: "linear16", sampleRate: 16_000 },
