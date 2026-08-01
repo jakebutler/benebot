@@ -6,7 +6,7 @@ import {
 } from "../../lib/deepgram/config";
 
 describe("Spanish-first Deepgram configuration", () => {
-  it("uses a Spanish recognition hint and native Spanish voice", () => {
+  it("listens for Spanish and English with a native Spanish voice", () => {
     const config = createDeepgramAgentConfig(vi.fn(async () => "short-lived-token"));
     expect(config.agent).not.toBeTypeOf("string");
     if (typeof config.agent === "string") throw new Error("Expected inline settings");
@@ -15,7 +15,7 @@ describe("Spanish-first Deepgram configuration", () => {
       type: "deepgram",
       version: "v2",
       model: "flux-general-multi",
-      language_hints: ["es"],
+      language_hints: ["es", "en"],
       keyterms: [...BENEBOT_FLUX_KEYTERMS],
     });
     expect(config.agent.speak?.provider).toMatchObject({
@@ -27,7 +27,7 @@ describe("Spanish-first Deepgram configuration", () => {
     expect(config.agent.greeting).not.toContain("tu portal");
   });
 
-  it("uses an English recognition hint, native English voice, and English-only prompt", () => {
+  it("listens for English and Spanish with a native English voice and English-only prompt", () => {
     const config = createDeepgramAgentConfig(
       vi.fn(async () => "short-lived-token"),
       "en",
@@ -37,7 +37,7 @@ describe("Spanish-first Deepgram configuration", () => {
 
     expect(config.agent.listen?.provider).toMatchObject({
       model: "flux-general-multi",
-      language_hints: ["en"],
+      language_hints: ["en", "es"],
     });
     expect(config.agent.speak?.provider).toMatchObject({
       type: "deepgram",

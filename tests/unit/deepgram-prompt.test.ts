@@ -79,6 +79,10 @@ describe("BeneBot agent prompt", () => {
     );
     expect(englishPrompt).toContain("Always respond in English");
     expect(spanishPrompt).toContain("Always respond in Spanish");
+    expect(englishPrompt).toContain(
+      "BeneBot supports only English and Spanish",
+    );
+    expect(englishPrompt).toContain("do not call a tool or guess at the request");
     expect(spanishPrompt).toContain("APPROVED CONCEPT GUIDANCE — ES-419");
     expect(englishPrompt).not.toContain("¿");
     expect(englishPrompt).not.toContain("monto permitido");

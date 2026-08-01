@@ -4,7 +4,6 @@ import {
   AgentMicrophoneButton,
   AgentProvider,
   AgentSpeakerButton,
-  AgentStartButton,
   AgentStatus,
   Orb,
   useAgentConversation,
@@ -425,7 +424,7 @@ function VoicePanelContent({
   events: ToolActivityEvent[];
   setEvents: React.Dispatch<React.SetStateAction<ToolActivityEvent[]>>;
 }): React.ReactNode {
-  const { state, isConnected, isActive } = useAgentState();
+  const { state, isConnected, isActive, start, stop } = useAgentState();
   const { conversation, sendUserMessage } = useAgentConversation();
   const { mode } = useAgentMode();
   const agentSession = useAgentSession();
@@ -446,6 +445,7 @@ function VoicePanelContent({
   const [followupResult, setFollowupResult] = useState<RequestFollowupResult>();
   const [summaryResult, setSummaryResult] = useState<SaveSummaryResult>();
   const [bargeInDetected, setBargeInDetected] = useState(false);
+  const [voiceError, setVoiceError] = useState<string>();
   const isSpanishSession = sessionLanguage === "es";
   const previousAgentState = useRef(state);
 
@@ -486,6 +486,29 @@ function VoicePanelContent({
     },
     [],
   );
+
+  const toggleVoice = async (): Promise<void> => {
+    if (isActive) {
+      stop();
+      setVoiceError(undefined);
+      return;
+    }
+
+    setVoiceError(undefined);
+    try {
+      await start();
+    } catch {
+      // The Deepgram session can connect before browser microphone access is
+      // rejected. Always stop it so the UI and billing session return to a
+      // known text-only state instead of leaving a live, unusable connection.
+      stop();
+      setVoiceError(
+        isSpanishSession
+          ? "No se pudo acceder al micrófono. Puede continuar escribiendo; no se perdió nada."
+          : "The microphone could not be accessed. You can continue by typing; nothing was lost.",
+      );
+    }
+  };
 
   const submitText = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
@@ -1003,14 +1026,27 @@ function VoicePanelContent({
         </button>
       </form>
 
+      {voiceError ? (
+        <div role="alert" className="voice-summary-status voice-summary-failed">
+          {voiceError}
+        </div>
+      ) : null}
+
       <div className="voice-controls">
-        <AgentStartButton
-          startLabel={isSpanishSession ? "Iniciar voz" : "Start voice"}
-          connectingLabel={isSpanishSession ? "Conectando…" : "Connecting…"}
-          stopLabel={isSpanishSession ? "Terminar voz" : "End voice"}
-          reconnectingLabel={isSpanishSession ? "Reconectando…" : "Reconnecting…"}
+        <button
+          type="button"
+          onClick={() => void toggleVoice()}
+          disabled={state === "connecting" || state === "reconnecting"}
           className="voice-start"
-        />
+        >
+          {state === "connecting"
+            ? isSpanishSession ? "Conectando…" : "Connecting…"
+            : state === "reconnecting"
+              ? isSpanishSession ? "Reconectando…" : "Reconnecting…"
+              : isActive
+                ? isSpanishSession ? "Terminar voz" : "End voice"
+                : isSpanishSession ? "Iniciar voz" : "Start voice"}
+        </button>
         <AgentMicrophoneButton
           activeLabel={isSpanishSession ? "Silenciar micrófono" : "Mute microphone"}
           mutedLabel={isSpanishSession ? "Activar micrófono" : "Unmute microphone"}

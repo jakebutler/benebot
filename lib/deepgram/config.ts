@@ -24,7 +24,7 @@ interface FluxMultilingualListenProvider {
   type: "deepgram";
   version: "v2";
   model: "flux-general-multi";
-  language_hints: [Language];
+  language_hints: [Language, Language];
   keyterms: string[];
 }
 
@@ -36,7 +36,9 @@ export function createDeepgramAgentConfig(
     type: "deepgram",
     version: "v2",
     model: "flux-general-multi",
-    language_hints: [language],
+    // Keep the selected session language first for accuracy while allowing
+    // Flux to identify either supported BeneBot language in every session.
+    language_hints: language === "es" ? ["es", "en"] : ["en", "es"],
     keyterms: [...BENEBOT_FLUX_KEYTERMS],
   };
 
