@@ -1,6 +1,5 @@
-import Link from "next/link";
-
-import { ArtifactTimeline, type WorkflowArtifact } from "@/components/staff/artifact-timeline";
+import type { WorkflowArtifact } from "@/components/staff/artifact-timeline";
+import { StaffPageContent } from "@/components/staff/staff-page-content";
 import { resolveDemoSeedIds } from "@/lib/medplum/queries";
 import { getMedplumClient, isMedplumConfigured } from "@/lib/medplum/server";
 
@@ -113,44 +112,5 @@ async function loadWorkflowArtifacts(): Promise<WorkflowView> {
 
 export default async function StaffPage() {
   const { artifacts, status, currentBenefits, unresolvedConcern, caseStatus } = await loadWorkflowArtifacts();
-  return (
-    <main className="staff-shell">
-      <nav className="topline" aria-label="Navegación de personal de BeneBot">
-        <Link className="wordmark" href="/">Bene<span>Bot</span></Link>
-        <Link className="quiet-link" href="/bill/BENEBOT-INV-1001">Abrir portal de Jane</Link>
-      </nav>
-      <header className="staff-header">
-        <div>
-          <p className="eyebrow">Vista de prueba para personal</p>
-          <h1>Una conversación, un caso auditable.</h1>
-          <p>Todos los registros usan datos sintéticos. No se conservan audio ni transcripciones completas del paciente.</p>
-        </div>
-        <span className="demo-badge">Demostración sintética</span>
-      </header>
-      <section className="session-summary" aria-labelledby="session-summary-title">
-        <div>
-          <p className="eyebrow">Sesión de demostración</p>
-          <h2 id="session-summary-title">Jane Doe · BENEBOT-INV-1001</h2>
-        </div>
-        <dl>
-          <div><dt>Saldo actual</dt><dd>$620</dd></div>
-          <div><dt>EOB histórico</dt><dd>Deducible de $500 · 24 jul</dd></div>
-          <div><dt>Beneficios actuales</dt><dd>{currentBenefits}</dd></div>
-          <div><dt>Preocupación sin resolver</dt><dd>{unresolvedConcern}</dd></div>
-          <div><dt>Caso de facturación</dt><dd>{caseStatus}</dd></div>
-        </dl>
-      </section>
-      <section className="staff-artifacts" aria-labelledby="artifacts-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Línea de tiempo de artefactos FHIR</p>
-            <h2 id="artifacts-title">EOB, factura, elegibilidad, caso y comunicación</h2>
-          </div>
-          <span className="source-badge historical">Auditoría de flujo</span>
-        </div>
-        <ArtifactTimeline artifacts={artifacts} />
-      </section>
-      <p className="staff-empty-note">{status}</p>
-    </main>
-  );
+  return <StaffPageContent artifacts={artifacts} status={status} currentBenefits={currentBenefits} unresolvedConcern={unresolvedConcern} caseStatus={caseStatus} />;
 }

@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Archivo, Geist, Geist_Mono } from "next/font/google";
+
+import { LanguageProvider } from "@/components/site/language-provider";
+import { SiteHeader } from "@/components/site/site-header";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -50,7 +54,12 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${archivo.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <LanguageProvider>
+          <SiteHeader />
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

@@ -406,6 +406,7 @@ function FollowupStatus({
 
 export interface BeneBotPanelProps {
   sessionToken: string;
+  initialLanguage?: Language;
   onClose?: () => void;
 }
 
@@ -1067,9 +1068,9 @@ function VoicePanelContent({
   );
 }
 
-export function BeneBotPanel({ sessionToken, onClose }: BeneBotPanelProps): React.ReactNode {
+export function BeneBotPanel({ sessionToken, initialLanguage = "es", onClose }: BeneBotPanelProps): React.ReactNode {
   const [events, setEvents] = useState<ToolActivityEvent[]>([]);
-  const [sessionLanguage, setSessionLanguage] = useState<Language>("es");
+  const [sessionLanguage, setSessionLanguage] = useState<Language>(initialLanguage);
   const voiceToolFacts = useRef<VoiceToolFacts>({
     historicalBillRead: false,
     currentBenefitsRefreshed: false,
