@@ -13,7 +13,7 @@ button { cursor: pointer; }
 .site-nav-links a:hover { color: var(--flame); }
 .site-header-actions { display: flex; align-items: center; gap: 12px; }
 .language-switcher { display: inline-flex; padding: 3px; border: 2px solid var(--ink); border-radius: 999px; background: var(--paper); }
-.language-switcher button { min-width: 42px; min-height: 38px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: .78rem; font-weight: 900; letter-spacing: .04em; }
+.language-switcher button { min-width: 42px; min-height: 38px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-family: Arial, Helvetica, sans-serif; font-size: .78rem; font-weight: 900; letter-spacing: 0; }
 .language-switcher button:hover { color: var(--ink); }
 .language-switcher button.is-selected { background: var(--gold); color: var(--ink); }
 .language-switcher button:focus-visible, .header-demo-cta:focus-visible, .site-nav a:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }

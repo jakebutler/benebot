@@ -26,22 +26,31 @@ export function SiteHeader() {
         </div>
 
         <div className="site-header-actions">
-          <div className="language-switcher" role="group" aria-label={isSpanish ? "Idioma del sitio" : "Site language"}>
+          <div
+            className="language-switcher"
+            role="group"
+            aria-label={isSpanish ? "Idioma del sitio" : "Site language"}
+            translate="no"
+          >
             <button
               type="button"
-              className={language === "es" ? "is-selected" : ""}
-              aria-pressed={language === "es"}
-              onClick={() => setLanguage("es")}
-            >
-              ES
-            </button>
-            <button
-              type="button"
+              lang="en"
+              translate="no"
               className={language === "en" ? "is-selected" : ""}
               aria-pressed={language === "en"}
               onClick={() => setLanguage("en")}
             >
               EN
+            </button>
+            <button
+              type="button"
+              lang="es"
+              translate="no"
+              className={language === "es" ? "is-selected" : ""}
+              aria-pressed={language === "es"}
+              onClick={() => setLanguage("es")}
+            >
+              ES
             </button>
           </div>
           <Link className="header-demo-cta" href={isBill ? "#benebot-demo" : demoHref}>
