@@ -24,6 +24,13 @@ import type {
   SupportResource,
   ToolActivityEvent,
 } from "@/lib/contracts";
+import {
+  createVoiceConfirmationTracker,
+  dispatchWithFollowupConfirmation,
+  recordVoiceConversationEntry,
+  type ConfirmationConversationEntry,
+  type VoiceConfirmationEvidence,
+} from "@/lib/deepgram/confirmation";
 import { createDeepgramAgentConfig } from "@/lib/deepgram/config";
 import {
   type PendingBillingIssue,
@@ -415,6 +422,7 @@ function VoicePanelContent({
   sessionLanguage,
   onSessionLanguageChange,
   onVoiceSessionStarted,
+  onVoiceConfirmationEvidence,
   events,
   setEvents,
   onClose,
@@ -422,6 +430,7 @@ function VoicePanelContent({
   sessionLanguage: Language;
   onSessionLanguageChange: (language: Language) => void;
   onVoiceSessionStarted: () => void;
+  onVoiceConfirmationEvidence: (evidence: VoiceConfirmationEvidence) => void;
   events: ToolActivityEvent[];
   setEvents: React.Dispatch<React.SetStateAction<ToolActivityEvent[]>>;
 }): React.ReactNode {
@@ -449,6 +458,34 @@ function VoicePanelContent({
   const [voiceError, setVoiceError] = useState<string>();
   const isSpanishSession = sessionLanguage === "es";
   const previousAgentState = useRef(state);
+  const currentAgentMode = useRef(mode);
+  const confirmationTracker = useRef(createVoiceConfirmationTracker());
+
+  useEffect(() => {
+    currentAgentMode.current = mode;
+  }, [mode]);
+
+  useEffect(() => {
+    const resetTracker = (): void => {
+      confirmationTracker.current = createVoiceConfirmationTracker();
+      onVoiceConfirmationEvidence({});
+    };
+    const handleConversationText = (entry: ConfirmationConversationEntry): void => {
+      confirmationTracker.current = recordVoiceConversationEntry(
+        confirmationTracker.current,
+        entry,
+      );
+      if (entry.role === "user") {
+        onVoiceConfirmationEvidence(confirmationTracker.current.evidence);
+      }
+    };
+    agentSession.on("connecting", resetTracker);
+    agentSession.on("conversation-text", handleConversationText);
+    return () => {
+      agentSession.off("connecting", resetTracker);
+      agentSession.off("conversation-text", handleConversationText);
+    };
+  }, [agentSession, onVoiceConfirmationEvidence]);
 
   useEffect(() => {
     const previous = previousAgentState.current;
@@ -464,8 +501,11 @@ function VoicePanelContent({
   useEffect(() => {
     const handleUserStartedSpeaking = (): void => {
       // @deepgram/react immediately flushes queued player audio for this
-      // model-level Voice Agent event. This state only makes the demo visible.
-      setBargeInDetected(true);
+      // model-level Voice Agent event. Show the interruption proof only when
+      // the patient actually barges into BeneBot's speech, not on normal turns.
+      if (currentAgentMode.current === "speaking") {
+        setBargeInDetected(true);
+      }
     };
     agentSession.on("user-started-speaking", handleUserStartedSpeaking);
     return () => {
@@ -1076,6 +1116,7 @@ export function BeneBotPanel({ sessionToken, initialLanguage = "es", onClose }: 
     currentBenefitsRefreshed: false,
     resourceIds: [],
   });
+  const voiceConfirmationEvidence = useRef<VoiceConfirmationEvidence>({});
   const appendActivity = useCallback(
     (event: ToolActivityEvent) => setEvents((current) => [...current, event]),
     [],
@@ -1086,7 +1127,11 @@ export function BeneBotPanel({ sessionToken, initialLanguage = "es", onClose }: 
       currentBenefitsRefreshed: false,
       resourceIds: [],
     };
+    voiceConfirmationEvidence.current = {};
     setEvents([]);
+  }, []);
+  const rememberVoiceConfirmationEvidence = useCallback((evidence: VoiceConfirmationEvidence): void => {
+    voiceConfirmationEvidence.current = evidence;
   }, []);
   const selectSessionLanguage = useCallback((language: Language): void => {
     resetVoiceSessionEvidence();
@@ -1111,12 +1156,20 @@ export function BeneBotPanel({ sessionToken, initialLanguage = "es", onClose }: 
 
   const handleFunctionCall: NonNullable<AgentProviderProps["onFunctionCall"]> = useCallback(
     async (fn) => {
-      const result = await dispatchBeneBotTool({
-        name: fn.name,
+      const guardedDispatch = await dispatchWithFollowupConfirmation({
+        toolName: fn.name,
         argumentsJson: fn.arguments,
-        sessionToken,
-        onActivity: appendActivity,
+        language: sessionLanguage,
+        evidence: voiceConfirmationEvidence.current,
+        dispatch: () => dispatchBeneBotTool({
+          name: fn.name,
+          argumentsJson: fn.arguments,
+          sessionToken,
+          onActivity: appendActivity,
+        }),
       });
+      if (!guardedDispatch.dispatched) return guardedDispatch.result;
+      const result = guardedDispatch.result;
       let resultForAgent = result;
       try {
         const parsedResult: unknown = JSON.parse(result);
@@ -1296,6 +1349,7 @@ export function BeneBotPanel({ sessionToken, initialLanguage = "es", onClose }: 
         sessionLanguage={sessionLanguage}
         onSessionLanguageChange={selectSessionLanguage}
         onVoiceSessionStarted={resetVoiceSessionEvidence}
+        onVoiceConfirmationEvidence={rememberVoiceConfirmationEvidence}
         onClose={onClose}
         events={events}
         setEvents={setEvents}
