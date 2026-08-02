@@ -157,6 +157,40 @@ Before recording, run the seed twice, test one Deepgram voice connection, grant 
 
 The current-benefits refresh and local billing-resource directory remain available in the product, but neither is part of this recording. English remains a short explanation/interruption smoke clip after the Spanish flagship is safely captured.
 
+## Automated live-demo recording
+
+The Playwright recorder in `scripts/record-live-demo.mjs` drives the same Spanish-first story through a real Deepgram Voice Agent session. It generates a synthetic patient voice, injects it into Chromium's microphone stream, captures both sides of the conversation, verifies the server-confirmed Medplum `Task` and `Communication`, switches the staff proof to English, and muxes the result into an MP4 with FFmpeg.
+
+The recorder is intentionally write-gated because every successful run creates synthetic workflow resources in the configured Medplum project. Use only the Jane Doe demo project described above. Never point it at real patient data.
+
+Install FFmpeg if it is not already available:
+
+```bash
+brew install ffmpeg
+```
+
+Start BeneBot in one terminal:
+
+```bash
+npm run dev
+```
+
+In another terminal, explicitly acknowledge the synthetic Medplum writes and start the recording:
+
+```bash
+BENEBOT_DEMO_ALLOW_MEDPLUM_WRITE=1 npm run demo:record
+```
+
+Successful runs write `spanish-live-demo.mp4` plus `recording-metadata.json` under a timestamped directory in `artifacts/demo-recordings/`. The metadata records the exact git commit and dirty-tree state, Deepgram patient voice model, authoritative server-returned Task ID, and browser-console result. Raw browser video and captured audio are removed after a successful mux.
+
+To retain raw WebM intermediates for debugging a capture, opt in explicitly:
+
+```bash
+BENEBOT_DEMO_ALLOW_MEDPLUM_WRITE=1 BENEBOT_DEMO_KEEP_RAW=1 npm run demo:record
+```
+
+Patient TTS is cached in `/tmp/benebot-demo-audio` using a hash of the exact script and voice model, so changing either input cannot silently reuse stale speech. Set `BENEBOT_DEMO_PATIENT_VOICE` to choose another compatible Spanish Aura model. Non-local origins and runs containing browser console errors fail closed. `BENEBOT_DEMO_ALLOW_NONLOCAL_ORIGIN=1` and `BENEBOT_DEMO_ALLOW_CONSOLE_ERRORS=1` exist only for explicitly reviewed exceptional runs; neither should be used for the canonical capture.
+
 ## Emergency text-only recording
 
 If external services are unavailable, keep `NEXT_PUBLIC_DEMO_MODE=true`, keep a valid `BENEBOT_SESSION_SECRET`, open the bill directly, and demo only the historical text explanation plus the labeled local resource/staff waiting surfaces. Do not describe fixture data as live or imply that a follow-up was persisted.
