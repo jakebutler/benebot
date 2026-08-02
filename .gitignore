@@ -55,3 +55,6 @@ next-env.d.ts
 # local research/planning drafts preserved outside the public demo source
 /BENEBOT_RESEARCH_AGENT_PROMPTS.md
 /CONVERSATION_RELIABILITY_PLAN.md
+
+# generated live-demo recordings
+/artifacts/demo-recordings/
