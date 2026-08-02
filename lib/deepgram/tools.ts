@@ -2,6 +2,11 @@ import { z } from "zod";
 
 import type { ToolActivityEvent, ToolName } from "../contracts";
 import { TOOL_PREREQUISITES } from "./prerequisites";
+import {
+  requestFollowupInputSchema,
+  saveConversationSummaryInputSchema,
+  TOOL_INPUT_LIMITS,
+} from "./tool-contracts";
 
 export const DEEPGRAM_TOOL_DEFINITIONS = [
   {
@@ -73,7 +78,11 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
             "other",
           ],
         },
-        patientIssueSummary: { type: "string", minLength: 1, maxLength: 500 },
+        patientIssueSummary: {
+          type: "string",
+          minLength: 1,
+          maxLength: TOOL_INPUT_LIMITS.followupIssueSummary,
+        },
         preferredContact: {
           type: "string",
           enum: ["phone", "secure-message"],
@@ -96,11 +105,23 @@ export const DEEPGRAM_TOOL_DEFINITIONS = [
       type: "object",
       properties: {
         language: { type: "string", enum: ["en", "es", "mixed"] },
-        summary: { type: "string", maxLength: 1000 },
-        questionsAnswered: { type: "array", items: { type: "string" } },
-        resourcesOffered: { type: "array", items: { type: "string" } },
-        followupTaskId: { type: "string" },
-        unresolvedIssues: { type: "array", items: { type: "string" } },
+        summary: { type: "string", minLength: 1, maxLength: TOOL_INPUT_LIMITS.summary },
+        questionsAnswered: {
+          type: "array",
+          items: { type: "string", minLength: 1, maxLength: TOOL_INPUT_LIMITS.summaryListItem },
+          maxItems: TOOL_INPUT_LIMITS.summaryListItems,
+        },
+        resourcesOffered: {
+          type: "array",
+          items: { type: "string", minLength: 1, maxLength: TOOL_INPUT_LIMITS.summaryListItem },
+          maxItems: TOOL_INPUT_LIMITS.summaryListItems,
+        },
+        followupTaskId: { type: "string", minLength: 1, maxLength: TOOL_INPUT_LIMITS.followupTaskId },
+        unresolvedIssues: {
+          type: "array",
+          items: { type: "string", minLength: 1, maxLength: TOOL_INPUT_LIMITS.summaryListItem },
+          maxItems: TOOL_INPUT_LIMITS.summaryListItems,
+        },
       },
       required: [
         "language",
@@ -134,28 +155,8 @@ const toolArguments = {
     ]),
     language: z.enum(["en", "es"]),
   }).strict(),
-  request_human_followup: z.object({
-    issueType: z.enum([
-      "bill-explanation",
-      "deductible",
-      "coinsurance",
-      "service-not-recognized",
-      "amount-dispute",
-      "financial-hardship",
-      "other",
-    ]),
-    patientIssueSummary: z.string().min(1).max(500),
-    preferredContact: z.enum(["phone", "secure-message"]),
-    patientConfirmed: z.literal(true),
-  }).strict(),
-  save_conversation_summary: z.object({
-    language: z.enum(["en", "es", "mixed"]),
-    summary: z.string().min(1).max(1000),
-    questionsAnswered: z.array(z.string().max(200)).max(10),
-    resourcesOffered: z.array(z.string().max(200)).max(10),
-    followupTaskId: z.string().max(100).optional(),
-    unresolvedIssues: z.array(z.string().max(200)).max(10),
-  }).strict(),
+  request_human_followup: requestFollowupInputSchema,
+  save_conversation_summary: saveConversationSummaryInputSchema,
 } satisfies Record<ToolName, z.ZodType>;
 
 const toolRoutes: Record<ToolName, string> = {
