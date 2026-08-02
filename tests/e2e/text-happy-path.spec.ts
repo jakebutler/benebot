@@ -9,22 +9,31 @@ test("keeps site language and demo access in the sticky header", async ({ page }
   await page.goto("/");
 
   const header = page.locator(".site-header");
+  const languageButtons = header.locator(".language-switcher button");
   await expect(header).toBeVisible();
   await expect(header).toHaveCSS("position", "sticky");
+  await expect(languageButtons).toHaveText(["EN", "ES"]);
+  await expect(page.locator("html")).toHaveAttribute("lang", "es");
   await expect(page.getByRole("link", { name: "Probar demo" })).toBeVisible();
 
-  await page.getByRole("button", { name: "EN" }).click();
+  await page.getByRole("button", { name: "EN", exact: true }).click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "Nobody should need their kid to translate a medical bill.",
   );
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.getByRole("link", { name: "Try the demo" })).toBeVisible();
   await page.getByRole("link", { name: "Try the demo" }).click();
 
   await expect(page).toHaveURL(/\/bill\/BENEBOT-INV-1001$/);
   await expect(page.getByText("Secure session: Jane Doe")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your July statement" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Talk about this bill" })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "Your July statement" })).toBeVisible();
 
-  await page.getByRole("button", { name: "ES" }).click();
+  await page.getByRole("button", { name: "ES", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Su estado de cuenta de julio" })).toBeVisible();
   await page.goto("/staff");
   await expect(page.getByRole("heading", { name: "Una conversación, un caso auditable." })).toBeVisible();
@@ -36,7 +45,7 @@ test("rehearses Jane's Spanish-first billing journey through the text fallback",
   // The landing page opens with the pitch. The synthetic billing email that
   // starts the patient journey lives further down, under "Try it".
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Nobody should need their kid to translate a medical bill.",
+    "Nadie debería necesitar a su hijo para traducir una factura médica.",
   );
   await expect(page.getByText("Vista previa de correo sintético")).toBeVisible();
   await expect(page.getByRole("link", { name: "Quiero hablar sobre esta factura" })).toBeVisible();
@@ -46,7 +55,7 @@ test("rehearses Jane's Spanish-first billing journey through the text fallback",
   await expect(page.getByText("Sesión segura: Jane Doe")).toBeVisible();
   await expect(page.getByText("Idioma preferido: Español")).toBeVisible();
   await expect(page.getByText("Portal de demostración sintético")).toBeVisible();
-  await expect(page.getByLabel("Secure billing context verified")).toContainText("no le pedirá SSN");
+  await expect(page.getByLabel("Contexto seguro de facturación verificado")).toContainText("no le pedirá SSN");
   await expect(page.getByLabel("Saldo actual de 620 dólares")).toContainText("$620");
   await expect(page.getByText("Deducible aplicado a la reclamación de julio")).toBeVisible();
   await expect(page.getByText("$500").first()).toBeVisible();
